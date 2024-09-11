@@ -98,6 +98,78 @@ public class MecanumDrive {
         double ticks = rotations * TICKS_PER_ROTATIONS;
         setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while ((Math.abs(frontLeftMotor.getCurrentPosition()) < ticks && LinearOp.opModeIsActive())){
+            driveBack(speed);
+            LinearOp.telemetry.addData("FL ticks ", frontLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("FR ticks ", frontRightMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("RL ticks ", rearLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("RR ticks ", rearRightMotor.getCurrentPosition());
+        }
+    }
+
+    public void rotateLeft(double speed, double rotations){
+        double ticks = rotations * TICKS_PER_ROTATIONS;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while ((Math.abs(frontLeftMotor.getCurrentPosition()) < ticks && LinearOp.opModeIsActive())){
+            rotateLeft(speed);
+            LinearOp.telemetry.addData("FL ticks ", frontLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("FR ticks ", frontRightMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("RL ticks ", rearLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("RR ticks ", rearRightMotor.getCurrentPosition());
+        }
+    }
+
+    public void rotateRight(double speed, double rotations){
+        double ticks = rotations * TICKS_PER_ROTATIONS;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while ((Math.abs(frontLeftMotor.getCurrentPosition()) < ticks && LinearOp.opModeIsActive())){
+            rotateRight(speed);
+            LinearOp.telemetry.addData("FL ticks ", frontLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("FR ticks ", frontRightMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("RL ticks ", rearLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("RR ticks ", rearRightMotor.getCurrentPosition());
+        }
+    }
+
+    public void strafeLeft(double speed, double rotations){
+        double ticks = rotations * TICKS_PER_ROTATIONS;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while ((Math.abs(frontLeftMotor.getCurrentPosition()) < ticks && LinearOp.opModeIsActive())){
+            strafeLeft(speed);
+            LinearOp.telemetry.addData("FL ticks ", frontLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("FR ticks ", frontRightMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("RL ticks ", rearLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("RR ticks ", rearRightMotor.getCurrentPosition());
+        }
+    }
+
+    public void strafeRight(double speed, double rotations){
+        double ticks = rotations * TICKS_PER_ROTATIONS;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while ((Math.abs(frontLeftMotor.getCurrentPosition()) < ticks && LinearOp.opModeIsActive())){
+            strafeRight(speed);
+            LinearOp.telemetry.addData("FL ticks ", frontLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("FR ticks ", frontRightMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("RL ticks ", rearLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.addData("RR ticks ", rearRightMotor.getCurrentPosition());
+        }
+    }
+
+    // Helper Method to get Motor Telemetry
+    public void getMotorTelemetry() {
+        LinearOp.telemetry.addData("FLM", frontLeftMotor.getCurrentPosition());
+        LinearOp.telemetry.addData("FRM", frontRightMotor.getCurrentPosition());
+        LinearOp.telemetry.addData("RLM", rearLeftMotor.getCurrentPosition());
+        LinearOp.telemetry.addData("RRM", rearRightMotor.getCurrentPosition());
     }
 
 }

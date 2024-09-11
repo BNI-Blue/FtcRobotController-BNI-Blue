@@ -9,20 +9,19 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Competition.CenterStage.Drivetrains.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Drivetrains.MecanumDrive;
 
 
-    public class BlueBot extends MecanumDrive {
+public class BlueBot extends MecanumDrive {
 
         // Hardware Mapping Variables
         public HardwareMap hwBot = null;
 
-        // Pixel Arm Variables
+        // Pixel Arm Variables7
         public DcMotor pixelArm = null;
         public DcMotor pixelArmRotator = null;
         public Servo pixelClawLeft = null;
         public Servo pixelClawRight = null;
-        public Servo pixelWrist = null;
 
         // End Game Arm Variables
         public DcMotor endgameArm = null;
@@ -179,24 +178,7 @@ import org.firstinspires.ftc.teamcode.Competition.CenterStage.Drivetrains.Mecanu
             pixelClawLeft.setPosition(0.71);    //0.71
             pixelClawRight.setPosition(0.8);   //0.78
         }
-        public void openPixelClawLeft(){
-            pixelClawLeft.setPosition(0.55);
-        }
-        public void openPixelClawRight(){ pixelClawRight.setPosition(0.65);
-        }
-        public void closePixelClawLeft(){
-            pixelClawLeft.setPosition(0.70);
-        }
-        public void closePixelClawRight(){ pixelClawRight.setPosition(0.8);
-        }
 
-//        //************** Pixel Wrist Up & Down ******************
-//        public void rotatePixelWristUp(){
-//            pixelWrist.setPosition(0.4);
-//        }
-//        public void rotatePixelWristDown(){
-//            pixelWrist.setPosition(0.1);
-//        }
 
         // **********  Pixel Arm Rotating Methods  ************
 
