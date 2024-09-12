@@ -2,28 +2,27 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
 
-public class SpecBot extends MecanumDrive {
+public class BlueBot extends MecanumDrive {
 
     public HardwareMap hwBot = null;
 
     //Mechanisms Variables
 
     //Constructor
-    public SpecBot(){}
+    public BlueBot(){}
 
     //Init Method
     public void initRobot(HardwareMap hwMap){
         hwBot = hwMap;
 
         //Drivetrain Motors HW Mapping
-        frontLeftMotor = hwBot.dcMotor.get("frontleft_motor)");//Port 0 Control
-        frontRightMotor = hwBot.dcMotor.get("frontright_motor");//Port 1 Control
-        rearLeftMotor = hwBot.dcMotor.get("rearleft_motor");//Port 2 Control
-        rearRightMotor = hwBot.dcMotor.get("rearright_motor");//Port 3 Control
+        frontLeftMotor = hwBot.dcMotor.get("front_left_motor)");//Port 0 Control
+        frontRightMotor = hwBot.dcMotor.get("front_right_motor");//Port 1 Control
+        rearLeftMotor = hwBot.dcMotor.get("rear_left_motor");//Port 2 Control
+        rearRightMotor = hwBot.dcMotor.get("rear_right_motor");//Port 3 Control
 
         frontLeftMotor.setDirection(DcMotor.Direction.FORWARD);
         frontRightMotor.setDirection(DcMotor.Direction.REVERSE);

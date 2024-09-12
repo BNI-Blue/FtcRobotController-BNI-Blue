@@ -80,19 +80,22 @@ public class MecanumDrive {
 
     //Drive Methods w/ Encoders
 
-    public void driveForward(double speed, double rotations){
+    public void driveForward(double speed, double rotations) {
         double ticks = rotations * TICKS_PER_ROTATIONS;
         setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        while ((Math.abs(frontLeftMotor.getCurrentPosition()) < ticks && LinearOp.opModeIsActive())){
+        while ((Math.abs(frontLeftMotor.getCurrentPosition()) < ticks && LinearOp.opModeIsActive())) {
             driveForward(speed);
             LinearOp.telemetry.addData("FL ticks ", frontLeftMotor.getCurrentPosition());
             LinearOp.telemetry.addData("FR ticks ", frontRightMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RL ticks ", rearLeftMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RR ticks ", rearRightMotor.getCurrentPosition());
+            LinearOp.telemetry.update();
         }
     }
+
+
 
     public void driveBack(double speed, double rotations){
         double ticks = rotations * TICKS_PER_ROTATIONS;
@@ -105,6 +108,7 @@ public class MecanumDrive {
             LinearOp.telemetry.addData("FR ticks ", frontRightMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RL ticks ", rearLeftMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RR ticks ", rearRightMotor.getCurrentPosition());
+            LinearOp.telemetry.update();
         }
     }
 
@@ -119,6 +123,7 @@ public class MecanumDrive {
             LinearOp.telemetry.addData("FR ticks ", frontRightMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RL ticks ", rearLeftMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RR ticks ", rearRightMotor.getCurrentPosition());
+            LinearOp.telemetry.update();
         }
     }
 
@@ -133,6 +138,7 @@ public class MecanumDrive {
             LinearOp.telemetry.addData("FR ticks ", frontRightMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RL ticks ", rearLeftMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RR ticks ", rearRightMotor.getCurrentPosition());
+            LinearOp.telemetry.update();
         }
     }
 
@@ -147,6 +153,7 @@ public class MecanumDrive {
             LinearOp.telemetry.addData("FR ticks ", frontRightMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RL ticks ", rearLeftMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RR ticks ", rearRightMotor.getCurrentPosition());
+            LinearOp.telemetry.update();
         }
     }
 
@@ -161,6 +168,7 @@ public class MecanumDrive {
             LinearOp.telemetry.addData("FR ticks ", frontRightMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RL ticks ", rearLeftMotor.getCurrentPosition());
             LinearOp.telemetry.addData("RR ticks ", rearRightMotor.getCurrentPosition());
+            LinearOp.telemetry.update();
         }
     }
 
@@ -170,6 +178,8 @@ public class MecanumDrive {
         LinearOp.telemetry.addData("FRM", frontRightMotor.getCurrentPosition());
         LinearOp.telemetry.addData("RLM", rearLeftMotor.getCurrentPosition());
         LinearOp.telemetry.addData("RRM", rearRightMotor.getCurrentPosition());
+        LinearOp.telemetry.update();
+
     }
 
 }
