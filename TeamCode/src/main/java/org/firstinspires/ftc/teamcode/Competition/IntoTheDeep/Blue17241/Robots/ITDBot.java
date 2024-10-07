@@ -1,18 +1,20 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
 
-public class BlueBot extends MecanumDrive {
+public class ITDBot extends MecanumDrive {
 
     public HardwareMap hwBot = null;
 
     //Mechanisms Variables
 
     //Constructor
-    public BlueBot(){}
+    public ITDBot(){}
 
     //Init Method
     public void initRobot(HardwareMap hwMap){
@@ -37,6 +39,13 @@ public class BlueBot extends MecanumDrive {
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        liftOne = hwBot.dcMotor.get("lift_one");
+        liftOne.setDirection(DcMotorSimple.Direction.REVERSE);//Port 0 - Expansion
+        liftOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        liftRelease = hwBot.servo.get("lift_release");//Port 0 - Expansion
+        liftRelease.setDirection(Servo.Direction.FORWARD);
+
         //HW Mapping Ex
 
         //pixelArm = hwBot.dcMotor.get("pixel_arm");//Port 0 - Expansion
@@ -47,5 +56,4 @@ public class BlueBot extends MecanumDrive {
         //pixelClawLeft.setDirection(Servo.Direction.REVERSE);
     }
 
-    //Mechanism Methods
 }

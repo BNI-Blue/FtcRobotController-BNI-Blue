@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue1724
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Competition.CenterStage.Controls.TeamPropPosition;
-import org.firstinspires.ftc.teamcode.Competition.CenterStage.Controls.TeamPropPositionPipeline;
-import org.firstinspires.ftc.teamcode.Competition.CenterStage.Drivetrains.MecanumDrive;
-import org.firstinspires.ftc.teamcode.Competition.CenterStage.Robots.BlueBot;
+import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Controls.TeamPropPosition;
+import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Controls.TeamPropPositionPipeline;
+import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Drivetrains.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Robots.BlueBot;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -83,10 +83,10 @@ public abstract class AutoMain extends LinearOpMode {
         sleep(1000);
         Bot.stopPixelArm();
         sleep(100);
-        Bot.openPixelClawLeft();
+        Bot.openPixelClaw();
         sleep(500);
         Bot.speedAcceleration(.35, MED_SPD, MecanumDrive.driveDirections.DRIVE_BACK);
-        Bot.closePixelClawLeft();
+        Bot.closePixelClaw();
         sleep(500);
         Bot.retractPixelArm(.5, 375);
         sleep(SLEEP_TIME);

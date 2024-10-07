@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetr
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class MecanumDrive {
 
@@ -9,6 +12,10 @@ public class MecanumDrive {
     public DcMotor frontRightMotor;
     public DcMotor rearLeftMotor;
     public DcMotor rearRightMotor;
+
+    public DcMotor liftOne;
+
+    public Servo liftRelease;
 
     public static final double TICKS_PER_ROTATIONS = 386.3;
 
@@ -77,6 +84,38 @@ public class MecanumDrive {
         rearLeftMotor.setPower(-speed);
         rearRightMotor.setPower(speed);
     }
+
+    public void raiseLiftOne(double speed){
+        liftOne.setPower(speed);
+    }
+
+    public void lowerLiftOne(double speed){
+        liftOne.setPower(-speed);
+    }
+
+    public void raiseLiftOne(double speed, double rotations){
+        double ticks = rotations * TICKS_PER_ROTATIONS;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while((Math.abs(liftOne.getCurrentPosition())) < ticks && LinearOp.opModeIsActive()){
+            raiseLiftOne(speed);
+            LinearOp.telemetry.addData("Lift ticks ", liftOne.getCurrentPosition());
+        }
+    }
+
+    public void lowerLiftOne(double speed, double rotations){
+        double ticks = rotations * TICKS_PER_ROTATIONS;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while((Math.abs(liftOne.getCurrentPosition())) < ticks && LinearOp.opModeIsActive()){
+            lowerLiftOne(speed);
+            LinearOp.telemetry.addData("Lift ticks ", liftOne.getCurrentPosition());
+
+        }
+    }
+
 
     //Drive Methods w/ Encoders
 
