@@ -24,7 +24,7 @@ public class Auto_Encoder_Tester extends AutoMain{
             Bot.setLinearOp(this);
         } else {
             programBot.initRobot(hardwareMap);
-            programBot.setLinearOp(this);
+           // programBot.setLinearOp(this);
         }
 
         telemetry.addLine("WAITING FOR START >");
