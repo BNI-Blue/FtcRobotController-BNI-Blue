@@ -18,6 +18,7 @@ public class BlueNetAuto extends BlueAlliance {
         while (opModeIsActive()){
 
             //drive code
+            Bot.driveForward(1);
 
             requestOpModeStop();
         }
