@@ -1,9 +1,9 @@
-//package org.firstinspires.ftc.teamcode.Competition.Z20202021UltimateGoal.Controls.Autonomous.CHIRPGyroTesting;
+package org.firstinspires.ftc.teamcode.Competition.Z20202021UltimateGoal.Controls.Autonomous.CHIRPGyroTesting;
 //
 //import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 //
-//import org.firstinspires.ftc.teamcode.Compitition.ZCompititionUltimateGoal.Robots.StraferKit;
-//import org.firstinspires.ftc.teamcode.Compitition.ZPowerPlay.controls.Autonomus.ComptitionAutoPaths.BlueRightPark.BlueRightPark;
+//import org.firstinspires.ftc.teamcode.Competition.Z20202021UltimateGoal.Robots.StraferKit;
+//import org.firstinspires.ftc.teamcode.Competition.Z20202021UltimateGoal.Controls.Autonomous.BlueRightPark.BlueRightPark;
 //
 //@Autonomous(name = "gyro drive test chirp")
 //public class gyroDriveTest extends BlueRightPark {

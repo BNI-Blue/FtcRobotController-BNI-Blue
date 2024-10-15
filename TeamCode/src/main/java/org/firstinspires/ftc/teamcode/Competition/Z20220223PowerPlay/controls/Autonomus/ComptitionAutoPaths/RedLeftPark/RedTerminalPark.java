@@ -4,9 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.Z20220223PowerPlay.Robots.CompetionBot;
-import org.firstinspires.ftc.teamcode.Competition.Z20220223PowerPlay.controls.Autonomus.Test.PID.AutoMain;
-import org.firstinspires.ftc.teamcode.Compitition.ZPowerPlay.Robots.CompetionBot;
-import org.firstinspires.ftc.teamcode.Compitition.ZPowerPlay.controls.Autonomus.ComptitionAutoPaths.AutoMain;
+import org.firstinspires.ftc.teamcode.Competition.Z20220223PowerPlay.controls.Autonomus.ComptitionAutoPaths.AutoMain;
 @Disabled
 @Autonomous (name = "RedTerminalPark - DONT USE")
 

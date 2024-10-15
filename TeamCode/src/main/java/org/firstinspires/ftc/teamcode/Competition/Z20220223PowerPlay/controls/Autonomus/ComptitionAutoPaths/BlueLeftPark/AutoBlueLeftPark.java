@@ -2,11 +2,7 @@ package org.firstinspires.ftc.teamcode.Competition.Z20220223PowerPlay.controls.A
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Competition.Z20220223PowerPlay.Robots.CompetionBot;
-import org.firstinspires.ftc.teamcode.Competition.Z20220223PowerPlay.Robots.StraferBot;
-import org.firstinspires.ftc.teamcode.Competition.Z20220223PowerPlay.controls.Autonomus.Test.GyroDriveTest.AutoTargetZone;
 import org.firstinspires.ftc.teamcode.Competition.Z20220223PowerPlay.Robots.CompetionBot;
 import org.firstinspires.ftc.teamcode.Competition.Z20220223PowerPlay.Robots.StraferBot;
 import org.firstinspires.ftc.teamcode.Competition.Z20220223PowerPlay.controls.Autonomus.ComptitionAutoPaths.AutoTargetZone;
@@ -26,13 +22,13 @@ public class AutoBlueLeftPark extends BlueLeftPark {
     public void runOpMode() throws InterruptedException {
 
         if (isCompetition == true) {
-            Bot.initRobot(new HardwareMap());
+            Bot.initRobot(hardwareMap);
 
             Bot.setLinearOp(this);
 
         } else {
 
-            BotStrafer.initRobot(new HardwareMap());
+            BotStrafer.initRobot(hardwareMap);
 
             BotStrafer.setLinearOp(this);
 

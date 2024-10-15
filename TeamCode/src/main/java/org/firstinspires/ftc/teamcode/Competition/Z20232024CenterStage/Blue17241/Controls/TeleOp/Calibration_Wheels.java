@@ -53,7 +53,7 @@ public class Calibration_Wheels extends OpMode {
     public double endGameDownPosition = 0;
 
     // Construct the physical robot object
-    public org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Robots.BlueBot Bot = new BlueBot();
+    public BlueBot Bot = new BlueBot();
 
 
 
