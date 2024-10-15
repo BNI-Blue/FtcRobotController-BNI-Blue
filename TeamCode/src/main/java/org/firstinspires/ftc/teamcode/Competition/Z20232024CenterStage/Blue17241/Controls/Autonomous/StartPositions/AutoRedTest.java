@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue1724
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.Competition.CenterStage.Controls.Autonomous.AutoMain;
-import org.firstinspires.ftc.teamcode.Competition.CenterStage.Drivetrains.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Controls.Autonomous.AutoMain;
+import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Drivetrains.MecanumDrive;
 
 @Disabled
 @Autonomous(name = "Red_Speed_test")
@@ -53,9 +53,6 @@ public class AutoRedTest extends AutoMain {
             sleep(500);
             Bot.extendPixelArm(.5, 130);
             sleep(500);
-            Bot.openPixelClawRight();
-            sleep(500);
-            Bot.closePixelClawRight();
             sleep(500);
 
             Bot.retractPixelArm(.5 ,80);
@@ -89,10 +86,6 @@ public class AutoRedTest extends AutoMain {
             sleep(1000);
             Bot.stopPixelArm();
             sleep(100);
-            Bot.openPixelClawLeft();
-            sleep(500);
-            Bot.speedAcceleration(.5, MED_SPD, MecanumDrive.driveDirections.DRIVE_BACK);
-            Bot.closePixelClawLeft();
             sleep(500);
             Bot.retractPixelArm(.5, 400);
             sleep(SLEEP_TIME);

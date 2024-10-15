@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.Range;
+import org.firstinspires.ftc.teamcode.Competition.Z20220223PowerPlay.Robots.CompetionBot;
 
-import org.firstinspires.ftc.teamcode.Compitition.ZPowerPlay.Robots.CompetionBot;
 @Disabled
 @TeleOp (name = "Colonel Clap",group = "1")
 
