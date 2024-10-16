@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.ZOutreach.IMBot;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.ZOutreach.GhostBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class IMBotDrive {
+public class GhostDrive {
+
     public DcMotor frontLeftMotor;
     public DcMotor frontRightMotor;
     public DcMotor rearLeftMotor;
@@ -11,7 +12,7 @@ public class IMBotDrive {
 
     public LinearOpMode LinearOp = null;
 
-    public IMBotDrive(){
+    public GhostDrive(){
     }
 
     public void setLinearOp(LinearOpMode LinearOp){

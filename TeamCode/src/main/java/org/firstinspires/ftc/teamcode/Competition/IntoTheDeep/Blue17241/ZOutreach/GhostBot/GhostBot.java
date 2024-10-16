@@ -1,13 +1,12 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.ZOutreach.IMBot;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.ZOutreach.GhostBot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class IMBot extends IMBotDrive {
+public class GhostBot extends GhostDrive {
     public HardwareMap hwBot = null;
 
-    public IMBot(){}
+    public GhostBot(){}
 
     public void initRobot(HardwareMap hwMap){
         hwBot = hwMap;
@@ -19,8 +18,8 @@ public class IMBot extends IMBotDrive {
 
         frontLeftMotor.setDirection(DcMotor.Direction.FORWARD);
         frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
-        rearLeftMotor.setDirection(DcMotor.Direction.REVERSE);
-        rearRightMotor.setDirection(DcMotor.Direction.FORWARD);
+        rearLeftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rearRightMotor.setDirection(DcMotor.Direction.REVERSE);
 
         setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

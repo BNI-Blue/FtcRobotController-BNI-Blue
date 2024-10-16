@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import org.firstinspires.ftc.teamcode.Competition.Z20202021UltimateGoal.Controls.Autonomous.StartPosition;
 import org.firstinspires.ftc.teamcode.Competition.Z20202021UltimateGoal.Controls.Autonomous.TargetZone;
 import org.firstinspires.ftc.teamcode.Competition.Z20202021UltimateGoal.Robots.CompetitionBot;
+import org.firstinspires.ftc.teamcode.Competition.Z20212022FreightFrenzy.Controls.AutonomousFFCompititionBot.BlueDuck.BlueRight;
 
 
 @Autonomous(name = "Remote:Blue:Right:Launch", group = "BLUE")
@@ -36,8 +37,8 @@ public class AutoBlueRight extends BlueRight {
 
 
         while (opModeIsActive()){
-            RedPark(Bot, targetZone);
-            sleep(sleepTime);
+//            RedPark(Bot, targetZone);
+//            sleep(sleepTime);
 
 //            driveToLaunch (Bot);
 //            sleep(sleepTime);

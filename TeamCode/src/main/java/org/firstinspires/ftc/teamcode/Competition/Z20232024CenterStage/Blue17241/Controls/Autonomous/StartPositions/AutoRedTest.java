@@ -53,7 +53,6 @@ public class AutoRedTest extends AutoMain {
             sleep(500);
             Bot.extendPixelArm(.5, 130);
             sleep(500);
-            sleep(500);
 
             Bot.retractPixelArm(.5 ,80);
             sleep(SLEEP_TIME);

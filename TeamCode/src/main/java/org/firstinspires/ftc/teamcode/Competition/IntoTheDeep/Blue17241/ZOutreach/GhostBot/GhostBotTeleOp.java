@@ -1,13 +1,12 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.ZOutreach.IMBot;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.ZOutreach.GhostBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.ZOutreach.GhostBot.GhostBot;
+@TeleOp(name = "Ghost Bot")
+public class GhostBotTeleOp extends OpMode{
 
-@TeleOp(name = "IMBot TeleOp")
-public class IMBotTeleOp extends OpMode {
     double leftStickYVal;
     double leftStickXVal;
     double rightStickYVal;
