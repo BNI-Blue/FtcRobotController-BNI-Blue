@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Controls.Autonomous;
 
-
 import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Controls.TeamPropPosition;
 import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Controls.TeamPropPositionPipeline;
 import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Drivetrains.MecanumDrive;
@@ -39,9 +38,9 @@ public abstract class AutoRedAlliance extends AutoMain{
             sleep(SLEEP_GYRO);
             Bot.extendPixelArm(.5, 130);
             sleep(300);
-            Bot.openPixelClaw();
+            Bot.openPixelClawRight();
             sleep(300);
-            Bot.closePixelClaw();
+            Bot.closePixelClawRight();
             sleep(300);
 
             Bot.retractPixelArm(.5, 80);
@@ -104,9 +103,9 @@ public abstract class AutoRedAlliance extends AutoMain{
 //            EXTEND ARM AND DROP PIXEL
             Bot.extendPixelArm(.5, 600);
             sleep(300);
-            Bot.openPixelClaw();
+            Bot.openPixelClawRight();
             sleep(300);
-            Bot.closePixelClaw();
+            Bot.closePixelClawRight();
             sleep(300);
 
             Bot.retractPixelArm(.5 ,450);
@@ -159,9 +158,9 @@ public abstract class AutoRedAlliance extends AutoMain{
 //            EXTEND ARM AND DROP PIXEL
             Bot.extendPixelArm(.5, 600);
             sleep(300);
-            Bot.openPixelClaw();
+            Bot.openPixelClawRight();
             sleep(300);
-            Bot.closePixelClaw();
+            Bot.closePixelClawRight();
             sleep(300);
 
             Bot.retractPixelArm(.5 ,500);
@@ -212,9 +211,9 @@ public abstract class AutoRedAlliance extends AutoMain{
 //            EXTEND ARM AND DROP PIXEL
             Bot.extendPixelArm(.5, 550);
             sleep(300);
-            Bot.openPixelClaw();
+            Bot.openPixelClawRight();
             sleep(300);
-            Bot.closePixelClaw();
+            Bot.closePixelClawRight();
             sleep(300);
             Bot.retractPixelArm(.5 ,450);
             sleep(SLEEP_TIME);
@@ -263,9 +262,9 @@ public abstract class AutoRedAlliance extends AutoMain{
 //            EXTEND ARM AND DROP PIXEL
             Bot.extendPixelArm(.5, 775);
             sleep(300);
-            Bot.openPixelClaw();
+            Bot.openPixelClawRight();
             sleep(300);
-            Bot.closePixelClaw();
+            Bot.closePixelClawRight();
             sleep(300);
             Bot.retractPixelArm(.5 ,700);
             sleep(SLEEP_TIME);
@@ -311,9 +310,9 @@ public abstract class AutoRedAlliance extends AutoMain{
             sleep(SLEEP_GYRO);
             Bot.extendPixelArm(.5, 250);
             sleep(300);
-            Bot.openPixelClaw();
+            Bot.openPixelClawRight();
             sleep(300);
-            Bot.closePixelClaw();
+            Bot.closePixelClawRight();
             sleep(300);
             Bot.retractPixelArm(.5 ,110);
             sleep(SLEEP_TIME);
@@ -372,9 +371,9 @@ public abstract class AutoRedAlliance extends AutoMain{
 //            EXTEND ARM AND DROP PIXEL
             Bot.extendPixelArm(.5, 550);
             sleep(300);
-            Bot.openPixelClaw();
+            Bot.openPixelClawRight();
             sleep(300);
-            Bot.closePixelClaw();
+            Bot.closePixelClawRight();
             sleep(300);
             Bot.retractPixelArm(.5 ,450);
             sleep(SLEEP_TIME);
@@ -435,9 +434,9 @@ public abstract class AutoRedAlliance extends AutoMain{
 //            EXTEND ARM AND DROP PIXEL
             Bot.extendPixelArm(.5, 775);
             sleep(300);
-            Bot.openPixelClaw();
+            Bot.openPixelClawRight();
             sleep(300);
-            Bot.closePixelClaw();
+            Bot.closePixelClawRight();
             sleep(300);
             Bot.retractPixelArm(.5 ,700);
             sleep(SLEEP_TIME);
@@ -494,9 +493,9 @@ public abstract class AutoRedAlliance extends AutoMain{
             sleep(SLEEP_GYRO);
             Bot.extendPixelArm(.5, 250);
             sleep(300);
-            Bot.openPixelClaw();
+            Bot.openPixelClawRight();
             sleep(300);
-            Bot.closePixelClaw();
+            Bot.closePixelClawRight();
             sleep(300);
             Bot.retractPixelArm(.5 ,110);
             sleep(SLEEP_TIME);
