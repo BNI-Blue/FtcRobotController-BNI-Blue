@@ -53,10 +53,6 @@ public class AutoBlueTest extends AutoMain {
             sleep(500);
             Bot.extendPixelArm(.5, 130);
             sleep(500);
-            Bot.openPixelClawRight();
-            sleep(500);
-            Bot.closePixelClawRight();
-            sleep(500);
 
             Bot.retractPixelArm(.5 ,80);
             sleep(SLEEP_TIME);
@@ -89,11 +85,6 @@ public class AutoBlueTest extends AutoMain {
             sleep(1000);
             Bot.stopPixelArm();
             sleep(100);
-            Bot.openPixelClawLeft();
-            sleep(500);
-            Bot.speedAcceleration(.5, MED_SPD, MecanumDrive.driveDirections.DRIVE_BACK);
-            Bot.closePixelClawLeft();
-            sleep(500);
             Bot.retractPixelArm(.5, 400);
             sleep(SLEEP_TIME);
             Bot.rotatePixelArmDown(.5, 200);
