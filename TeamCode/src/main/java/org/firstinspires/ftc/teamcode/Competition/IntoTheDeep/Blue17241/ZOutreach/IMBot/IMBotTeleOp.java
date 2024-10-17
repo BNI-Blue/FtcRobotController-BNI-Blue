@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.ZOutreach.GhostBot.GhostBot;
 
-@TeleOp(name = "IMBot TeleOp")
+@TeleOp(name = "IMBot")
 public class IMBotTeleOp extends OpMode {
     double leftStickYVal;
     double leftStickXVal;
@@ -23,11 +23,11 @@ public class IMBotTeleOp extends OpMode {
 
     //public double mechanismPower = ___;
 
-    public org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.ZOutreach.GhostBot.GhostBot GhostBot = new GhostBot();
+    public IMBot IMBot = new IMBot();
 
     @Override
     public void init (){
-        GhostBot.initRobot(hardwareMap);
+        IMBot.initRobot(hardwareMap);
     }
 
     public void init_loop(){}
@@ -64,30 +64,30 @@ public class IMBotTeleOp extends OpMode {
 
         if (frontLeftSpeed <= powerThreshold && frontLeftSpeed >= -powerThreshold) {
             frontLeftSpeed = 0;
-            GhostBot.frontLeftMotor.setPower(frontLeftSpeed);
+            IMBot.frontLeftMotor.setPower(frontLeftSpeed);
         } else {
-            GhostBot.frontLeftMotor.setPower(frontLeftSpeed * speedMultiply);
+            IMBot.frontLeftMotor.setPower(frontLeftSpeed * speedMultiply);
         }
 
         if (frontRightSpeed <= powerThreshold && frontRightSpeed >= -powerThreshold) {
             frontRightSpeed = 0;
-            GhostBot.frontRightMotor.setPower(frontRightSpeed);
+            IMBot.frontRightMotor.setPower(frontRightSpeed);
         } else {
-            GhostBot.frontRightMotor.setPower(frontRightSpeed * speedMultiply);
+           IMBot.frontRightMotor.setPower(frontRightSpeed * speedMultiply);
         }
 
         if (rearLeftSpeed <= powerThreshold && rearLeftSpeed >= -powerThreshold) {
             rearLeftSpeed = 0;
-            GhostBot.rearLeftMotor.setPower(rearLeftSpeed);
+            IMBot.rearLeftMotor.setPower(rearLeftSpeed);
         } else {
-            GhostBot.rearLeftMotor.setPower(rearLeftSpeed * speedMultiply);
+            IMBot.rearLeftMotor.setPower(rearLeftSpeed * speedMultiply);
         }
 
         if (rearRightSpeed <= powerThreshold && rearRightSpeed >= -powerThreshold) {
             rearRightSpeed = 0;
-            GhostBot.rearRightMotor.setPower(rearRightSpeed);
+            IMBot.rearRightMotor.setPower(rearRightSpeed);
         } else {
-            GhostBot.rearRightMotor.setPower(rearRightSpeed * speedMultiply);
+            IMBot.rearRightMotor.setPower(rearRightSpeed * speedMultiply);
         }
     }
 
