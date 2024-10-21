@@ -2,12 +2,14 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
+
 @Autonomous(name = "BlueNetAuto")
 public class BlueNetAuto extends BlueAlliance {
     @Override
     public void runOpMode() throws InterruptedException{
-        Bot.initRobot(hardwareMap);
-        Bot.setLinearOp(this);
+        ITDBot.initRobot(hardwareMap);
+        ITDBot.setLinearOp(this);
 
         telemetry.addLine("Awaiting Start");
         telemetry.update();
@@ -18,22 +20,23 @@ public class BlueNetAuto extends BlueAlliance {
         while (opModeIsActive()){
 
             //drive code
-            Bot.strafeLeft(1, 3.4);
-            Bot.driveForward(1, 2);
-            Bot.rotateLeft(1, 3.7);
-            Bot.driveForward(1, 2.4);
+            ITDBot.strafeLeft(1, 3.4);
+            ITDBot.driveForward(1, 2);
+            ITDBot.rotateLeft(1, 3.7);
+            ITDBot.driveForward(1, 2.4);
 
-            Bot.driveBack(1, 2.8);
-            Bot.rotateRight(1, 1.8);
-            Bot.driveForward(1, 1.2);
-            Bot.rotateLeft(1, 1.5);
-            Bot.driveForward(1, 2);
+            ITDBot.rotateRight(1, 1.8);
+            ITDBot.driveForward(1, 1.2);
+            ITDBot.rotateLeft(1, 1.5);
+            ITDBot.driveForward(1, 2);
 
-            Bot.driveBack(1, 2.8);
-            Bot.rotateRight(1, 1.8);
-            Bot.driveForward(1, 1.2);
-            Bot.rotateLeft(1, 1.5);
-            Bot.driveForward(1, 2);
+            ITDBot.driveBack(1, 2.8);
+            ITDBot.rotateRight(1, 1.8);
+            ITDBot.driveForward(1, 1.2);
+            ITDBot.rotateLeft(1, 1.5);
+            ITDBot.driveForward(1, 2);
+
+
 
             requestOpModeStop();
         }
