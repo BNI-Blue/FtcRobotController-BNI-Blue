@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,7 +13,7 @@ public class ITDBot extends MecanumDrive {
     public HardwareMap hwBot = null;
 
     //Mechanisms Variables
-
+    public CRServo sampleIntakeServo = null;
     //Constructor
     public ITDBot(){}
 
@@ -46,6 +47,9 @@ public class ITDBot extends MecanumDrive {
         liftRelease = hwBot.servo.get("lift_release");//Port 0 - Expansion
         liftRelease.setDirection(Servo.Direction.FORWARD);
 
+        //CRServos HW Mapping
+        sampleIntakeServo = hwBot.get(CRServo.class, "intake_CRServo");
+        sampleIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
         //HW Mapping Ex
 
         //pixelArm = hwBot.dcMotor.get("pixel_arm");//Port 0 - Expansion
@@ -56,4 +60,18 @@ public class ITDBot extends MecanumDrive {
         //pixelClawLeft.setDirection(Servo.Direction.REVERSE);
     }
 
+    public void sampleIntake() {
+        sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
+        sampleIntakeServo.setPower(1);
+    }
+
+
+    public void sampleOuttake() {
+        sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
+        sampleIntakeServo.setPower(-1);
+    }
+
+    public void intakeStop() {
+        sampleIntakeServo.setPower(0);
+    }
 }

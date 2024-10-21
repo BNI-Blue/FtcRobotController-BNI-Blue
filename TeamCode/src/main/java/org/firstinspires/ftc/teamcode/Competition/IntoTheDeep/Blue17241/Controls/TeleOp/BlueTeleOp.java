@@ -126,4 +126,17 @@ public class BlueTeleOp extends OpMode {
         }
     }
 
+    public void intakeControl() {
+
+        if (gamepad2.right_bumper) {
+            ITDBot.sampleIntake();
+
+        } else if (gamepad2.left_bumper) {
+            ITDBot.sampleOuttake();
+
+        } else if (gamepad2.x) {
+            ITDBot.intakeStop();
+        }
+    }
+
 }
