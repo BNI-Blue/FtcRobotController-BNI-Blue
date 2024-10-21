@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Robots.BlueBot;
 
-//
-@Disabled
+
+//@Disabled
 @TeleOp(name = "BlueBot:TeleOp")
 public class BlueBot_TeleOp_Profiles extends OpMode {
     double leftStickYVal;
