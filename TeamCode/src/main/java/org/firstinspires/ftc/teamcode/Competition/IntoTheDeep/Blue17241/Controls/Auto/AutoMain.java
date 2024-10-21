@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.I
 
 public class AutoMain extends LinearOpMode {
 
-    public ITDBot Bot = new ITDBot();
+    public ITDBot ITDBot = new ITDBot();
 
 
     @Override
