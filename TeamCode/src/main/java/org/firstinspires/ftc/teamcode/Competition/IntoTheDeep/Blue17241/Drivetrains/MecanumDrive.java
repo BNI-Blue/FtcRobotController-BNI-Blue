@@ -22,6 +22,13 @@ public class MecanumDrive {
     public DcMotor rightEncoder;
     public DcMotor centerEncoder;
 
+    public DcMotor liftOne;
+    public Servo liftRelease;
+
+    public Servo intake = null;
+
+    public CRServo sampleIntakeServo = null;
+
 
 
 

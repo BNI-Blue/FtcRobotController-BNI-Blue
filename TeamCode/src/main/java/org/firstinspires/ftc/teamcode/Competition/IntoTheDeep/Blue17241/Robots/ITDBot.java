@@ -13,7 +13,7 @@ public class ITDBot extends MecanumDrive {
     public HardwareMap hwBot = null;
 
     //Mechanisms Variables
-    public CRServo sampleIntakeServo = null;
+
     //Constructor
     public ITDBot(){}
 
@@ -41,14 +41,16 @@ public class ITDBot extends MecanumDrive {
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         liftOne = hwBot.dcMotor.get("lift_one");
-        liftOne.setDirection(DcMotorSimple.Direction.REVERSE);//Port 0 - Expansion
+        liftOne.setDirection(DcMotorSimple.Direction.REVERSE);//Port _ - Expansion
         liftOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        liftRelease = hwBot.servo.get("lift_release");//Port 0 - Expansion
+        liftRelease = hwBot.servo.get("lift_release");//Port _ - Expansion
         liftRelease.setDirection(Servo.Direction.FORWARD);
 
+        intake = hwBot.servo.get("intake");//Port 1 - Expansion
+
         //CRServos HW Mapping
-        sampleIntakeServo = hwBot.get(CRServo.class, "intake_CRServo");
+        sampleIntakeServo = hwBot.get(CRServo.class, "intake_CRServo");//port 0 - expansion
         sampleIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
         //HW Mapping Ex
 
@@ -60,6 +62,8 @@ public class ITDBot extends MecanumDrive {
         //pixelClawLeft.setDirection(Servo.Direction.REVERSE);
     }
 
+
+    //intake samples mech
     public void sampleIntake() {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
         sampleIntakeServo.setPower(1);
@@ -74,4 +78,18 @@ public class ITDBot extends MecanumDrive {
     public void intakeStop() {
         sampleIntakeServo.setPower(0);
     }
+
+    //hanging arm
+    public void raiseLiftOne(double power){
+        liftOne.setPower(Math.abs(power));
+    }
+
+    public void lowerLiftOne(double power){
+        liftOne.setPower(-Math.abs(power));
+    }
+
+    //extending/retracting arm
+    public void extendIntake() {intake.setPosition(1);}
+
+    public void retractIntake() {intake.setPosition(.5);}
 }

@@ -6,13 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-@Disabled
 @TeleOp(name = "One Servo Tester")
 
 public class OneServoTester extends OpMode {
 
     private Servo grabberArmLeft = null;
-    private double grabberLeftArmPos = 0.5;
+    private double grabberLeftArmPos = 0.3;
     private double incVal = 0.001;
 
 

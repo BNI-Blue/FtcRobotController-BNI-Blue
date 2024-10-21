@@ -126,6 +126,7 @@ public class BlueTeleOp extends OpMode {
         }
     }
 
+
     public void intakeControl() {
 
         if (gamepad2.right_bumper) {
