@@ -24,6 +24,7 @@ public class MecanumDrive {
 
 
 
+
     public LinearOpMode LinearOp = null;
 
     public static final double TICKS_PER_ROTATION = 386.3;
@@ -39,8 +40,6 @@ public class MecanumDrive {
         DRIVE_FORWARD, DRIVE_BACK, STRAFE_LEFT, STRAFE_RIGHT
     }
     driveDirections driveDirection = driveDirections.STOP;
-
-
 
 
     public MecanumDrive() {
@@ -519,44 +518,7 @@ public class MecanumDrive {
     }
 
 
-    //Lift Methods
-    public DcMotor liftOne;
 
-    public Servo liftRelease;
-
-
-    public void raiseLiftOne(double speed){
-        liftOne.setPower(speed);
-    }
-
-    public void lowerLiftOne(double speed){
-        liftOne.setPower(-speed);
-    }
-
-    public void raiseLiftOne(double speed, double rotations){
-        double ticks = rotations * TICKS_PER_ROTATION;
-        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        while((Math.abs(liftOne.getCurrentPosition())) < ticks && LinearOp.opModeIsActive()){
-            raiseLiftOne(speed);
-            LinearOp.telemetry.addData("Lift ticks ", liftOne.getCurrentPosition());
-        }
-    }
-
-    public void lowerLiftOne(double speed, double rotations){
-        double ticks = rotations * TICKS_PER_ROTATION;
-        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        while((Math.abs(liftOne.getCurrentPosition())) < ticks && LinearOp.opModeIsActive()){
-            lowerLiftOne(speed);
-            LinearOp.telemetry.addData("Lift ticks ", liftOne.getCurrentPosition());
-
-        }
     }
 
 
-    //Intake methods
-    //one for intake and one for outake
-}

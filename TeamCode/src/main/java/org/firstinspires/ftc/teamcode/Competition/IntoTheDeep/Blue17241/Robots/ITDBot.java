@@ -11,6 +11,8 @@ public class ITDBot extends MecanumDrive {
 
     public HardwareMap hwBot = null;
 
+    public Servo intake = null;
+
     //Mechanisms Variables
 
     //Constructor
@@ -46,6 +48,11 @@ public class ITDBot extends MecanumDrive {
         liftRelease = hwBot.servo.get("lift_release");//Port 0 - Expansion
         liftRelease.setDirection(Servo.Direction.FORWARD);
 
+        intake = hwBot.servo.get("intake");//Port 1 - Expansion
+        intake.setDirection(Servo.Direction.FORWARD);
+
+
+
         //HW Mapping Ex
 
         //pixelArm = hwBot.dcMotor.get("pixel_arm");//Port 0 - Expansion
@@ -55,5 +62,55 @@ public class ITDBot extends MecanumDrive {
         //pixelClawLeft = hwBot.servo.get("pixel_claw_left");//Port 0 - Expansion
         //pixelClawLeft.setDirection(Servo.Direction.REVERSE);
     }
+
+
+    //Lift Methods
+    public DcMotor liftOne;
+
+    public Servo liftRelease;
+
+
+    public void raiseLiftOne(double speed){
+        liftOne.setPower(speed);
+    }
+
+    public void lowerLiftOne(double speed){
+        liftOne.setPower(-speed);
+    }
+
+    public void raiseLiftOne(double speed, double rotations){
+        double ticks = rotations * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while((Math.abs(liftOne.getCurrentPosition())) < ticks && LinearOp.opModeIsActive()){
+            raiseLiftOne(speed);
+            LinearOp.telemetry.addData("Lift ticks ", liftOne.getCurrentPosition());
+        }
+    }
+
+    public void lowerLiftOne(double speed, double rotations) {
+        double ticks = rotations * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while ((Math.abs(liftOne.getCurrentPosition())) < ticks && LinearOp.opModeIsActive()) {
+            lowerLiftOne(speed);
+            LinearOp.telemetry.addData("Lift ticks ", liftOne.getCurrentPosition());
+
+        }
+    }
+
+    //intake methods
+
+    public void extendIntake(){
+        intake.setPosition(1);
+    }
+
+    public void retractIntake(){
+        intake.setPosition(0);
+    }
+
+
 
 }

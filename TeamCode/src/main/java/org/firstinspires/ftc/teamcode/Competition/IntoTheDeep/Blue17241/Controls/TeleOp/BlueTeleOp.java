@@ -41,6 +41,7 @@ public class BlueTeleOp extends OpMode {
         drive();
         telemetryOutput();
         liftControl();
+        outIntake();
 
     }
 
@@ -118,11 +119,20 @@ public class BlueTeleOp extends OpMode {
     }
 
     public void liftControl(){
-        if(gamepad1.a){
+        if(gamepad2.a){
             ITDBot.raiseLiftOne(1);
         }
         else{
             ITDBot.lowerLiftOne(1);
+        }
+    }
+
+    public void outIntake(){
+        if(gamepad2.dpad_up){
+            ITDBot.extendIntake();
+        }
+        else{
+            ITDBot.retractIntake();
         }
     }
 
