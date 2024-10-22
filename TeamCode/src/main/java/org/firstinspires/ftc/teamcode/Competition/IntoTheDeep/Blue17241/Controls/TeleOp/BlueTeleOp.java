@@ -54,16 +54,20 @@ public class BlueTeleOp extends OpMode {
         rightStickXVal = gamepad1.right_stick_x;
         rightStickXVal = Range.clip(rightStickXVal, -1, 1);
 
-        frontLeftSpeed = leftStickYVal + leftStickXVal + rightStickXVal;
+        //frontLeftSpeed = leftStickYVal + leftStickXVal + rightStickXVal;//strafe - right stick, rotate - left stick
+        frontLeftSpeed = leftStickYVal + leftStickXVal + rightStickXVal; //strafe - left stick, rotate - right stick
         frontLeftSpeed = Range.clip(frontLeftSpeed, -1, 1);
 
-        frontRightSpeed = leftStickYVal -  leftStickXVal - rightStickXVal;
+        //frontRightSpeed = leftStickYVal -  leftStickXVal - rightStickXVal;//strafe - right stick, rotate - left stick
+        frontRightSpeed = leftStickYVal - leftStickXVal - rightStickXVal;//strafe - left stick, rotate - right stick
         frontRightSpeed = Range.clip(frontRightSpeed, -1, 1);
 
-        rearLeftSpeed = leftStickYVal - leftStickXVal + rightStickXVal;
+       // rearLeftSpeed = leftStickYVal - leftStickXVal + rightStickXVal;//strafe - right stick, rotate - left stick
+        rearLeftSpeed = leftStickYVal - leftStickXVal + rightStickXVal;//strafe - left stick, rotate - right stick
         rearLeftSpeed = Range.clip(rearLeftSpeed, -1, 1);
 
-        rearRightSpeed = leftStickYVal + leftStickXVal - rightStickXVal;
+        //rearRightSpeed = leftStickYVal + leftStickXVal - rightStickXVal;//strafe - right stick, rotate - left stick
+        rearRightSpeed = leftStickYVal + leftStickXVal - rightStickXVal;//strafe - left stick, rotate - right stick
         rearRightSpeed = Range.clip(rearRightSpeed, -1, 1);
 
         if (frontLeftSpeed <= powerThreshold && frontLeftSpeed >= -powerThreshold) {
@@ -119,10 +123,10 @@ public class BlueTeleOp extends OpMode {
     }
 
     public void liftControl(){
-        if(gamepad1.a){
+        if(gamepad2.a){
             ITDBot.raiseLiftOne(1);
         }
-        else{
+        else if(gamepad2.b){
             ITDBot.lowerLiftOne(1);
         }
     }
