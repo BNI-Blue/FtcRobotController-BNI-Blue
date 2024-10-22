@@ -22,7 +22,7 @@ public class ITDBot extends MecanumDrive {
         hwBot = hwMap;
 
         //Drivetrain Motors HW Mapping
-        frontLeftMotor = hwBot.dcMotor.get("front_left_motor)");//Port 0 Control
+        frontLeftMotor = hwBot.dcMotor.get("front_left_motor");//Port 0 Control
         frontRightMotor = hwBot.dcMotor.get("front_right_motor");//Port 1 Control
         rearLeftMotor = hwBot.dcMotor.get("rear_left_motor");//Port 2 Control
         rearRightMotor = hwBot.dcMotor.get("rear_right_motor");//Port 3 Control
