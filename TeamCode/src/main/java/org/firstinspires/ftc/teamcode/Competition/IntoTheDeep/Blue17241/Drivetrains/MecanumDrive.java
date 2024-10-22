@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
@@ -25,7 +24,7 @@ public class MecanumDrive {
     public DcMotor liftOne;
     public Servo liftRelease;
 
-    public Servo intake = null;
+    public Servo extender = null;
 
     public CRServo sampleIntakeServo = null;
 

@@ -40,6 +40,8 @@ public class ITDBot extends MecanumDrive {
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+
+
         liftOne = hwBot.dcMotor.get("lift_one");
         liftOne.setDirection(DcMotorSimple.Direction.REVERSE);//Port _ - Expansion
         liftOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -47,7 +49,9 @@ public class ITDBot extends MecanumDrive {
         liftRelease = hwBot.servo.get("lift_release");//Port _ - Expansion
         liftRelease.setDirection(Servo.Direction.FORWARD);
 
-        intake = hwBot.servo.get("intake");//Port 1 - Expansion
+
+
+        extender = hwBot.servo.get("extender");//Port 1 - Expansion
 
         //CRServos HW Mapping
         sampleIntakeServo = hwBot.get(CRServo.class, "intake_CRServo");//port 0 - expansion
@@ -89,7 +93,9 @@ public class ITDBot extends MecanumDrive {
     }
 
     //extending/retracting arm
-    public void extendIntake() {intake.setPosition(1);}
+    public void extendIntake() {
+        extender.setPosition(0.586);}
 
-    public void retractIntake() {intake.setPosition(.5);}
+    public void retractIntake() {
+        extender.setPosition(1);}
 }
