@@ -1,11 +1,9 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
-
-@Autonomous(name = "BlueNetAuto")
-public class BlueNetAuto extends BlueAlliance {
+@Autonomous(name = "Blue Park")
+public class BluePark extends BlueAlliance{
     @Override
     public void runOpMode() throws InterruptedException{
         ITDBot.initRobot(hardwareMap);
@@ -17,17 +15,12 @@ public class BlueNetAuto extends BlueAlliance {
         waitForStart();
 
         //drive methods are pulled from Drivetrain
-        while (opModeIsActive()){
+        while(opModeIsActive()){
 
-            //drive code
-
-            blueNetSampleOne();
-            blueNetSampleTwo();
-            blueNetSampleThree();
-
-
+            //code for drive
 
             requestOpModeStop();
+
         }
         idle();
     }

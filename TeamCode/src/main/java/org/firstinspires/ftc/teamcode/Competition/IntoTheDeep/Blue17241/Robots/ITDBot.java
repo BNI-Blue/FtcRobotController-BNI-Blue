@@ -94,8 +94,8 @@ public class ITDBot extends MecanumDrive {
 
     //extending/retracting arm
     public void extendIntake() {
-        extender.setPosition(0.586);}
+        extender.setPosition(0.451);}
 
     public void retractIntake() {
-        extender.setPosition(1);}
+        extender.setPosition(0.983);}
 }

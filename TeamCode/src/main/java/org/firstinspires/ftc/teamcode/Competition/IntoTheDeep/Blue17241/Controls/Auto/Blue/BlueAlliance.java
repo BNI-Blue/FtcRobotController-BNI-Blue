@@ -1,6 +1,8 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue;
 
-public class BlueAlliance extends AutoMain{
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.AutoMain;
+
+public class BlueAlliance extends AutoMain {
 
     public void blueObsSampleOne(){
         ITDBot.strafeRight(1, 3.4);
