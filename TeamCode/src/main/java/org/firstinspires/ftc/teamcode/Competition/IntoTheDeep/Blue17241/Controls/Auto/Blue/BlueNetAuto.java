@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+@Disabled
 @Autonomous(name = "BlueNetAuto")
 public class BlueNetAuto extends BlueAlliance {
     @Override

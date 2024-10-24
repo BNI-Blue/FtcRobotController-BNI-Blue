@@ -50,10 +50,10 @@ public class BlueITDTeleOp extends OpMode {
 
     }
     public void changeDriverProfile() {
-        if (gamepad1.dpad_right) {
+        if (gamepad1.left_bumper) {
             currentProfile = PROFILE_1;
         }
-        else if (gamepad1.dpad_left) {
+        else if (gamepad1.right_bumper) {
             currentProfile = PROFILE_2;
         }
 

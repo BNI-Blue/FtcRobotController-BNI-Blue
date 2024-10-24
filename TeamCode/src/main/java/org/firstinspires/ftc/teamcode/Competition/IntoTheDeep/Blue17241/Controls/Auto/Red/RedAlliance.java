@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.AutoMain;
 
-public class RedAlliance extends AutoMain {
+public abstract class RedAlliance extends AutoMain {
 
     public void redObsSampleOne(){
         ITDBot.strafeRight(1, 3.4);

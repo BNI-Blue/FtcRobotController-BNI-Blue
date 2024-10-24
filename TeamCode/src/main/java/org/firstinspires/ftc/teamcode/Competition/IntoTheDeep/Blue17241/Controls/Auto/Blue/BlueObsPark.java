@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-@Autonomous(name = "Blue Park")
-public class BluePark extends BlueAlliance{
+//@Disabled
+@Autonomous(name = "Blue Obs Park")
+public class BlueObsPark extends BlueAlliance{
     @Override
     public void runOpMode() throws InterruptedException{
         ITDBot.initRobot(hardwareMap);
@@ -17,7 +19,9 @@ public class BluePark extends BlueAlliance{
         //drive methods are pulled from Drivetrain
         while(opModeIsActive()){
 
-            //code for drive
+            sleep(25000);
+
+            ITDBot.strafeRight(1, 3);
 
             requestOpModeStop();
 
