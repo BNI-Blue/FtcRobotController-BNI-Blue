@@ -21,7 +21,7 @@ public class MecanumDrive {
     public DcMotor rightEncoder;
     public DcMotor centerEncoder;
 
-    public DcMotor fourBar;
+    //public DcMotor fourBar;
 
     public DcMotor liftOne;
     public Servo liftRelease;

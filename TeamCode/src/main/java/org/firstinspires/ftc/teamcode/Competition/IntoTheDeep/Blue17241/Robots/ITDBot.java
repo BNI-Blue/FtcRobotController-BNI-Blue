@@ -40,9 +40,9 @@ public class ITDBot extends MecanumDrive {
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        fourBar = hwBot.dcMotor.get("four_bar"); //Port 0 - Expansion
-        fourBar.setDirection(DcMotorSimple.Direction.FORWARD);
-        fourBar.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        fourBar = hwBot.dcMotor.get("four_bar"); //Port 0 - Expansion
+//        fourBar.setDirection(DcMotorSimple.Direction.FORWARD);
+//        fourBar.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         liftOne = hwBot.dcMotor.get("lift_one");
@@ -102,18 +102,18 @@ public class ITDBot extends MecanumDrive {
         extender.setPosition(0.983);
     }
 
-    public void raiseArm(){
-        fourBar.setPower(1);
-    }
-    public void raiseArm(double speed, double rotations){
-        double ticks = rotations * TICKS_PER_ROTATION;
-        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        while((Math.abs(frontLeftMotor.getCurrentPosition() ) < ticks && LinearOp.opModeIsActive()) ){
-            raiseArm();
-        }
-    }
+//    public void raiseArm(){
+//        fourBar.setPower(1);
+//    }
+//    public void raiseArm(double speed, double rotations){
+//        double ticks = rotations * TICKS_PER_ROTATION;
+//        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//
+//        while((Math.abs(frontLeftMotor.getCurrentPosition() ) < ticks && LinearOp.opModeIsActive()) ){
+//            raiseArm();
+//        }
+//    }
 
 
 }

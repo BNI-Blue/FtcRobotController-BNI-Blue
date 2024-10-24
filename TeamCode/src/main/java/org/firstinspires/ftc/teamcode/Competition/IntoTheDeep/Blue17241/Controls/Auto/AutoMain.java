@@ -9,12 +9,12 @@ public abstract class AutoMain extends LinearOpMode {
     public ITDBot ITDBot = new ITDBot();
 
 
-    public void dropBasketOne(){
-        ITDBot.raiseArm(1, 5.7);
-    }
-    public void dropBasketTwo(){
-        ITDBot.raiseArm(1, 9.3);
-    }
+//    public void dropBasketOne(){
+//        ITDBot.raiseArm(1, 5.7);
+//    }
+//    public void dropBasketTwo(){
+//        ITDBot.raiseArm(1, 9.3);
+//    }
 
 
 }
