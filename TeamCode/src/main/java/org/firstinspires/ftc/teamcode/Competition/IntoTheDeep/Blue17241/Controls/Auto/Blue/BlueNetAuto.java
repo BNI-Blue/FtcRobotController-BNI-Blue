@@ -3,32 +3,43 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-@Disabled
+//@Disabled
 @Autonomous(name = "BlueNetAuto")
 public class BlueNetAuto extends BlueAlliance {
     @Override
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() throws InterruptedException {
         ITDBot.initRobot(hardwareMap);
         ITDBot.setLinearOp(this);
 
         telemetry.addLine("Awaiting Start");
+        ITDBot.retractIntake();
         telemetry.update();
 
         waitForStart();
 
+
         //drive methods are pulled from Drivetrain
-        while (opModeIsActive()){
+        while (opModeIsActive()) {
 
             //drive code
+            while (opModeIsActive()) {
 
-            blueNetSampleOne();
-            blueNetSampleTwo();
-            blueNetSampleThree();
+                ITDBot.strafeLeft(1, .15);
+                ITDBot.driveBack(1, 3.85);
+                ITDBot.sampleOuttake();
+                sleep(1300);
+                ITDBot.intakeStop();
 
 
+                requestOpModeStop();
+//            blueNetSampleOne();
+//            blueNetSampleTwo();
 
-            requestOpModeStop();
+//            blueNetSampleThree();
+
+            }
+            idle();
         }
-        idle();
     }
 }
+

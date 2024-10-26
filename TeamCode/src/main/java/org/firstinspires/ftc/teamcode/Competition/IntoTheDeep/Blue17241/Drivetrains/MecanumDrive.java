@@ -281,6 +281,9 @@ public class MecanumDrive {
 
         while ((Math.abs(frontLeftMotor.getCurrentPosition() ) < ticks && LinearOp.opModeIsActive()) ) {
             strafeRight(speed);
+            LinearOp.telemetry.addData("fl motor ticks", frontLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.update();
+
         }
         stopMotors();
 
@@ -522,7 +525,6 @@ public class MecanumDrive {
     public double getEncoderAvgDistanceY() {
         return Math.abs(centerEncoder.getCurrentPosition());
     }
-
 
 
     }

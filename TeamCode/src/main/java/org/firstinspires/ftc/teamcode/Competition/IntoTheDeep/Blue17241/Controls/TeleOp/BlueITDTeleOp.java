@@ -25,7 +25,7 @@ public class BlueITDTeleOp extends OpMode {
 
     private static final int PROFILE_1 = 1;  //Charlie
     private static final int PROFILE_2 = 2;  // Evan
-    private int currentProfile = PROFILE_1;
+    private int currentProfile = PROFILE_2;
     //public double mechanismPower = ___;
 
     public ITDBot ITDBot = new ITDBot();
@@ -47,6 +47,8 @@ public class BlueITDTeleOp extends OpMode {
         //liftControl();
         intakeControl();
         preventClawOnStart();
+       // changeD
+        // riverProfile();
 
     }
     public void changeDriverProfile() {
@@ -138,6 +140,9 @@ public class BlueITDTeleOp extends OpMode {
         else if (gamepad1.dpad_down){
             speedMultiply = 0.25;
             }
+        else if (gamepad1.dpad_left){
+            speedMultiply = 1;
+        }
         else{
             speedMultiply = 1;
         }
@@ -164,16 +169,13 @@ public class BlueITDTeleOp extends OpMode {
 
         if (gamepad2.right_bumper) {
             ITDBot.sampleIntake();
-        }
-
-        else if (gamepad2.left_bumper) {
+        } else if (gamepad2.left_bumper) {
             ITDBot. sampleOuttake();
         }
-
         else{
             ITDBot.intakeStop();
         }
-
+//*********************************\\
         if(gamepad2.dpad_up){
             ITDBot.extendIntake();
         }

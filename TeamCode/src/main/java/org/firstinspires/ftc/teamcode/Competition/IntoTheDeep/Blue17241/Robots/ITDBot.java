@@ -72,6 +72,8 @@ public class ITDBot extends MecanumDrive {
     public void sampleIntake() {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
         sampleIntakeServo.setPower(1);
+
+
     }
 
 

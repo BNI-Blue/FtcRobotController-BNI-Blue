@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "Blue Net Park")
 public class BlueNetPark extends BlueAlliance{
     @Override
@@ -13,15 +13,14 @@ public class BlueNetPark extends BlueAlliance{
 
         telemetry.addLine("Awaiting Start");
         telemetry.update();
-
+        ITDBot.retractIntake();
         waitForStart();
-
         //drive methods are pulled from Drivetrain
         while(opModeIsActive()){
 
             sleep(25000);
 
-            ITDBot.strafeRight(1, 7);
+            ITDBot.driveForward(1, 2);
 
             requestOpModeStop();
 

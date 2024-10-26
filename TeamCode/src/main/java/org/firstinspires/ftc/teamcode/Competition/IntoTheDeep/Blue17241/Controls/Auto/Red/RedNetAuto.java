@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-@Disabled
+//@Disabled
 @Autonomous(name = "RedNetAuto")
 public class RedNetAuto extends RedAlliance {
     @Override
@@ -13,15 +13,22 @@ public class RedNetAuto extends RedAlliance {
 
         telemetry.addLine("Awaiting Start");
         telemetry.update();
-
+        ITDBot.retractIntake();
         waitForStart();
+        ITDBot.retractIntake();
 
         //drive methods are pulled from Drivetrain
         while(opModeIsActive()){
 
-            redNetSampleOne();
-            redNetSampleTwo();
-            redNetSampleThree();
+            ITDBot.strafeLeft(1, .2);
+            ITDBot.driveBack(1, 3.5);
+            ITDBot.sampleOuttake();
+            sleep(1000);
+            ITDBot.intakeStop();
+
+//            redNetSampleOne();
+//            redNetSampleTwo();
+//            redNetSampleThree();
 
             requestOpModeStop();
 
