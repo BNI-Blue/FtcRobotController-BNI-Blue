@@ -30,6 +30,10 @@ public class BlueNetAuto extends BlueAlliance {
                 sleep(1300);
                 ITDBot.intakeStop();
 
+                //Code for if partner can move away from wall
+                //ITDBot.strafeLeft(1, .15);
+                //ITDBot.driveForward(1, 8);
+
 
                 requestOpModeStop();
 //            blueNetSampleOne();

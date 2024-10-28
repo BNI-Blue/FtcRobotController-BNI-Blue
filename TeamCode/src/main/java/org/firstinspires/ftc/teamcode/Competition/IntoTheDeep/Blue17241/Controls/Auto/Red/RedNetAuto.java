@@ -20,12 +20,17 @@ public class RedNetAuto extends RedAlliance {
         //drive methods are pulled from Drivetrain
         while(opModeIsActive()){
 
-            ITDBot.strafeLeft(1, .2);
-            ITDBot.driveBack(1, 3.5);
+            ITDBot.strafeLeft(1, .13);
+            ITDBot.driveBack(1, 3.7);
             ITDBot.sampleOuttake();
-            sleep(1000);
+            sleep(1400);
+
+
             ITDBot.intakeStop();
 
+            //Code for if partner can move away from wall
+            ITDBot.strafeRight(1, .15);
+            ITDBot.driveForward(1, 8);
 //            redNetSampleOne();
 //            redNetSampleTwo();
 //            redNetSampleThree();
