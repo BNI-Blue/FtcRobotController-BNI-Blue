@@ -8,13 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 public class BlueNetAuto extends BlueAlliance {
     @Override
     public void runOpMode() throws InterruptedException {
-        ITDBot.initRobot(hardwareMap);
-        ITDBot.setLinearOp(this);
-
-        telemetry.addLine("Awaiting Start");
-        ITDBot.retractIntake();
-        telemetry.update();
-
+        // Initializes and sets up robot for auto (code in AutoMain)
+        autoStartUp();
         waitForStart();
 
 
@@ -24,15 +19,15 @@ public class BlueNetAuto extends BlueAlliance {
             //drive code
             while (opModeIsActive()) {
 
-                ITDBot.strafeLeft(1, .15);
-                ITDBot.driveBack(1, 3.85);
+                ITDBot.strafeRight(1, .15);
+                ITDBot.driveForward(1, 3.85);
                 ITDBot.sampleOuttake();
                 sleep(1300);
                 ITDBot.intakeStop();
 
                 //Code for if partner can move away from wall
-                //ITDBot.strafeLeft(1, .15);
-                //ITDBot.driveForward(1, 8);
+                //ITDBot.strafeRight(1, .15);
+                //ITDBot.driveBack(1, 8);
 
 
                 requestOpModeStop();

@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
-public class MecanumDriveNew {
+public class MecanumDriveOld {
 
     public DcMotor frontLeftMotor;
     public DcMotor frontRightMotor;
@@ -48,7 +48,7 @@ public class MecanumDriveNew {
     driveDirections driveDirection = driveDirections.STOP;
 
 
-    public MecanumDriveNew() {
+    public MecanumDriveOld() {
 
     }
 
@@ -174,24 +174,24 @@ public class MecanumDriveNew {
     }
 
     public void driveForward(double speed) {
-        frontLeftMotor.setPower(speed);
-        frontRightMotor.setPower(speed);
-        rearLeftMotor.setPower(speed);
-        rearRightMotor.setPower(speed);
-    }
-
-    public void driveBack(double speed) {
         frontLeftMotor.setPower(-speed);
         frontRightMotor.setPower(-speed);
         rearLeftMotor.setPower(-speed);
         rearRightMotor.setPower(-speed);
     }
 
-    public void rotateLeft(double speed) {
-        frontLeftMotor.setPower(-speed);
+    public void driveBack(double speed) {
+        frontLeftMotor.setPower(speed);
         frontRightMotor.setPower(speed);
-        rearLeftMotor.setPower(-speed);
+        rearLeftMotor.setPower(speed);
         rearRightMotor.setPower(speed);
+    }
+
+    public void rotateLeft(double speed) {
+        frontLeftMotor.setPower(speed);
+        frontRightMotor.setPower(-speed);
+        rearLeftMotor.setPower(speed);
+        rearRightMotor.setPower(-speed);
 
     }
 
@@ -204,20 +204,38 @@ public class MecanumDriveNew {
     }
 
     public void strafeLeft(double speed) {
-        frontLeftMotor.setPower(-speed);
-        frontRightMotor.setPower(speed);
-        rearLeftMotor.setPower(speed);
-        rearRightMotor.setPower(-speed);
-
-    }
-
-    public void strafeRight(double speed) {
         frontLeftMotor.setPower(speed);
         frontRightMotor.setPower(-speed);
         rearLeftMotor.setPower(-speed);
         rearRightMotor.setPower(speed);
+
     }
 
+    public void strafeRight(double speed) {
+        frontLeftMotor.setPower(-speed);
+        frontRightMotor.setPower(speed);
+        rearLeftMotor.setPower(speed);
+        rearRightMotor.setPower(-speed);
+    }
+
+    public void diagonalLeftForward(double speed) {
+        frontRightMotor.setPower(-speed);
+        rearLeftMotor.setPower(-speed);
+    }
+
+    public void diagonalRightForward(double speed) {
+        frontLeftMotor.setPower(-speed);
+        rearRightMotor.setPower(-speed);
+    }
+    public void diagonalLeftBack(double speed) {
+        frontLeftMotor.setPower(speed);
+        rearRightMotor.setPower(speed);
+    }
+
+    public void diagonalRightBack(double speed) {
+        frontRightMotor.setPower(speed);
+        rearLeftMotor.setPower(speed);
+    }
 
     // ************** Basic Drive Method ***********************
 
@@ -263,8 +281,8 @@ public class MecanumDriveNew {
 
         while ((Math.abs(frontLeftMotor.getCurrentPosition() ) < ticks && LinearOp.opModeIsActive()) ) {
             strafeRight(speed);
-//            LinearOp.telemetry.addData("fl motor ticks", frontLeftMotor.getCurrentPosition());
-//            LinearOp.telemetry.update();
+            LinearOp.telemetry.addData("fl motor ticks", frontLeftMotor.getCurrentPosition());
+            LinearOp.telemetry.update();
 
         }
         stopMotors();
@@ -346,16 +364,28 @@ public class MecanumDriveNew {
                     stopMotors();
                     break;
                 case DRIVE_FORWARD:
-                    driveForward(power);
+                    frontLeftMotor.setPower(-power);
+                    frontRightMotor.setPower(-power);
+                    rearLeftMotor.setPower(-power);
+                    rearRightMotor.setPower(-power);
                     break;
                 case DRIVE_BACK:
-                    driveBack(power);
+                    frontLeftMotor.setPower(power);
+                    frontRightMotor.setPower(power);
+                    rearLeftMotor.setPower(power);
+                    rearRightMotor.setPower(power);
                     break;
                 case STRAFE_LEFT:
-                    strafeLeft(power);
+                    frontLeftMotor.setPower(power);
+                    frontRightMotor.setPower(-power);
+                    rearLeftMotor.setPower(-power);
+                    rearRightMotor.setPower(power);
                     break;
                 case STRAFE_RIGHT:
-                    strafeRight(power);
+                    frontLeftMotor.setPower(-power);
+                    frontRightMotor.setPower(power);
+                    rearLeftMotor.setPower(power);
+                    rearRightMotor.setPower(-power);
                     break;
                 default:
                     stopMotors();
@@ -426,16 +456,28 @@ public class MecanumDriveNew {
                     stopMotors();
                     break;
                 case DRIVE_FORWARD:
-                    driveForward(power);
+                    frontLeftMotor.setPower(power);
+                    frontRightMotor.setPower(power);
+                    rearLeftMotor.setPower(power);
+                    rearRightMotor.setPower(power);
                     break;
                 case DRIVE_BACK:
-                    driveBack(power);
+                    frontLeftMotor.setPower(-power);
+                    frontRightMotor.setPower(-power);
+                    rearLeftMotor.setPower(-power);
+                    rearRightMotor.setPower(-power);
                     break;
                 case STRAFE_LEFT:
-                    strafeLeft(power);
+                    frontLeftMotor.setPower(-power);
+                    frontRightMotor.setPower(power);
+                    rearLeftMotor.setPower(-power);
+                    rearRightMotor.setPower(power);
                     break;
                 case STRAFE_RIGHT:
-                    strafeRight(power);
+                    frontLeftMotor.setPower(power);
+                    frontRightMotor.setPower(-power);
+                    rearLeftMotor.setPower(power);
+                    rearRightMotor.setPower(-power);
                     break;
                 default:
                     stopMotors();

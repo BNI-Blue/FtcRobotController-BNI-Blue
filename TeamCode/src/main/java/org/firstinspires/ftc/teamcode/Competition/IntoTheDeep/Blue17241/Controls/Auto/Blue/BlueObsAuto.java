@@ -8,12 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 public class BlueObsAuto extends BlueAlliance {
     @Override
     public void runOpMode() throws InterruptedException{
-        ITDBot.initRobot(hardwareMap);
-        ITDBot.setLinearOp(this);
-
-        telemetry.addLine("Awaiting Start");
-        telemetry.update();
-        ITDBot.retractIntake();
+        autoStartUp();
         waitForStart();
 
 
@@ -23,8 +18,8 @@ public class BlueObsAuto extends BlueAlliance {
 //            blueObsSampleOne();
 //            blueObsSampleTwo();
 //            blueObsSampleThree();
-            ITDBot.strafeRight(1, .2);
-            ITDBot.driveBack(1, 2.5);
+            ITDBot.strafeLeft(1, .2);
+            ITDBot.driveForward(1, 2.5);
 
             requestOpModeStop();
 

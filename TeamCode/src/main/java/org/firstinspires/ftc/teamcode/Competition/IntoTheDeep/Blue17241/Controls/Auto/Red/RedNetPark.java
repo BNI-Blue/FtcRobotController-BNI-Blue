@@ -8,14 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 public class RedNetPark extends RedAlliance{
     @Override
     public void runOpMode() throws InterruptedException{
-        ITDBot.initRobot(hardwareMap);
-        ITDBot.setLinearOp(this);
-
-        telemetry.addLine("Awaiting Start");
-        telemetry.update();
-
+        autoStartUp();
         waitForStart();
-        ITDBot.retractIntake();
 
         //drive methods are pulled from Drivetrain
         while(opModeIsActive()){

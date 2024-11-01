@@ -16,5 +16,11 @@ public abstract class AutoMain extends LinearOpMode {
 //        ITDBot.raiseArm(1, 9.3);
 //    }
 
-
+    public void autoStartUp(){
+        ITDBot.initRobot(hardwareMap);
+        ITDBot.setLinearOp(this);
+        telemetry.addLine("Awaiting Start");
+        ITDBot.retractIntake();
+        telemetry.update();
+    }
 }

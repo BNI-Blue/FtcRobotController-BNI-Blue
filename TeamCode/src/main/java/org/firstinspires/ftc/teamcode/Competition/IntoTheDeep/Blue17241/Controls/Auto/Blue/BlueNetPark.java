@@ -8,12 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 public class BlueNetPark extends BlueAlliance{
     @Override
     public void runOpMode() throws InterruptedException{
-        ITDBot.initRobot(hardwareMap);
-        ITDBot.setLinearOp(this);
-
-        telemetry.addLine("Awaiting Start");
-        telemetry.update();
-        ITDBot.retractIntake();
+        autoStartUp();
         waitForStart();
         //drive methods are pulled from Drivetrain
         while(opModeIsActive()){
