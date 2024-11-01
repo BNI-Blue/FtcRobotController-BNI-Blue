@@ -18,7 +18,7 @@ public class ITDBot extends MecanumDrive {
     public ITDBot(){}
 
     //Init Method
-    public void initRobot(HardwareMap hwMap){
+    public void initRobot(HardwareMap hwMap) {
         hwBot = hwMap;
 
         //Drivetrain Motors HW Mapping

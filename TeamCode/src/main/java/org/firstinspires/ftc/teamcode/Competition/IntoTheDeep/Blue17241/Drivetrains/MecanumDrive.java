@@ -174,48 +174,48 @@ public class MecanumDrive {
     }
 
     public void driveForward(double speed) {
-        frontLeftMotor.setPower(-speed);
-        frontRightMotor.setPower(-speed);
-        rearLeftMotor.setPower(-speed);
-        rearRightMotor.setPower(-speed);
-    }
-
-    public void driveBack(double speed) {
         frontLeftMotor.setPower(speed);
         frontRightMotor.setPower(speed);
         rearLeftMotor.setPower(speed);
         rearRightMotor.setPower(speed);
     }
 
-    public void rotateLeft(double speed) {
-        frontLeftMotor.setPower(speed);
+    public void driveBack(double speed) {
+        frontLeftMotor.setPower(-speed);
         frontRightMotor.setPower(-speed);
-        rearLeftMotor.setPower(speed);
+        rearLeftMotor.setPower(-speed);
         rearRightMotor.setPower(-speed);
+    }
+
+    public void rotateLeft(double speed) {
+        frontLeftMotor.setPower(-speed);
+        frontRightMotor.setPower(speed);
+        rearLeftMotor.setPower(-speed);
+        rearRightMotor.setPower(speed);
 
     }
 
     public void rotateRight(double speed) {
-        frontLeftMotor.setPower(-speed);
-        frontRightMotor.setPower(speed);
-        rearLeftMotor.setPower(-speed);
-        rearRightMotor.setPower(speed);
+        frontLeftMotor.setPower(speed);
+        frontRightMotor.setPower(-speed);
+        rearLeftMotor.setPower(speed);
+        rearRightMotor.setPower(-speed);
 
     }
 
     public void strafeLeft(double speed) {
-        frontLeftMotor.setPower(speed);
-        frontRightMotor.setPower(-speed);
-        rearLeftMotor.setPower(-speed);
-        rearRightMotor.setPower(speed);
-
-    }
-
-    public void strafeRight(double speed) {
         frontLeftMotor.setPower(-speed);
         frontRightMotor.setPower(speed);
         rearLeftMotor.setPower(speed);
         rearRightMotor.setPower(-speed);
+
+    }
+
+    public void strafeRight(double speed) {
+        frontLeftMotor.setPower(speed);
+        frontRightMotor.setPower(-speed);
+        rearLeftMotor.setPower(-speed);
+        rearRightMotor.setPower(speed);
     }
 
     public void diagonalLeftForward(double speed) {
