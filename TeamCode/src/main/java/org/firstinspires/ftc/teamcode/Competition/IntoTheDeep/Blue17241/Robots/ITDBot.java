@@ -7,8 +7,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDriveNew;
 
-public class ITDBot extends MecanumDrive {
+public class ITDBot extends MecanumDriveNew {
 
     public HardwareMap hwBot = null;
 
