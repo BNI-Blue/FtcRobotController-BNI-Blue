@@ -4,11 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Disabled
-@Autonomous(name = "Red Net Park")
+@Autonomous(name = "Red:Net:Park")
 public class RedNetPark extends RedAlliance{
     @Override
     public void runOpMode() throws InterruptedException{
+
+        // Global Method for Initializing Auto
         autoStartUp();
+
         waitForStart();
 
         //drive methods are pulled from Drivetrain

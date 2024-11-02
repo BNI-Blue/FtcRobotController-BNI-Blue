@@ -1,15 +1,16 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 //@Disabled
-@Autonomous(name = "BlueNetAuto")
-public class BlueNetAuto extends BlueAlliance {
+@Autonomous(name = "Blue:Net:Sample:Park")
+public class BlueNetSamplePark extends BlueAlliance {
     @Override
     public void runOpMode() throws InterruptedException {
-        // Initializes and sets up robot for auto (code in AutoMain)
+
+        // Global Method for Initializing Auto
         autoStartUp();
+
         waitForStart();
 
 
@@ -26,15 +27,11 @@ public class BlueNetAuto extends BlueAlliance {
                 ITDBot.intakeStop();
 
                 //Code for if partner can move away from wall
-                //ITDBot.strafeRight(1, .15);
-                //ITDBot.driveBack(1, 8);
+                ITDBot.strafeRight(1, .15);
+                ITDBot.driveBack(1, 8);
 
 
                 requestOpModeStop();
-//            blueNetSampleOne();
-//            blueNetSampleTwo();
-
-//            blueNetSampleThree();
 
             }
             idle();

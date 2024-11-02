@@ -4,13 +4,16 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Disabled
-@Autonomous(name = "Blue Obs Park")
+@Autonomous(name = "Blue:Observation:Park")
 public class BlueObsPark extends BlueAlliance{
     @Override
     public void runOpMode() throws InterruptedException{
+
+        // Global Method for Initializing Auto
         autoStartUp();
 
         waitForStart();
+
         ITDBot.retractIntake();
 
         //drive methods are pulled from Drivetrain

@@ -4,10 +4,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 //@Disabled
-@Autonomous(name = "RedObsAuto")
+@Autonomous(name = "Red:Observation:Auto")
 public class RedObsAuto extends RedAlliance {
     @Override
     public void runOpMode() throws InterruptedException{
+
+        // Global Method for Initializing Auto
         autoStartUp();
 
         waitForStart();
