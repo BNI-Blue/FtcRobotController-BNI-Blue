@@ -1,11 +1,12 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.Paths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
 //@Disabled
 @Autonomous(name = "Blue:Observation:Auto")
-public class BlueObsAuto extends BlueAlliance {
+public class BlueObservationPark extends BlueAlliance {
     @Override
     public void runOpMode() throws InterruptedException{
 
@@ -14,12 +15,10 @@ public class BlueObsAuto extends BlueAlliance {
 
         waitForStart();
 
-        //drive methods are pulled from Drivetrain
+        ITDBot.retractIntake();
+
         while (opModeIsActive()){
 
-//            blueObsSampleOne();
-//            blueObsSampleTwo();
-//            blueObsSampleThree();
             ITDBot.strafeLeft(1, .2);
             ITDBot.driveForward(1, 2.5);
 

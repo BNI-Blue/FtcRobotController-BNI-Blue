@@ -1,6 +1,8 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.Paths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
 //@Disabled
 @Autonomous(name = "Blue:Net:Sample:Park")
@@ -13,6 +15,7 @@ public class BlueNetSamplePark extends BlueAlliance {
 
         waitForStart();
 
+        ITDBot.retractIntake();
 
         //drive methods are pulled from Drivetrain
         while (opModeIsActive()) {

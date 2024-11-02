@@ -1,11 +1,13 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.Paths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.RedAlliance;
+
 @Disabled
-@Autonomous(name = "Blue:Net:Park")
-public class BlueNetPark extends BlueAlliance{
+@Autonomous(name = "Red:GetOutofWay")
+public class RedGetOutOfWay extends RedAlliance {
     @Override
     public void runOpMode() throws InterruptedException{
 
@@ -13,12 +15,14 @@ public class BlueNetPark extends BlueAlliance{
         autoStartUp();
 
         waitForStart();
-        //drive methods are pulled from Drivetrain
+
+        ITDBot.retractIntake();
+
         while(opModeIsActive()){
 
             sleep(25000);
 
-            ITDBot.driveForward(1, 2);
+            ITDBot.strafeRight(1, 3);
 
             requestOpModeStop();
 
