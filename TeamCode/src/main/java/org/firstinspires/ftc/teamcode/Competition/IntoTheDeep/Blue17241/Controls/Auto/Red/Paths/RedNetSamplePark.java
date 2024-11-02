@@ -19,8 +19,8 @@ public class RedNetSamplePark extends RedAlliance {
 
         while(opModeIsActive()){
 
-            ITDBot.strafeLeft(1, .13);
-            ITDBot.driveBack(1, 3.7);
+            ITDBot.strafeRight(1, .13);
+            ITDBot.driveForward(1, 3.7);
             ITDBot.sampleOuttake();
             sleep(1400);
 
@@ -28,7 +28,7 @@ public class RedNetSamplePark extends RedAlliance {
 
             //Code for if partner can move away from wall
             ITDBot.strafeRight(1, .15);
-            ITDBot.driveForward(1, 8);
+            ITDBot.driveBack(1, 8);
 
             requestOpModeStop();
 

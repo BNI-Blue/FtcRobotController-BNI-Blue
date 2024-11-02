@@ -21,10 +21,8 @@ public class BlueGetOutofWay extends BlueAlliance {
         //drive methods are pulled from Drivetrain
         while(opModeIsActive()){
 
-            sleep(25000);
-
             ITDBot.strafeRight(1, 3);
-
+            sleep(25000);
             requestOpModeStop();
 
         }

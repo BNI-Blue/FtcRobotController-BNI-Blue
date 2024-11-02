@@ -20,10 +20,8 @@ public class RedGetOutOfWay extends RedAlliance {
 
         while(opModeIsActive()){
 
-            sleep(25000);
-
             ITDBot.strafeRight(1, 3);
-
+            sleep(25000);
             requestOpModeStop();
 
         }
