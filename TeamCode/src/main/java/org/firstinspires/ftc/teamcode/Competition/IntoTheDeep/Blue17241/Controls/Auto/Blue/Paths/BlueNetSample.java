@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
 //@Disabled
-@Autonomous(name = "Blue:Net:Sample:Park")
-public class BlueNetSamplePark extends BlueAlliance {
+@Autonomous(name = "Blue:Net:Sample")
+public class BlueNetSample extends BlueAlliance {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -28,11 +28,6 @@ public class BlueNetSamplePark extends BlueAlliance {
                 ITDBot.sampleOuttake();
                 sleep(1300);
                 ITDBot.intakeStop();
-
-                //Code for if partner can move away from wall
-                ITDBot.strafeRight(1, .15);
-                ITDBot.driveBack(1, 8);
-
 
                 requestOpModeStop();
 

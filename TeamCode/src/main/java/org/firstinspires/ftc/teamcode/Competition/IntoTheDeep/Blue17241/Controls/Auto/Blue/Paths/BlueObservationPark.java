@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
 //@Disabled
-@Autonomous(name = "Blue:Observation:Auto")
+@Autonomous(name = "Blue:Observation:Park")
 public class BlueObservationPark extends BlueAlliance {
     @Override
     public void runOpMode() throws InterruptedException{
