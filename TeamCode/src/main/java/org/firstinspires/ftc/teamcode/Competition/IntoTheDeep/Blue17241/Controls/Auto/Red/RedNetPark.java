@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 //@Disabled
 @Autonomous(name = "Red Net Park")
-public class RedNetPark extends RedAlliance{
+public class  RedNetPark extends RedAlliance{
     @Override
     public void runOpMode() throws InterruptedException{
         ITDBot.initRobot(hardwareMap);
