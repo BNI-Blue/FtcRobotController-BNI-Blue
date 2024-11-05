@@ -40,34 +40,37 @@ public class ITDBot extends MecanumDrive {
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-//        fourBar = hwBot.dcMotor.get("four_bar"); //Port 0 - Expansion
-//        fourBar.setDirection(DcMotorSimple.Direction.FORWARD);
-//        fourBar.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Climbing Mechanism
+        climbingLift = hwBot.dcMotor.get("climbing_lift");
+        climbingLift.setDirection(DcMotorSimple.Direction.REVERSE);//Port _ - Expansion
+        climbingLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        climbingRelease = hwBot.servo.get("climbing_release");//Port _ - Expansion
+        climbingRelease.setDirection(Servo.Direction.FORWARD);
 
-        //chamber lift
-        liftOne = hwBot.dcMotor.get("lift_one");
-        liftOne.setDirection(DcMotorSimple.Direction.REVERSE);//Port _ - Expansion
-        liftOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        liftRelease = hwBot.servo.get("lift_release");//Port _ - Expansion
-        liftRelease.setDirection(Servo.Direction.FORWARD);
-
-        //claw extension
-        extender = hwBot.servo.get("extender");//Port 1 - Expansion
-        extender.setDirection(Servo.Direction.FORWARD);
+        //Intake and extention
+        intakeExtender = hwBot.servo.get("intake_extender");//Port 1 - Expansion
+        intakeExtender.setDirection(Servo.Direction.FORWARD);
 
         //CRServos HW Mapping
         sampleIntakeServo = hwBot.get(CRServo.class, "intake_CRServo");//port 0 - expansion
         sampleIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        //bucket flip
-        bucketFlip = hwBot.servo.get("bucket_flip");//Port _ - Expansion
+        //Bucket flip
+        bucketFlip = hwBot.servo.get("bucket_flip"); //Port - Expansion
         bucketFlip.setDirection(Servo.Direction.FORWARD);
 
-        //intake flip
-        intakeHolderFlip = hwBot.servo.get("intake_flip");//Port _ - Expansion
-        intakeHolderFlip.setDirection(Servo.Direction.FORWARD);
+        //Intake Flip
+        intakeHolderFlip = hwBot.servo.get("intake_flip"); //Port _ -Expansion
+        intakeHolderFlip. setDirection(Servo.Direction.FORWARD);
+
+        //Bucket Linear Slide Extension
+        bucketLinearSlide = hwBot.dcMotor.get("bucket_linear_slide");
+        bucketLinearSlide.setDirection(DcMotorSimple.Direction.FORWARD);
+        bucketLinearSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+
 
         //HW Mapping Ex
 
@@ -84,7 +87,6 @@ public class ITDBot extends MecanumDrive {
     public void sampleIntake() {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
         sampleIntakeServo.setPower(1);
-
     }
 
     public void sampleOuttake() {
@@ -96,7 +98,7 @@ public class ITDBot extends MecanumDrive {
         sampleIntakeServo.setPower(0);
     }
 
-    public void intakeHolderUp(){
+    public void intakeHolderUp() {
         intakeHolderFlip.setPosition(1);
     }
 
@@ -104,7 +106,24 @@ public class ITDBot extends MecanumDrive {
         intakeHolderFlip.setPosition(.5);
     }
 
-    //bucket mech
+    //hanging arm
+    public void climbing_lift(double power){
+        climbingLift.setPower(Math.abs(power));
+    }
+
+    public void climbing_release(double power){
+        climbingLift.setPower(-Math.abs(power));
+    }
+
+    //extending/retracting arm
+    public void extendIntake() {
+        intakeExtender.setPosition(0.451);
+    }
+    public void retractIntake() {
+        intakeExtender.setPosition(0.983);
+    }
+
+    // bucket mechanism
     public void emptyBucket(){
         bucketFlip.setPosition(1);
     }
@@ -112,26 +131,14 @@ public class ITDBot extends MecanumDrive {
         bucketFlip.setPosition(.5);
     }
 
-
-    //hanging arm
-    public void raiseLiftOne(double power){
-        liftOne.setPower(Math.abs(power));
+    // bucket linear extention
+    public void bucketSlideUp(double power) {
+        bucketLinearSlide.setPower(Math.abs(power));
     }
 
-    public void lowerLiftOne(double power){
-        liftOne.setPower(-Math.abs(power));
+    public void bucketSlideDown(double power) {
+        bucketLinearSlide.setPower(-Math.abs(power));
     }
-
-
-    //extending/retracting arm
-    public void extendIntake() {
-        extender.setPosition(0.451);
-    }
-
-    public void retractIntake() {
-        extender.setPosition(0.983);
-    }
-
 
 
 //    public void raiseArm(){

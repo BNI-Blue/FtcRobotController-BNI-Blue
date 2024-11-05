@@ -31,36 +31,41 @@ public class BlueITDTeleOp extends OpMode {
     public ITDBot ITDBot = new ITDBot();
 
     @Override
-    public void init (){
+    public void init() {
         ITDBot.initRobot(hardwareMap);
     }
 
-    public void init_loop(){}
+    public void init_loop() {
+    }
 
-    public void start(){}
+    public void start() {
+    }
 
     @Override
-    public void loop(){
+    public void loop() {
         speedControl();
         drive();
         telemetryOutput();
         //liftControl();
         intakeControl();
         preventClawOnStart();
-       // changeD
+        // changeD
         // riverProfile();
-
+        intakeFlipControl();
+        bucketFlipControl();
+        bucketLinearControl();
     }
+
     public void changeDriverProfile() {
         if (gamepad1.left_bumper) {
             currentProfile = PROFILE_1;
-        }
-        else if (gamepad1.right_bumper) {
+        } else if (gamepad1.right_bumper) {
             currentProfile = PROFILE_2;
         }
 
     }
-    public void drive () {
+
+    public void drive() {
 
         // Joystick values
         leftStickYVal = -gamepad1.left_stick_y;
@@ -122,43 +127,39 @@ public class BlueITDTeleOp extends OpMode {
         }
     }
 
-    public void telemetryOutput(){
-        telemetry.addData("pwr ", "FL motor ", + frontLeftSpeed);
-        telemetry.addData("pwr ", "FR motor ", + frontRightSpeed);
-        telemetry.addData("pwr ", "RL motor ", + rearLeftSpeed);
-        telemetry.addData("pwr ", "RR motor ", + rearRightSpeed);
+    public void telemetryOutput() {
+        telemetry.addData("pwr ", "FL motor ", +frontLeftSpeed);
+        telemetry.addData("pwr ", "FR motor ", +frontRightSpeed);
+        telemetry.addData("pwr ", "RL motor ", +rearLeftSpeed);
+        telemetry.addData("pwr ", "RR motor ", +rearRightSpeed);
         telemetry.update();
     }
 
-    public void speedControl(){
-        if(gamepad1.dpad_up){
+    public void speedControl() {
+        if (gamepad1.dpad_up) {
             speedMultiply = 0.5;
-        }
-        else if (gamepad1.dpad_right){
+        } else if (gamepad1.dpad_right) {
             speedMultiply = 0.75;
-        }
-        else if (gamepad1.dpad_down){
+        } else if (gamepad1.dpad_down) {
             speedMultiply = 0.25;
-            }
-        else if (gamepad1.dpad_left){
+        } else if (gamepad1.dpad_left) {
             speedMultiply = 1;
-        }
-        else{
+        } else {
             speedMultiply = 1;
         }
     }
 
-    public void preventClawOnStart(){
-        if(gamepad1.a){
+    public void preventClawOnStart() {
+        if (gamepad1.a) {
             ITDBot.stopMotors();
         }
     }
 
-    public void bucketControl(){
-        if(gamepad2.dpad_left) {
+    public void bucketFlipControl() {
+        if (gamepad2.dpad_left) {
             ITDBot.fillBucket();
         }
-        if(gamepad2.dpad_right){
+        if (gamepad2.dpad_right) {
             ITDBot.emptyBucket();
         }
     }
@@ -171,7 +172,6 @@ public class BlueITDTeleOp extends OpMode {
             ITDBot.intakeHolderUp();
         }
     }
-
 
 
 //    public void liftControl(){
@@ -189,7 +189,7 @@ public class BlueITDTeleOp extends OpMode {
         if (gamepad2.right_bumper) {
             ITDBot.sampleIntake();
         } else if (gamepad2.left_bumper) {
-            ITDBot. sampleOuttake();
+            ITDBot.sampleOuttake();
         }
         else{
             ITDBot.intakeStop();
@@ -201,6 +201,16 @@ public class BlueITDTeleOp extends OpMode {
 
         if(gamepad2.dpad_down){
             ITDBot.retractIntake();
+        }
+    }
+
+    public void bucketLinearControl(){
+
+        if (gamepad2.left_stick_y > 0.1) {
+            ITDBot.bucketSlideUp(1);
+
+        } else if (gamepad2.left_stick_y > -0.1) {
+            ITDBot.bucketSlideDown(1);
         }
     }
 
