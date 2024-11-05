@@ -30,6 +30,10 @@ public class MecanumDrive {
 
     public CRServo sampleIntakeServo = null;
 
+    public Servo bucketFlip = null;
+
+    public Servo intakeHolderFlip = null;
+
 
     public LinearOpMode LinearOp = null;
 

@@ -154,6 +154,25 @@ public class BlueITDTeleOp extends OpMode {
         }
     }
 
+    public void bucketControl(){
+        if(gamepad2.dpad_left) {
+            ITDBot.fillBucket();
+        }
+        if(gamepad2.dpad_right){
+            ITDBot.emptyBucket();
+        }
+    }
+
+    public void intakeFlipControl(){
+        if(gamepad2.x){
+            ITDBot.intakeHolderDown();
+        }
+        if(gamepad2.y){
+            ITDBot.intakeHolderUp();
+        }
+    }
+
+
 
 //    public void liftControl(){
 //        if(gamepad2.a){
