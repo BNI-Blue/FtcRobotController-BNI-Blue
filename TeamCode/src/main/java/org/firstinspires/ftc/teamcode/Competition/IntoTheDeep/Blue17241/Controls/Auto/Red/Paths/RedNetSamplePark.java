@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.RedAlliance;
 
 //@Disabled
-@Autonomous(name = "Red:Net:Sample:Park")
+@Autonomous(name = "Red:Net:Sample:ObsPark")
 public class RedNetSamplePark extends RedAlliance {
     @Override
     public void runOpMode() throws InterruptedException{
