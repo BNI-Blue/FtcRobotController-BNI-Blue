@@ -21,15 +21,18 @@ public class MecanumDrive {
     public DcMotor rightEncoder;
     public DcMotor centerEncoder;
 
-    //public DcMotor fourBar;
 
-    public DcMotor liftOne;
-    public Servo liftRelease;
+    public DcMotor climbingLift;
+    public Servo climbingRelease;
+    public DcMotor bucketLinearSlide;
 
-    public Servo extender = null;
+    public Servo intakeExtender = null;
 
     public CRServo sampleIntakeServo = null;
 
+    public Servo bucketFlip = null;
+
+    public Servo intakeHolderFlip = null;
 
     public LinearOpMode LinearOp = null;
 
