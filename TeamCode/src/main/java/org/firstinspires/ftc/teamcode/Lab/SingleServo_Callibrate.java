@@ -6,8 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "single grabber arm", group = "LAB")
-
+@TeleOp(name = "Single Servo Calibrate", group = "LAB")
 
 public class SingleServo_Callibrate extends OpMode {
 
@@ -22,7 +21,7 @@ public class SingleServo_Callibrate extends OpMode {
     public void init () {
         //"servo_ring_pusher" = ring pusher
         //"ring_mag" = mag servo
-        myServo = hardwareMap.servo.get("pixel_rotator");
+        myServo = hardwareMap.servo.get("intake_rotator");
         myServo.setPosition(servoPos);
     }
 
@@ -42,10 +41,10 @@ public class SingleServo_Callibrate extends OpMode {
 
 
         if (gamepad1.a) {
-            myServo.setPosition(0.2);
+            servoPos = 0;
         }
         else if (gamepad1.b) {
-            myServo.setPosition(0.9);
+            servoPos = 1;
         }
 
         myServo.setPosition(servoPos);

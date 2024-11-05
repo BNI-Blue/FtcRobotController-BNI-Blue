@@ -2,11 +2,10 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDriveOld;
 
-public class SpecBot extends MecanumDrive {
+public class SpecBot extends MecanumDriveOld {
 
     public HardwareMap hwBot = null;
 

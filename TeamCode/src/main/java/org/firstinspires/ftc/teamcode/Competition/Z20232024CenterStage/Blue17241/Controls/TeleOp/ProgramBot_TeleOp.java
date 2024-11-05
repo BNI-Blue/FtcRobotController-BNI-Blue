@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Robots.ProgramBot;
-@Disabled
+//@Disabled
 @TeleOp(name="ProgramBot")
 public class ProgramBot_TeleOp extends OpMode {
         double leftStickYVal;
@@ -23,7 +23,6 @@ public class ProgramBot_TeleOp extends OpMode {
         double powerThreshold = 0;
         double speedMultiply = 1;
 
-
         // Construct the physical robot object
         public ProgramBot ProgramBot_New = new ProgramBot();
 
@@ -39,59 +38,59 @@ public class ProgramBot_TeleOp extends OpMode {
         @Override
         public void loop() {
             speedControl();
-//            drive();
+           drive();
             telemetryOutput();
 
         }
-//        public void drive() {
-//
-//            leftStickYVal = -gamepad1.left_stick_y;
-//            leftStickYVal = Range.clip(leftStickYVal, -1, 1);
-//            leftStickXVal = gamepad1.left_stick_x;
-//            leftStickXVal = Range.clip(leftStickXVal, -1, 1);
-//            rightStickXVal = gamepad1.right_stick_x;
-//            rightStickXVal = Range.clip(rightStickXVal, -1, 1);
-//
-//            frontLeftSpeed = leftStickYVal + leftStickXVal + rightStickXVal;
-//            frontLeftSpeed = Range.clip(frontLeftSpeed, -1, 1);
-//
-//            frontRightSpeed = leftStickYVal - leftStickXVal - rightStickXVal;
-//            frontRightSpeed = Range.clip(frontRightSpeed, -1, 1);
-//
-//            rearLeftSpeed = leftStickYVal - leftStickXVal + rightStickXVal;
-//            rearLeftSpeed = Range.clip(rearLeftSpeed, -1, 1);
-//
-//            rearRightSpeed = leftStickYVal + leftStickXVal - rightStickXVal;
-//            rearRightSpeed = Range.clip(rearRightSpeed, -1, 1);
-//
-//            if (frontLeftSpeed <= powerThreshold && frontLeftSpeed >= -powerThreshold) {
-//                frontLeftSpeed = 0;
-//                ProgramBot_New.frontLeftMotor.setPower(frontLeftSpeed);
-//            } else {
-//                ProgramBot_New.frontLeftMotor.setPower(frontLeftSpeed * speedMultiply);
-//            }
-//
-//            if (frontRightSpeed <= powerThreshold && frontRightSpeed >= -powerThreshold) {
-//                frontRightSpeed = 0;
-//                ProgramBot_New.frontRightMotor.setPower(frontRightSpeed);
-//            } else {
-//                ProgramBot_New.frontRightMotor.setPower(frontRightSpeed * speedMultiply);
-//            }
-//
-//            if (rearLeftSpeed <= powerThreshold && rearLeftSpeed >= -powerThreshold) {
-//                rearLeftSpeed = 0;
-//                ProgramBot_New.rearLeftMotor.setPower(rearLeftSpeed);
-//            } else {
-//                ProgramBot_New.rearLeftMotor.setPower(rearLeftSpeed * speedMultiply);
-//            }
-//
-//            if (rearRightSpeed <= powerThreshold && rearRightSpeed >= -powerThreshold) {
-//                rearRightSpeed = 0;
-//                ProgramBot_New.rearRightMotor.setPower(rearRightSpeed);
-//            } else {
-//                ProgramBot_New.rearRightMotor.setPower(rearRightSpeed * speedMultiply);
-//            }
-//        }
+        public void drive() {
+
+            leftStickYVal = gamepad1.left_stick_y;
+            leftStickYVal = Range.clip(leftStickYVal, -1, 1);
+            leftStickXVal = -gamepad1.left_stick_x;
+            leftStickXVal = Range.clip(leftStickXVal, -1, 1);
+            rightStickXVal = -gamepad1.right_stick_x;
+            rightStickXVal = Range.clip(rightStickXVal, -1, 1);
+
+            frontLeftSpeed = leftStickYVal + leftStickXVal + rightStickXVal;
+            frontLeftSpeed = Range.clip(frontLeftSpeed, -1, 1);
+
+            frontRightSpeed = leftStickYVal - leftStickXVal - rightStickXVal;
+            frontRightSpeed = Range.clip(frontRightSpeed, -1, 1);
+
+            rearLeftSpeed = leftStickYVal - leftStickXVal + rightStickXVal;
+            rearLeftSpeed = Range.clip(rearLeftSpeed, -1, 1);
+
+            rearRightSpeed = leftStickYVal + leftStickXVal - rightStickXVal;
+            rearRightSpeed = Range.clip(rearRightSpeed, -1, 1);
+
+            if (frontLeftSpeed <= powerThreshold && frontLeftSpeed >= -powerThreshold) {
+                frontLeftSpeed = 0;
+                ProgramBot_New.frontLeftMotor.setPower(frontLeftSpeed);
+            } else {
+                ProgramBot_New.frontLeftMotor.setPower(frontLeftSpeed * speedMultiply);
+            }
+
+            if (frontRightSpeed <= powerThreshold && frontRightSpeed >= -powerThreshold) {
+                frontRightSpeed = 0;
+                ProgramBot_New.frontRightMotor.setPower(frontRightSpeed);
+            } else {
+                ProgramBot_New.frontRightMotor.setPower(frontRightSpeed * speedMultiply);
+            }
+
+            if (rearLeftSpeed <= powerThreshold && rearLeftSpeed >= -powerThreshold) {
+                rearLeftSpeed = 0;
+                ProgramBot_New.rearLeftMotor.setPower(rearLeftSpeed);
+            } else {
+                ProgramBot_New.rearLeftMotor.setPower(rearLeftSpeed * speedMultiply);
+            }
+
+            if (rearRightSpeed <= powerThreshold && rearRightSpeed >= -powerThreshold) {
+                rearRightSpeed = 0;
+                ProgramBot_New.rearRightMotor.setPower(rearRightSpeed);
+            } else {
+                ProgramBot_New.rearRightMotor.setPower(rearRightSpeed * speedMultiply);
+            }
+        }
         // Telemetry Controls Method for EndGame Extension/Lifting and Rotation
         public void telemetryOutput() {
 

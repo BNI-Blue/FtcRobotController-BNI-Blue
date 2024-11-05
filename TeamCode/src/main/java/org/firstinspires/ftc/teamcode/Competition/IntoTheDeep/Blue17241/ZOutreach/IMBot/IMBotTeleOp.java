@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.ZOutreach.IMBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.ZOutreach.GhostBot.GhostBot;
 
+@Disabled
 @TeleOp(name = "IMBot")
 public class IMBotTeleOp extends OpMode {
     double leftStickYVal;

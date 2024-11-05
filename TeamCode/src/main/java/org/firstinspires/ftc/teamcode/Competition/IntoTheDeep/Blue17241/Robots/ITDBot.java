@@ -27,8 +27,8 @@ public class ITDBot extends MecanumDrive {
         rearLeftMotor = hwBot.dcMotor.get("rear_left_motor");//Port 2 Control
         rearRightMotor = hwBot.dcMotor.get("rear_right_motor");//Port 3 Control
 
-        frontLeftMotor.setDirection(DcMotor.Direction.FORWARD);
-        frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+        frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
         rearLeftMotor.setDirection(DcMotor.Direction.REVERSE);
         rearRightMotor.setDirection(DcMotor.Direction.FORWARD);
 
@@ -40,6 +40,9 @@ public class ITDBot extends MecanumDrive {
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+//        fourBar = hwBot.dcMotor.get("four_bar"); //Port 0 - Expansion
+//        fourBar.setDirection(DcMotorSimple.Direction.FORWARD);
+//        fourBar.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         liftOne = hwBot.dcMotor.get("lift_one");
@@ -48,8 +51,6 @@ public class ITDBot extends MecanumDrive {
 
         liftRelease = hwBot.servo.get("lift_release");//Port _ - Expansion
         liftRelease.setDirection(Servo.Direction.FORWARD);
-
-
 
         extender = hwBot.servo.get("extender");//Port 1 - Expansion
 
@@ -71,6 +72,8 @@ public class ITDBot extends MecanumDrive {
     public void sampleIntake() {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
         sampleIntakeServo.setPower(1);
+
+
     }
 
 
@@ -94,8 +97,25 @@ public class ITDBot extends MecanumDrive {
 
     //extending/retracting arm
     public void extendIntake() {
-        extender.setPosition(0.586);}
+        extender.setPosition(0.451);
+    }
 
     public void retractIntake() {
-        extender.setPosition(1);}
+        extender.setPosition(0.983);
+    }
+
+//    public void raiseArm(){
+//        fourBar.setPower(1);
+//    }
+//    public void raiseArm(double speed, double rotations){
+//        double ticks = rotations * TICKS_PER_ROTATION;
+//        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//
+//        while((Math.abs(frontLeftMotor.getCurrentPosition() ) < ticks && LinearOp.opModeIsActive()) ){
+//            raiseArm();
+//        }
+//    }
+
+
 }
