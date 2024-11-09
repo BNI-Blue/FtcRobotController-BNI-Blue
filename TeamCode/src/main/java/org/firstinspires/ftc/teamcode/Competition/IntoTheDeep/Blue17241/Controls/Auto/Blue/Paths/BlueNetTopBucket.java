@@ -18,7 +18,7 @@ public class BlueNetTopBucket extends BlueAlliance {
 
         while(opModeIsActive()){
 
-            ITDBot.strafeLeft(0.5, 1.3);
+            ITDBot.strafeLeft(0.5, 1.6);
             sleep(100);
             ITDBot.driveBack(0.5, .1);
             bucketDumpTopLevel();
