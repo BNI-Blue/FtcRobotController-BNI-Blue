@@ -49,8 +49,7 @@ public class BlueITDTeleOp extends OpMode {
         //liftControl();
         intakeControl();
         preventClawOnStart();
-        // changeD
-        // riverProfile();
+        // changeDriverProfile();
         intakeFlipControl();
         bucketFlipControl();
         bucketLinearControl();
@@ -165,11 +164,12 @@ public class BlueITDTeleOp extends OpMode {
     }
 
     public void intakeFlipControl(){
-        if(gamepad2.x){
-            ITDBot.intakeHolderDown();
-        }
         if(gamepad2.y){
             ITDBot.intakeHolderUp();
+        }
+
+        if(gamepad2.x && ITDBot.intakeExtender.getPosition() <= 0.65) {
+            ITDBot.intakeHolderDown();
         }
     }
 
@@ -186,6 +186,8 @@ public class BlueITDTeleOp extends OpMode {
 
     public void intakeControl() {
 
+
+
         if (gamepad2.right_bumper) {
             ITDBot.sampleIntake();
         } else if (gamepad2.left_bumper) {
@@ -199,9 +201,11 @@ public class BlueITDTeleOp extends OpMode {
             ITDBot.extendIntake();
         }
 
-        if(gamepad2.dpad_down){
+        if (gamepad2.dpad_down && ITDBot.intakeHolderFlip.getPosition() <= 0.6) {
             ITDBot.retractIntake();
         }
+
+
     }
 
     public void bucketLinearControl(){
@@ -209,8 +213,11 @@ public class BlueITDTeleOp extends OpMode {
         if (gamepad2.left_stick_y > 0.1) {
             ITDBot.bucketSlideUp(1);
 
-        } else if (gamepad2.left_stick_y > -0.1) {
+        } else if (gamepad2.left_stick_y < -0.1) {
             ITDBot.bucketSlideDown(1);
+        }
+        else {
+            ITDBot.bucketSlideStop();
         }
     }
 

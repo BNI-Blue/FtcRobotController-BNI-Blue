@@ -16,8 +16,22 @@ public abstract class AutoMain extends LinearOpMode {
         telemetry.addLine("Awaiting Start");
         ITDBot.retractIntake();
         telemetry.update();
+        ITDBot.intakeHolderUpAuto();
+        ITDBot.fillBucket();
+
     }
 
+    public void bucketDumpTopLevel(){
+        ITDBot.bucketSlideDown(1);
+        sleep(1800);
+        ITDBot.bucketSlideStop();
+        ITDBot.emptyBucket();
+        sleep(1500);
+      ITDBot.fillBucket();
+        ITDBot.bucketSlideUp(0.5 );
+        sleep(1000);
+        ITDBot.bucketSlideStop();
+    }
 
  // Legacy Code from Olivia
 
