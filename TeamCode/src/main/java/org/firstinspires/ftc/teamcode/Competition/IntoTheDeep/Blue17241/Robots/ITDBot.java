@@ -99,11 +99,14 @@ public class ITDBot extends MecanumDrive {
     }
 
     public void intakeHolderUp() {
-        intakeHolderFlip.setPosition(1);
+        intakeHolderFlip.setPosition(.17);
+    }
+    public void intakeHolderUpAuto(){
+        intakeHolderFlip.setPosition(.37);
     }
 
     public void intakeHolderDown(){
-        intakeHolderFlip.setPosition(.5);
+        intakeHolderFlip.setPosition(.941);
     }
 
     //hanging arm
@@ -125,10 +128,10 @@ public class ITDBot extends MecanumDrive {
 
     // bucket mechanism
     public void emptyBucket(){
-        bucketFlip.setPosition(1);
+        bucketFlip.setPosition(0.2);
     }
     public void fillBucket(){
-        bucketFlip.setPosition(.5);
+        bucketFlip.setPosition(.9);
     }
 
     // bucket linear extention
@@ -138,6 +141,29 @@ public class ITDBot extends MecanumDrive {
 
     public void bucketSlideDown(double power) {
         bucketLinearSlide.setPower(-Math.abs(power));
+    }
+    public void bucketSlideStop() {
+        bucketLinearSlide.setPower(0);
+    }
+
+    public void bucketSlideUp(double speed, double rotations){
+        double ticks = rotations * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while((Math.abs(frontLeftMotor.getCurrentPosition() ) < ticks && LinearOp.opModeIsActive()) ){
+            bucketSlideUp(speed);
+        }
+    }
+
+    public void bucketSlideDown(double speed, double rotations){
+        double ticks = rotations * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while((Math.abs(frontLeftMotor.getCurrentPosition() ) < ticks && LinearOp.opModeIsActive()) ){
+            bucketSlideDown(speed);
+        }
     }
 
 

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
-@TeleOp(name = "Single Servo Calibrate")
+@TeleOp(name = "Single Servo Calibrate - CR")
 public class SingleServo_CR extends OpMode {
 
     public HardwareMap hwBot = null;

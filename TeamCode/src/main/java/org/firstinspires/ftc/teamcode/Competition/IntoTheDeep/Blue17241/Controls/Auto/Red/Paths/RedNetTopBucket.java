@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.Paths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.RedAlliance;
 
-@Disabled
-@Autonomous(name = "Red:GetOutofWay")
-public class RedGetOutOfWay extends RedAlliance {
+@Autonomous (name = "Red:Net:Top Bucket")
+public class RedNetTopBucket extends RedAlliance {
     @Override
     public void runOpMode() throws InterruptedException{
 
@@ -20,9 +18,11 @@ public class RedGetOutOfWay extends RedAlliance {
 
         while(opModeIsActive()){
 
-            ITDBot.strafeRight(1, 3);
-            sleep(25000);
-            requestOpModeStop();
+            ITDBot.strafeLeft(0.5, 1.3);
+            sleep(100);
+            ITDBot.driveBack(0.5, .1);
+            bucketDumpTopLevel();
+
 
         }
         idle();
