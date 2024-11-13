@@ -86,12 +86,12 @@ public class ITDBot extends MecanumDrive {
     //intake samples mech
     public void sampleIntake() {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
-        sampleIntakeServo.setPower(1);
+        sampleIntakeServo.setPower(0.4);
     }
 
     public void sampleOuttake() {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
-        sampleIntakeServo.setPower(-1);
+        sampleIntakeServo.setPower(-0.6);
     }
 
     public void intakeStop() {

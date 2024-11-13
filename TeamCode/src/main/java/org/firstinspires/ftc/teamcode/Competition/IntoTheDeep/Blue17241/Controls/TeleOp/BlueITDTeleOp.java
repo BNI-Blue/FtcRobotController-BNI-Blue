@@ -210,10 +210,10 @@ public class BlueITDTeleOp extends OpMode {
 
     public void bucketLinearControl(){
 
-        if (gamepad2.left_stick_y > 0.1) {
+        if (gamepad2.right_stick_y > 0.1) {
             ITDBot.bucketSlideUp(1);
 
-        } else if (gamepad2.left_stick_y < -0.1) {
+        } else if (gamepad2.right_stick_y < -0.1) {
             ITDBot.bucketSlideDown(1);
         }
         else {

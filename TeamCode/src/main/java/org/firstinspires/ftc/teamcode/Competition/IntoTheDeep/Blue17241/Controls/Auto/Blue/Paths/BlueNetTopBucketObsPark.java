@@ -19,12 +19,15 @@ public class BlueNetTopBucketObsPark extends BlueAlliance {
 
             sleep(25000);
 
-            ITDBot.strafeRight(1, .15);
-            ITDBot.driveForward(1, .75);
+            ITDBot.strafeLeft(0.5, 1.6);
+            sleep(100);
+            ITDBot.driveBack(0.5, .1);
             bucketDumpTopLevel();
 
-            ITDBot.strafeRight(1, .15);
-            ITDBot.driveBack(1,1);
+// Code to drive to observation zone, not tested
+            ITDBot.driveForward(1,1);
+            ITDBot.rotateRight(0.5, .2);
+            ITDBot.driveForward(0.5, 2.5);
 
             requestOpModeStop();
 

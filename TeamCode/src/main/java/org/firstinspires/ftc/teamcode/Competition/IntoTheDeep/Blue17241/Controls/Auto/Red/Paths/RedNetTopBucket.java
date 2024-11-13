@@ -18,10 +18,12 @@ public class RedNetTopBucket extends RedAlliance {
 
         while(opModeIsActive()){
 
-            ITDBot.strafeLeft(0.5, 1.3);
+            ITDBot.strafeLeft(0.5, 1.6);
             sleep(100);
             ITDBot.driveBack(0.5, .1);
             bucketDumpTopLevel();
+
+            requestOpModeStop();
 
 
         }
