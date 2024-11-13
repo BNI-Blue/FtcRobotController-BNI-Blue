@@ -1,13 +1,10 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Tester;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Tester;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
-
-@Disabled
+//@Disabled
 @Autonomous(name = "Tester:Net:Sample")
-public class TesterBlueNetSample extends BlueAlliance {
+public class TesterBlueNetSample extends TesterBlueAlliance {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -16,19 +13,15 @@ public class TesterBlueNetSample extends BlueAlliance {
 
         waitForStart();
 
-        ITDBot.retractIntake();
-
         //drive methods are pulled from Drivetrain
         while (opModeIsActive()) {
 
             //drive code
             while (opModeIsActive()) {
 
-                ITDBot.strafeRight(1, .15);
-                ITDBot.driveForward(1, 3.85);
-                ITDBot.sampleOuttake();
+                Bot.strafeRight(1, .15);
+                Bot.driveForward(1, 3.85);
                 sleep(1300);
-                ITDBot.intakeStop();
 
                 requestOpModeStop();
 
