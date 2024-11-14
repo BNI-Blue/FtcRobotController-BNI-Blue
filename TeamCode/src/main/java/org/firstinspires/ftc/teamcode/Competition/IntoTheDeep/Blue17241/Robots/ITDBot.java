@@ -87,59 +87,10 @@ public class ITDBot extends MecanumDrive {
     //intake samples mech
     public void sampleIntake() {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
-        sampleIntakeServo.setPower(0.4);
+        sampleIntakeServo.setPower(0.6);
     }
 
-    public void slowIntake(){
 
-//        // Declare a Servo object
-//        private Servo intakeHolderFlip = null;
-//
-//        // Variables for tracking servo position and movement
-//        public double currentPosition = 0.0;
-//        public double targetPosition = 1.0;  // Target position (1.0 is fully extended)
-//        public double increment = 0.01;  // How much to increment the servo position each loop
-//        public ElapsedTime runtime = new ElapsedTime();
-//        public boolean moving = false;  // State variable to track if servo is moving
-//
-//        @Override
-//        public void loop() {
-//            // Check if the servo is already moving
-//            if (moving = true) {
-//                // Gradually move the servo to the target position in small increments
-//                if (Math.abs(currentPosition - targetPosition) > increment) {
-//                    if (currentPosition < targetPosition) {
-//                        currentPosition += increment;
-//                    } else {
-//                        currentPosition -= increment;
-//                    }
-//                    intakeHolderFlip.setPosition(currentPosition);  // Set the servo's position
-//                } else {
-//                    // Once we're close to the target, stop and set the servo position exactly
-//                    currentPosition = targetPosition;
-//                    intakeHolderFlip.setPosition(currentPosition);
-//                    moving = false;  // Stop the movement
-//                }
-//            }
-//
-//            // For example, you can trigger the servo movement when the 'A' button is pressed
-//            if (gamepad1.a) {
-//                // Start the movement towards the target position
-//                moving = true;
-//            }
-//
-//            // You can use telemetry to visualize the current servo position
-//            telemetry.addData("Servo Position", currentPosition);
-//            telemetry.addData("Moving", moving ? "Yes" : "No");
-//            telemetry.update();
-//        }
-//
-//        @Override
-//        public void stop() {
-//            // Make sure to stop the servo or reset it if needed
-//            intakeHolderFlip.setPosition(0.0);  // Reset the servo to its starting position
-//        }
-    }
 
     public void sampleOuttake() {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);

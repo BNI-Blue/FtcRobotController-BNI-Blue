@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
@@ -30,13 +32,21 @@ public class BlueITDTeleOp extends OpMode {
 
     public ITDBot ITDBot = new ITDBot();
 
+    // Declare a Servo object
+    public Servo intakeHolderFlip = null;
+
+    // Variables for tracking servo position and movement
+    public double currentPosition = 0.0;
+    public double targetPosition = 0.17;  // Target position (1.0 is fully extended)
+    public double increment = 0.01;  // How much to increment the servo position each loop
+    public ElapsedTime runtime = new ElapsedTime();
+    public boolean moving = false;  // State variable to track if servo is moving
+
     @Override
     public void init() {
         ITDBot.initRobot(hardwareMap);
     }
 
-    public void init_loop() {
-    }
 
     public void start() {
     }
@@ -53,6 +63,7 @@ public class BlueITDTeleOp extends OpMode {
         intakeFlipControl();
         bucketFlipControl();
         bucketLinearControl();
+        slowIntake();
     }
 
     public void changeDriverProfile() {
@@ -63,6 +74,8 @@ public class BlueITDTeleOp extends OpMode {
         }
 
     }
+
+
 
     public void drive() {
 
@@ -164,9 +177,9 @@ public class BlueITDTeleOp extends OpMode {
     }
 
     public void intakeFlipControl(){
-        if(gamepad2.y){
-            ITDBot.intakeHolderUp();
-        }
+//        if(gamepad2.y){
+//            ITDBot.intakeHolderUp();
+//        }
 
         if(gamepad2.x && ITDBot.intakeExtender.getPosition() <= 0.65) {
             ITDBot.intakeHolderDown();
@@ -221,4 +234,41 @@ public class BlueITDTeleOp extends OpMode {
         }
     }
 
-}
+    public void slowIntake(){
+        currentPosition = intakeHolderFlip.getPosition();
+            if (moving = true) {
+                // Gradually move the servo to the target position in small increments
+                if (Math.abs(currentPosition - targetPosition) > increment) {
+                    if (currentPosition < targetPosition) {
+                        currentPosition += increment;
+                    } else {
+                        currentPosition -= increment;
+                    }
+                    intakeHolderFlip.setPosition(currentPosition);  // Set the servo's position
+                } else {
+                    // Once we're close to the target, stop and set the servo position exactly
+                    currentPosition = targetPosition;
+                    intakeHolderFlip.setPosition(currentPosition);
+                    moving = false;  // Stop the movement
+                }
+            }
+
+            // For example, you can trigger the servo movement when the 'A' button is pressed
+            if (gamepad2.y) {
+                // Start the movement towards the target position
+                moving = true;
+            }
+
+            // You can use telemetry to visualize the current servo position
+            telemetry.addData("Servo Position", currentPosition);
+            telemetry.addData("Moving", moving ? "Yes" : "No");
+            telemetry.update();
+        }
+
+        @Override
+        public void stop() {
+            // Make sure to stop the servo or reset it if needed
+            intakeHolderFlip.setPosition(0.0);  // Reset the servo to its starting position
+        }
+    }
+
