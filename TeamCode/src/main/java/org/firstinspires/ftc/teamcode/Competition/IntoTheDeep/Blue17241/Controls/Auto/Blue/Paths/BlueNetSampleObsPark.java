@@ -29,6 +29,7 @@ public class BlueNetSampleObsPark extends BlueAlliance {
                     sleep(1300);
                     ITDBot.intakeStop();
 
+                    //Code for if partner can move away from wall
                     ITDBot.strafeRight(1, .15);
                     ITDBot.driveBack(1, 8);
                     requestOpModeStop();

@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
 
@@ -86,8 +87,10 @@ public class ITDBot extends MecanumDrive {
     //intake samples mech
     public void sampleIntake() {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
-        sampleIntakeServo.setPower(1);
+        sampleIntakeServo.setPower(0.6);
     }
+
+
 
     public void sampleOuttake() {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
@@ -108,6 +111,7 @@ public class ITDBot extends MecanumDrive {
     public void intakeHolderDown(){
         intakeHolderFlip.setPosition(.941);
     }
+
 
     //hanging arm
     public void climbing_lift(double power){

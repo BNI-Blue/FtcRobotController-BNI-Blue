@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.Paths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.RedAlliance;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "Red:Net:Sample:ObsPark")
 public class RedNetSamplePark extends RedAlliance {
     @Override
