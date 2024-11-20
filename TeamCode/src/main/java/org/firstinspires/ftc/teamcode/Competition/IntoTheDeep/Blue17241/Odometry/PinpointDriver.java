@@ -20,7 +20,7 @@
  *   SOFTWARE.
  */
 
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry;
 
 import static com.qualcomm.robotcore.util.TypeConversion.byteArrayToInt;
 
@@ -39,7 +39,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
-
 
 @I2cDeviceType
 @DeviceProperties(

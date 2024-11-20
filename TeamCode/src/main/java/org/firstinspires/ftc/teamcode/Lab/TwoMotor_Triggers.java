@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 //Class is used for testing a single motor, using trigger for variable power.
 //WITHOUT
-@TeleOp(name = "two motor test - TRIGGERS", group="lab")
+@TeleOp(name = "Two Motor Test:TRIGGERS", group="lab")
 
 
 public class TwoMotor_Triggers extends OpMode {

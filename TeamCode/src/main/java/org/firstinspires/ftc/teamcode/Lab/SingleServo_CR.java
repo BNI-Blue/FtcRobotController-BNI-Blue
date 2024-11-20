@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Lab;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -7,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
-@TeleOp(name = "Single Servo Calibrate - CR")
+@TeleOp(name = "Single Servo Calibrate - CR", group = "LAB")
 public class SingleServo_CR extends OpMode {
 
     public HardwareMap hwBot = null;

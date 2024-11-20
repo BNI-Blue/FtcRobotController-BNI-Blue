@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 //@Disabled
-@Autonomous(name = "Tester:Red:Net:Sample")
+@Autonomous(name = "Tester:Red:Net:Sample", group = "Testers")
 public class TesterRedNetSample extends TesterRedAlliance{
     @Override
     public void runOpMode() throws InterruptedException {

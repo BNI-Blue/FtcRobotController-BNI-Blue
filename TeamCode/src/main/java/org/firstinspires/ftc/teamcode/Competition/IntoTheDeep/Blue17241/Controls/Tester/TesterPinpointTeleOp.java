@@ -8,12 +8,12 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.PinpointDriver;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ProgrammerBot;
 
 import java.util.Locale;
 
-@TeleOp (name = "Tester:TeleOp Odometry")
+@TeleOp (name = "Tester:TeleOp Odometry", group = "Testers")
 public class TesterPinpointTeleOp extends OpMode {
 
     double leftStickYVal;
@@ -34,14 +34,15 @@ public class TesterPinpointTeleOp extends OpMode {
     private int currentProfile = PROFILE_2;
 
     // Instantiate Odometry Computer and Robot
-    PinpointDriver odo;
+
     public ProgrammerBot Bot = new ProgrammerBot();
+    public Pinpoint odo = new Pinpoint();
 
     @Override
     public void init() {
 
         Bot.initRobot(hardwareMap);
-        Bot.initOdometry(hardwareMap);
+        odo.initPinpoint(hardwareMap);
     }
 
     @Override

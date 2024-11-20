@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ProgrammerBot;
 
-@TeleOp (name = "Tester:Driver Practice")
+@TeleOp (name = "Tester:Driver Practice", group = "Testers")
 public class TesterBasicTeleOp extends OpMode {
 
     double leftStickYVal;
