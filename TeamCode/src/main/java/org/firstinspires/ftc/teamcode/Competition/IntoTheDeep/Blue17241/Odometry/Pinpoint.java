@@ -12,36 +12,28 @@ public class Pinpoint {
     public HardwareMap hwBot = null;
     public PinpointDriver pinpoint = null;
     public LinearOpMode LinearOp = null;
-    public Telemetry telemetry = null;
 
 
-    public double x = -66.88;
-    public double y = -180.98;
+    public double x = -66.88;    // Need to update these for Blue Program Bot
+    public double y = -180.98;   // Need to update these for Blue Program Bot
 
     public Pinpoint() {
     }
 
     public void setLinearOp(LinearOpMode LinearOp) {
         this.LinearOp = LinearOp;
-        telemetry = LinearOp.telemetry;
     }
 
     public void initPinpoint(HardwareMap hwMap) {
         hwBot = hwMap;
 
-        pinpoint = hwBot.get(PinpointDriver.class, "pinpoint");
+        pinpoint = hwBot.get(PinpointDriver.class, "odo");
         pinpoint.setOffsets(x, y);
         pinpoint.setEncoderResolution(PinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         pinpoint.setEncoderDirections(PinpointDriver.EncoderDirection.FORWARD, PinpointDriver.EncoderDirection.FORWARD);
 
         pinpoint.resetPosAndIMU();
 
-        telemetry.addData("Status", "Initialized");
-        telemetry.addData("X offset", pinpoint.getXOffset());
-        telemetry.addData("Y offset", pinpoint.getYOffset());
-        telemetry.addData("Device Version Number:", pinpoint.getDeviceVersion());
-        telemetry.addData("Device Scalar", pinpoint.getYawScalar());
-        telemetry.update();
     }
 
     public void update() {
