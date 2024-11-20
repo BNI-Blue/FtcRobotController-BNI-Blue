@@ -30,7 +30,7 @@ public class Pinpoint {
         pinpoint = hwBot.get(PinpointDriver.class, "odo");
         pinpoint.setOffsets(x, y);
         pinpoint.setEncoderResolution(PinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        pinpoint.setEncoderDirections(PinpointDriver.EncoderDirection.FORWARD, PinpointDriver.EncoderDirection.FORWARD);
+        pinpoint.setEncoderDirections(PinpointDriver.EncoderDirection.REVERSED, PinpointDriver.EncoderDirection.FORWARD);
 
         pinpoint.resetPosAndIMU();
 
