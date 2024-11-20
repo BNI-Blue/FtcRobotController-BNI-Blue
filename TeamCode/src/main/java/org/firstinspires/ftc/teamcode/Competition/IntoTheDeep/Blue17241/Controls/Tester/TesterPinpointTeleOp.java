@@ -66,6 +66,7 @@ public class TesterPinpointTeleOp extends OpMode {
 
     }
 
+
     public void drive() {
 
         // Joystick values
@@ -134,10 +135,12 @@ public class TesterPinpointTeleOp extends OpMode {
         telemetry.addData("pwr ", "RL motor ", +rearLeftSpeed);
         telemetry.addData("pwr ", "RR motor ", +rearRightSpeed);
 
+        odo.update();
         Pose2D pos = odo.getPosition();
         String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.INCH), pos.getY(DistanceUnit.INCH), pos.getHeading(AngleUnit.DEGREES));
         telemetry.addData("Position", data);
 
+        odo.update();
         Pose2D vel = odo.getVelocity();
         String velocity = String.format(Locale.US,"{XVel: %.3f, YVel: %.3f, HVel: %.3f}", vel.getX(DistanceUnit.INCH), vel.getY(DistanceUnit.INCH), vel.getHeading(AngleUnit.DEGREES));
         telemetry.addData("Velocity", velocity);
