@@ -14,8 +14,8 @@ public class Pinpoint {
     public LinearOpMode LinearOp = null;
 
     // This is the amount of MM from the pinpoint computer hardware as compared to the logical center of the robot
-    public double x = -66.88;    // Need to update these for Blue Program Bot
-    public double y = -180.98;   // Need to update these for Blue Program Bot
+    public double x = -101.6;    // Need to update these for Blue Program Bot
+    public double y = -38.1;   // Need to update these for Blue Program Bot
 
     public Pinpoint() {
     }

@@ -6,9 +6,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrivePinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.PinpointDriver;
 
-public class ProgrammerBot extends MecanumDrive {
+public class ProgrammerBot extends MecanumDrivePinpoint {
 
     public HardwareMap hwBot = null;
 
