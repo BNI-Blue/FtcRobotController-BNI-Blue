@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.Paths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
-@Disabled
-@Autonomous(name = "Blue:GetOutofWay")
-public class BlueGetOutofWay extends BlueAlliance {
+@Autonomous(name = "Blue:Net:TopBucket")
+public class BlueNetTopBucket extends BlueAlliance {
     @Override
     public void runOpMode() throws InterruptedException{
 
@@ -18,11 +16,13 @@ public class BlueGetOutofWay extends BlueAlliance {
 
         ITDBot.retractIntake();
 
-        //drive methods are pulled from Drivetrain
         while(opModeIsActive()){
 
-            ITDBot.strafeRight(1, 3);
-            sleep(25000);
+            ITDBot.strafeLeft(0.5, 1.6);
+            sleep(100);
+            ITDBot.driveBack(0.5, .1);
+            bucketDumpTopLevel();
+
             requestOpModeStop();
 
         }

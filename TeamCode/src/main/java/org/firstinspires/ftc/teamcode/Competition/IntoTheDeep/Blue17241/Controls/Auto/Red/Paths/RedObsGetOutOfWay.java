@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.RedAlliance;
 
 @Disabled
-@Autonomous(name = "Red:GetOutofWay")
-public class RedGetOutOfWay extends RedAlliance {
+@Autonomous(name = "RedObs:GetOutOfWay")
+public class RedObsGetOutOfWay extends RedAlliance {
     @Override
     public void runOpMode() throws InterruptedException{
 
@@ -20,7 +20,7 @@ public class RedGetOutOfWay extends RedAlliance {
 
         while(opModeIsActive()){
 
-            ITDBot.strafeRight(1, 3);
+            ITDBot.strafeRight(1, 2);
             sleep(25000);
             requestOpModeStop();
 

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
+//@Disabled
 @TeleOp(name = "Single Servo Calibrate", group = "LAB")
 
 public class SingleServo_Callibrate extends OpMode {
@@ -13,7 +14,7 @@ public class SingleServo_Callibrate extends OpMode {
     private Servo myServo = null;
 
     //change back to 0.5 for any other servo, but should be 0.2 for ring_mag
-    private double servoPos = 0.5;
+    private double servoPos = 1;
 
     private double incVal = 0.001;
 
@@ -21,7 +22,22 @@ public class SingleServo_Callibrate extends OpMode {
     public void init () {
         //"servo_ring_pusher" = ring pusher
         //"ring_mag" = mag servo
-        myServo = hardwareMap.servo.get("intake_rotator");
+//        myServo = hardwareMap.servo.get("bucket_flip");
+//        COLLECT = 0.9
+//        SCORE = 0.2
+
+//        myServo = hardwareMap.servo.get("intake_flip");
+//        COLLECT = 0.941
+//        SCORE = .17
+        //START OF AUTO = .37
+//        DECREASE TO GET CLOSER TO BUCKET
+//        DO NOT GO BELOW .11
+
+
+
+                myServo = hardwareMap.servo.get("intake_extender");
+
+//
         myServo.setPosition(servoPos);
     }
 
@@ -54,7 +70,7 @@ public class SingleServo_Callibrate extends OpMode {
     public void updateTelemetry () {
         telemetry.addLine("RB: increase, LB: Decrease");
         telemetry.addLine("x = set to .90, y = set to 0.10");
-        telemetry.addData("TestS ervo Positiom: ", myServo.getPosition());
+        telemetry.addData("Test Servo Position: ", myServo.getPosition());
         telemetry.addData("Servo Variable Position: ", servoPos);
         telemetry.update();
     }

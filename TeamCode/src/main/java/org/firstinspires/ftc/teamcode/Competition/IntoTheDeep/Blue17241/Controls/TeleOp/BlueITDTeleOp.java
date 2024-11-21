@@ -3,11 +3,13 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
 
-@TeleOp (name = "ITD Bot TeleOp")
+@TeleOp (name = "ITD Bot TeleOp", group = "Drive")
 public class BlueITDTeleOp extends OpMode {
 
     double leftStickYVal;
@@ -30,37 +32,53 @@ public class BlueITDTeleOp extends OpMode {
 
     public ITDBot ITDBot = new ITDBot();
 
+    // Declare a Servo object
+    public Servo intakeHolderFlip = null;
+
+    // Variables for tracking servo position and movement
+    public double currentPosition = 0.0;
+    public double targetPosition = 0.17;  // Target position (1.0 is fully extended)
+    public double increment = 0.001;  // How much to increment the servo position each loop
+    public ElapsedTime runtime = new ElapsedTime();
+    public boolean moving = false;  // State variable to track if servo is moving
+
     @Override
-    public void init (){
+    public void init() {
         ITDBot.initRobot(hardwareMap);
     }
 
-    public void init_loop(){}
 
-    public void start(){}
+    public void start() {
+    }
 
     @Override
-    public void loop(){
+    public void loop() {
         speedControl();
         drive();
         telemetryOutput();
         //liftControl();
         intakeControl();
         preventClawOnStart();
-       // changeD
-        // riverProfile();
-
+        // changeDriverProfile();
+        intakeFlipControl();
+        bucketFlipControl();
+        bucketLinearControl();
+        slowIntake();
+        //combinedControl();
     }
+
     public void changeDriverProfile() {
         if (gamepad1.left_bumper) {
             currentProfile = PROFILE_1;
-        }
-        else if (gamepad1.right_bumper) {
+        } else if (gamepad1.right_bumper) {
             currentProfile = PROFILE_2;
         }
 
     }
-    public void drive () {
+
+
+
+    public void drive() {
 
         // Joystick values
         leftStickYVal = -gamepad1.left_stick_y;
@@ -122,35 +140,59 @@ public class BlueITDTeleOp extends OpMode {
         }
     }
 
-    public void telemetryOutput(){
-        telemetry.addData("pwr ", "FL motor ", + frontLeftSpeed);
-        telemetry.addData("pwr ", "FR motor ", + frontRightSpeed);
-        telemetry.addData("pwr ", "RL motor ", + rearLeftSpeed);
-        telemetry.addData("pwr ", "RR motor ", + rearRightSpeed);
+    public void telemetryOutput() {
+        telemetry.addData("pwr ", "FL motor ", +frontLeftSpeed);
+        telemetry.addData("pwr ", "FR motor ", +frontRightSpeed);
+        telemetry.addData("pwr ", "RL motor ", +rearLeftSpeed);
+        telemetry.addData("pwr ", "RR motor ", +rearRightSpeed);
         telemetry.update();
     }
 
-    public void speedControl(){
-        if(gamepad1.dpad_up){
+    public void speedControl() {
+        if (gamepad1.dpad_up) {
             speedMultiply = 0.5;
-        }
-        else if (gamepad1.dpad_right){
+        } else if (gamepad1.dpad_right) {
             speedMultiply = 0.75;
-        }
-        else if (gamepad1.dpad_down){
+        } else if (gamepad1.dpad_down) {
             speedMultiply = 0.25;
-            }
-        else if (gamepad1.dpad_left){
+        } else if (gamepad1.dpad_left) {
             speedMultiply = 1;
-        }
-        else{
+        } else {
             speedMultiply = 1;
         }
     }
 
-    public void preventClawOnStart(){
-        if(gamepad1.a){
+    public void preventClawOnStart() {
+        if (gamepad1.a) {
             ITDBot.stopMotors();
+        }
+    }
+
+    public void bucketFlipControl() {
+        if (gamepad2.dpad_left) {
+            ITDBot.fillBucket();
+        }
+        if (gamepad2.dpad_right) {
+            ITDBot.emptyBucket();
+        }
+    }
+
+//    public void combinedControl(){
+//        if(gamepad2.options){
+//            ITDBot.bucketSlideUp(1, 4.5);
+//            ITDBot.emptyBucket();
+//            ITDBot.fillBucket();
+//            ITDBot.bucketSlideDown(1, 4.3);
+//        }
+//    }
+
+    public void intakeFlipControl(){
+//        if(gamepad2.y){
+//            ITDBot.intakeHolderUp();
+//        }
+
+        if(gamepad2.x && ITDBot.intakeExtender.getPosition() <= 0.65) {
+            ITDBot.intakeHolderDown();
         }
     }
 
@@ -167,10 +209,12 @@ public class BlueITDTeleOp extends OpMode {
 
     public void intakeControl() {
 
+
+
         if (gamepad2.right_bumper) {
             ITDBot.sampleIntake();
         } else if (gamepad2.left_bumper) {
-            ITDBot. sampleOuttake();
+            ITDBot.sampleOuttake();
         }
         else{
             ITDBot.intakeStop();
@@ -180,9 +224,61 @@ public class BlueITDTeleOp extends OpMode {
             ITDBot.extendIntake();
         }
 
-        if(gamepad2.dpad_down){
+        if (gamepad2.dpad_down && ITDBot.intakeHolderFlip.getPosition() <= 0.6) {
             ITDBot.retractIntake();
+        }
+
+
+    }
+
+    public void bucketLinearControl(){
+
+        if (gamepad2.right_stick_y > 0.1) {
+            ITDBot.bucketSlideUp(1);
+
+        } else if (gamepad2.right_stick_y < -0.1) {
+            ITDBot.bucketSlideDown(1);
+        }
+        else {
+            ITDBot.bucketSlideStop();
         }
     }
 
-}
+    public void slowIntake(){
+        currentPosition = ITDBot.intakeHolderFlip.getPosition();
+            if (moving) {
+                // Gradually move the servo to the target position in small increments
+                if (Math.abs(currentPosition - targetPosition) > increment) {
+                    if (currentPosition < targetPosition) {
+                        currentPosition += increment;
+                    } else {
+                        currentPosition -= increment;
+                    }
+                    ITDBot.intakeHolderFlip.setPosition(currentPosition);  // Set the servo's position
+                } else {
+                    // Once we're close to the target, stop     and set the servo position exactly
+                    currentPosition = targetPosition;
+                    ITDBot.intakeHolderFlip.setPosition(currentPosition);
+                    moving = false;  // Stop the movement
+                }
+            }
+
+            // For example, you can trigger the servo movement when the 'A' button is pressed
+            if (gamepad2.y) {
+                // Start the movement towards the target position
+                moving = true;
+            }
+
+            // You can use telemetry to visualize the current servo position
+            telemetry.addData("Servo Position", currentPosition);
+            telemetry.addData("Moving", moving ? "Yes" : "No");
+            telemetry.update();
+        }
+
+        @Override
+        public void stop() {
+            // Make sure to stop the servo or reset it if needed
+            ITDBot.intakeHolderFlip.setPosition(0.37);  // Reset the servo to its starting position
+        }
+    }
+
