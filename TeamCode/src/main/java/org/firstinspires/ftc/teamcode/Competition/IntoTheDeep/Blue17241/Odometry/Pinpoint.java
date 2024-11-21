@@ -13,7 +13,7 @@ public class Pinpoint {
     public PinpointDriver pinpoint = null;
     public LinearOpMode LinearOp = null;
 
-
+// x and y initial position values for the robot
     public double x = -66.88;    // Need to update these for Blue Program Bot
     public double y = -180.98;   // Need to update these for Blue Program Bot
 
@@ -32,6 +32,7 @@ public class Pinpoint {
         pinpoint.setEncoderResolution(PinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         pinpoint.setEncoderDirections(PinpointDriver.EncoderDirection.REVERSED, PinpointDriver.EncoderDirection.FORWARD);
 
+        // resets the position and IMU heading to their default state
         pinpoint.resetPosAndIMU();
 
     }
