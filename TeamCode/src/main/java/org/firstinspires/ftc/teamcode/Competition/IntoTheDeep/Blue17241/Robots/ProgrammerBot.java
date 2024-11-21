@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.PinpointDriver;
 
 public class ProgrammerBot extends MecanumDrive {
 
@@ -11,11 +14,12 @@ public class ProgrammerBot extends MecanumDrive {
 
     //Mechanisms Variables
 
+
     //Constructor
     public ProgrammerBot(){}
 
-    //Init Method
-    public void initRobot(HardwareMap hwMap){
+    //Initialize Drivetrain and Robot
+    public void initRobot(HardwareMap hwMap) {
         hwBot = hwMap;
 
         //Drivetrain Motors HW Mapping
@@ -37,7 +41,12 @@ public class ProgrammerBot extends MecanumDrive {
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-         }
+        // Initialize Rev IMU
+        RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
+        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
-
+        imu = hwBot.get(IMU.class, "imu");
+        imu.initialize(new IMU.Parameters(orientationOnRobot));
+    }
 }

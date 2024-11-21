@@ -5,10 +5,16 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ProgrammerBot;
 
-@TeleOp (name = "Blue ProgramBot")
-public class TesterBotTeleOp extends OpMode {
+import java.util.Locale;
+
+@TeleOp (name = "Tester:TeleOp Odometry", group = "Testers")
+public class TesterPinpointTeleOp extends OpMode {
 
     double leftStickYVal;
     double leftStickXVal;
@@ -26,19 +32,20 @@ public class TesterBotTeleOp extends OpMode {
     private static final int PROFILE_1 = 1;  //Charlie
     private static final int PROFILE_2 = 2;  // Evan
     private int currentProfile = PROFILE_2;
-    //public double mechanismPower = ___;
+
+    // Instantiate Odometry Computer and Robot
 
     public ProgrammerBot Bot = new ProgrammerBot();
+    public Pinpoint odo = new Pinpoint();
 
     @Override
     public void init() {
 
         Bot.initRobot(hardwareMap);
+        odo.initPinpoint(hardwareMap);
     }
 
-    public void init_loop() {
-    }
-
+    @Override
     public void start() {
     }
 
@@ -58,6 +65,7 @@ public class TesterBotTeleOp extends OpMode {
         }
 
     }
+
 
     public void drive() {
 
@@ -126,6 +134,17 @@ public class TesterBotTeleOp extends OpMode {
         telemetry.addData("pwr ", "FR motor ", +frontRightSpeed);
         telemetry.addData("pwr ", "RL motor ", +rearLeftSpeed);
         telemetry.addData("pwr ", "RR motor ", +rearRightSpeed);
+
+        odo.update();
+        Pose2D pos = odo.getPosition();
+        String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.INCH), pos.getY(DistanceUnit.INCH), pos.getHeading(AngleUnit.DEGREES));
+        telemetry.addData("Position", data);
+
+        odo.update();
+        Pose2D vel = odo.getVelocity();
+        String velocity = String.format(Locale.US,"{XVel: %.3f, YVel: %.3f, HVel: %.3f}", vel.getX(DistanceUnit.INCH), vel.getY(DistanceUnit.INCH), vel.getHeading(AngleUnit.DEGREES));
+        telemetry.addData("Velocity", velocity);
+
         telemetry.update();
     }
 
