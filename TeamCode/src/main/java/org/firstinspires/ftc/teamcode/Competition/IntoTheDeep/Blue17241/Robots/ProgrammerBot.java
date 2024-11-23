@@ -5,13 +5,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrivePinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.PinpointDriver;
 
 public class ProgrammerBot extends MecanumDrivePinpoint {
 
+
+    PinpointDriver odo;
+
     public HardwareMap hwBot = null;
+
 
     //Mechanisms Variables
 
@@ -42,6 +47,7 @@ public class ProgrammerBot extends MecanumDrivePinpoint {
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        odo = hwBot.get(PinpointDriver.class, "odo");
 
     }
 }

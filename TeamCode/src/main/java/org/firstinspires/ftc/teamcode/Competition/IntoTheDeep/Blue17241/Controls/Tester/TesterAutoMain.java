@@ -2,13 +2,11 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ProgrammerBot;
@@ -26,7 +24,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
     public DcMotor rearRightMotor;
 
     // Instance Variables for IMU
-    public IMU imu = null;
+
     public double headingTolerance = 0.5;
     public double currentHeading = 0;
 
@@ -125,13 +123,18 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
 
     public double getHeading() {
-        YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
-        return orientation.getYaw(AngleUnit.DEGREES);
+        odo.update();
+        Pose2D pos = odo.getPosition();
+       // YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+        return pos.getHeading(AngleUnit.DEGREES);
     }
 
     // Helper Method to reset the IMU Yaw Heading
     public void resetHeading() {
-        imu.resetYaw();
+        odo.update();
+        Pose2D pos = odo.getPosition();
+
+        pos.getHeading(AngleUnit.DEGREES);
     }
 
     public void driveStraightGyroPinpoint(double speed, double distance, String direction) throws InterruptedException {
@@ -143,45 +146,45 @@ public abstract class TesterAutoMain extends LinearOpMode {
         currentHeading = getHeading();
 
         double target = getHeading();
-        double currentPos = 0;
+        double currentPos = pos.getX(DistanceUnit.INCH);
         double leftSideSpeed = 0;
         double rightSideSpeed = 0;
 
         double startPosition = pos.getX(DistanceUnit.INCH);
-        LinearOp.sleep(100);
-        while (currentPos < distance + startPosition && LinearOp.opModeIsActive()) {
+        sleep(100);
+        while (currentPos < distance + startPosition && opModeIsActive()) {
             currentHeading = getHeading();
             currentPos = pos.getX(DistanceUnit.INCH);
 //VEERING TO LEFT!
             switch (direction) {
                 case "FORWARD":
                     leftSideSpeed = speed + (currentHeading - target) / 75;            // they need to be different
-                    rightSideSpeed = speed - (currentHeading - target) / 75;   //100
+                    rightSideSpeed = speed + (currentHeading - target) / 75;   //100
 
 
                     leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
                     rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
 
-                    frontLeftMotor.setPower(leftSideSpeed);
-                    rearLeftMotor.setPower(leftSideSpeed);
+                    Bot.frontLeftMotor.setPower(leftSideSpeed);
+                    Bot.rearLeftMotor.setPower(leftSideSpeed);
 
-                    frontRightMotor.setPower(rightSideSpeed);
-                    rearRightMotor.setPower(rightSideSpeed);
+                    Bot.frontRightMotor.setPower(rightSideSpeed);
+                    Bot.rearRightMotor.setPower(rightSideSpeed);
 
                     break;
                 case "BACK":
                     leftSideSpeed = speed - (currentHeading - target) / 75;            // they need to be different
-                    rightSideSpeed = speed + (currentHeading - target) / 75;
+                    rightSideSpeed = speed - (currentHeading - target) / 75;
 
                     leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
                     rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
 
-                    frontLeftMotor.setPower(-leftSideSpeed);
-                    rearLeftMotor.setPower(-leftSideSpeed);
+                    Bot.frontLeftMotor.setPower(-leftSideSpeed);
+                    Bot.rearLeftMotor.setPower(-leftSideSpeed);
 
 
-                    frontRightMotor.setPower(-rightSideSpeed);
-                    rearRightMotor.setPower(-rightSideSpeed);
+                    Bot.frontRightMotor.setPower(-rightSideSpeed);
+                    Bot.rearRightMotor.setPower(-rightSideSpeed);
                     break;
                 case "LEFT":
                     leftSideSpeed = speed - (currentHeading - target) / 100;            // they need to be different
@@ -190,45 +193,43 @@ public abstract class TesterAutoMain extends LinearOpMode {
                     leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
                     rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
 
-                    frontLeftMotor.setPower(leftSideSpeed);
-                    rearLeftMotor.setPower(-leftSideSpeed);
+                    Bot.frontLeftMotor.setPower(leftSideSpeed);
+                    Bot.rearLeftMotor.setPower(-leftSideSpeed);
 
 
-                    frontRightMotor.setPower(-rightSideSpeed);
-                    rearRightMotor.setPower(rightSideSpeed);
+                    Bot.frontRightMotor.setPower(-rightSideSpeed);
+                    Bot.rearRightMotor.setPower(rightSideSpeed);
                     break;
                 case "RIGHT":
-                    leftSideSpeed = speed - (currentHeading - target) / 100;            // they need to be different
-                    rightSideSpeed = speed + (currentHeading - target) / 100;
+                    leftSideSpeed = speed + (currentHeading - target) / 100;            // they need to be different
+                    rightSideSpeed = speed - (currentHeading - target) / 100;
 
                     leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
                     rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
 
-                    frontLeftMotor.setPower(-leftSideSpeed);
-                    rearLeftMotor.setPower(leftSideSpeed);
+                    Bot.frontLeftMotor.setPower(-leftSideSpeed);
+                    Bot.rearLeftMotor.setPower(leftSideSpeed);
 
-                    frontRightMotor.setPower(rightSideSpeed);
-                    rearRightMotor.setPower(-rightSideSpeed);
+                    Bot.frontRightMotor.setPower(rightSideSpeed);
+                    Bot.rearRightMotor.setPower(-rightSideSpeed);
                     break;
+
+
             }
 
-            LinearOp.telemetry.addData("Left Speed: ", leftSideSpeed);
-            LinearOp.telemetry.addData("Right Speed: ", rightSideSpeed);
-            LinearOp.telemetry.addData("Distance till destination: ", distance + startPosition - pos.getX(DistanceUnit.INCH));
-            LinearOp.telemetry.addData("Current Position: ", currentPos);
-            LinearOp.telemetry.addData("Target Position: ", target);
-            LinearOp.telemetry.addData("Current Heading: ", currentHeading);
-            LinearOp.telemetry.update();
+            telemetry.addData("Left Speed: ", leftSideSpeed);
+            telemetry.addData("Right Speed: ", rightSideSpeed);
+            telemetry.addData("Distance till destination: ", distance + startPosition - pos.getX(DistanceUnit.INCH));
+            telemetry.addData("Current Position: ", currentPos);
+            telemetry.addData("Target Position: ", target);
+            telemetry.addData("Current Heading: ", currentHeading);
+            telemetry.update();
 
-            LinearOp.idle();
         }
 
-        frontLeftMotor.setPower(0);
-        frontRightMotor.setPower(0);
-        rearLeftMotor.setPower(0);
-        rearRightMotor.setPower(0);
+        Bot.stopMotors();
 
-        LinearOp.idle();
+        idle();
 
     }
 
