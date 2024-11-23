@@ -131,13 +131,13 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
     // Helper Method to reset the IMU Yaw Heading
     public void resetHeading() {
-        odo.update();
         Pose2D pos = odo.getPosition();
 
         pos.getHeading(AngleUnit.DEGREES);
+        odo.update();
     }
 
-    public void driveStraightGyroPinpoint(double speed, double distance, String direction) throws InterruptedException {
+    public void driveStraightGyroPinpoint(double speed, double distance, String direction, double target) throws InterruptedException {
 
         odo.update();
         Pose2D pos = odo.getPosition();
@@ -145,7 +145,6 @@ public abstract class TesterAutoMain extends LinearOpMode {
         resetHeading();
         currentHeading = getHeading();
 
-        double target = getHeading();
         double currentPos = pos.getX(DistanceUnit.INCH);
         double leftSideSpeed = 0;
         double rightSideSpeed = 0;
@@ -154,12 +153,15 @@ public abstract class TesterAutoMain extends LinearOpMode {
         sleep(100);
         while (currentPos < distance + startPosition && opModeIsActive()) {
             currentHeading = getHeading();
+
             currentPos = pos.getX(DistanceUnit.INCH);
+            odo.update();
 //VEERING TO LEFT!
             switch (direction) {
                 case "FORWARD":
+
                     leftSideSpeed = speed + (currentHeading - target) / 75;            // they need to be different
-                    rightSideSpeed = speed + (currentHeading - target) / 75;   //100
+                    rightSideSpeed = speed - (currentHeading - target) / 75;   //100
 
 
                     leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
@@ -174,7 +176,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
                     break;
                 case "BACK":
                     leftSideSpeed = speed - (currentHeading - target) / 75;            // they need to be different
-                    rightSideSpeed = speed - (currentHeading - target) / 75;
+                    rightSideSpeed = speed + (currentHeading - target) / 75;
 
                     leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
                     rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
@@ -201,8 +203,8 @@ public abstract class TesterAutoMain extends LinearOpMode {
                     Bot.rearRightMotor.setPower(rightSideSpeed);
                     break;
                 case "RIGHT":
-                    leftSideSpeed = speed + (currentHeading - target) / 100;            // they need to be different
-                    rightSideSpeed = speed - (currentHeading - target) / 100;
+                    leftSideSpeed = speed - (currentHeading - target) / 100;            // they need to be different
+                    rightSideSpeed = speed + (currentHeading - target) / 100;
 
                     leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
                     rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
@@ -216,6 +218,8 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
 
             }
+
+
 
             telemetry.addData("Left Speed: ", leftSideSpeed);
             telemetry.addData("Right Speed: ", rightSideSpeed);

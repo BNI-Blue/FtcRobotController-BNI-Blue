@@ -22,7 +22,7 @@ public class TesterBlueNetPinpoint extends TesterBlueAlliance {
             while (opModeIsActive()) {
 
                 //driveForwardPinpoint(.5, 24);
-                driveStraightGyroPinpoint(1, 24, "FORWARD");
+                driveStraightGyroPinpoint(0.5, 24, "FORWARD", 0);
 
 
                 requestOpModeStop();
