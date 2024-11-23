@@ -1,10 +1,8 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Tester.Pintpoint;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Tester.Pinpoint;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Tester.TesterBlueAlliance;
-import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Robots.ProgramBot;
 
 //@Disabled
 @Autonomous(name = "TesterBlueNetPinpoint")
@@ -23,7 +21,7 @@ public class TesterBlueNetPinpoint extends TesterBlueAlliance {
             //drive code
             while (opModeIsActive()) {
 
-                strafeLeftPinpoint(.5, 24);
+                //strafeLeftPinpoint(.5, 24);
                 driveStraightGyroPinpoint(1, 24, "FORWARD");
 
 

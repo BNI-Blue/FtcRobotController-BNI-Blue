@@ -139,7 +139,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
         odo.update();
         Pose2D pos = odo.getPosition();
 
-        imu.resetYaw();
+        resetHeading();
         currentHeading = getHeading();
 
         double target = getHeading();
