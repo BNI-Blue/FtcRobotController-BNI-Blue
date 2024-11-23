@@ -142,6 +142,9 @@ public abstract class TesterAutoMain extends LinearOpMode {
         odo.update();
         Pose2D pos = odo.getPosition();
 
+        double startPosition = pos.getX(DistanceUnit.INCH);
+
+
         resetHeading();
         currentHeading = getHeading();
 
@@ -149,7 +152,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
         double leftSideSpeed = 0;
         double rightSideSpeed = 0;
 
-        double startPosition = pos.getX(DistanceUnit.INCH);
+
         sleep(100);
         while (currentPos < distance + startPosition && opModeIsActive()) {
             currentHeading = getHeading();
@@ -219,7 +222,8 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
             }
 
-
+            odo.update();
+            pos = odo.getPosition();
 
             telemetry.addData("Left Speed: ", leftSideSpeed);
             telemetry.addData("Right Speed: ", rightSideSpeed);
