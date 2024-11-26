@@ -51,10 +51,21 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
         odo.update();
         Pose2D pos = odo.getPosition();
-        while (pos.getX(DistanceUnit.INCH)  < distance && opModeIsActive()) {
+        double initialX = pos.getX(DistanceUnit.INCH);
+        double initialY = pos.getY(DistanceUnit.INCH);
+
+
+        while (pos.getY(DistanceUnit.INCH)  < distance && opModeIsActive()) {
+            odo.update();
+            pos = odo.getPosition();
+
             Bot.driveForward(speed);
             odo.update();
             pos = odo.getPosition();
+
+            telemetry.addData("Current X Position", pos.getX(DistanceUnit.INCH));
+            telemetry.addData("Target Distance", distance);
+            telemetry.update();
 
         }
         Bot.stopMotors();
@@ -91,6 +102,9 @@ public abstract class TesterAutoMain extends LinearOpMode {
             odo.update();
             pos = odo.getPosition();
 
+            telemetry.addData("Current Y Position", pos.getY(DistanceUnit.INCH));
+            telemetry.addData("Target Distance", distance);
+            telemetry.update();
         }
         Bot.stopMotors();
     }
@@ -125,12 +139,13 @@ public abstract class TesterAutoMain extends LinearOpMode {
     public double getHeading() {
         odo.update();
         Pose2D pos = odo.getPosition();
-       // YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+        // YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         return pos.getHeading(AngleUnit.DEGREES);
     }
 
     // Helper Method to reset the IMU Yaw Heading
     public void resetHeading() {
+        odo.reset();
         Pose2D pos = odo.getPosition();
 
         pos.getHeading(AngleUnit.DEGREES);

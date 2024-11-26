@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
+
 //@Disabled
 @Autonomous(name = "Tester:Blue:Net:Sample", group = "Testers")
 public class TesterBlueNetSample extends TesterBlueAlliance {
@@ -11,23 +13,28 @@ public class TesterBlueNetSample extends TesterBlueAlliance {
         // Global Method for Initializing Auto
         autoStartUp();
 
+        resetHeading();
+        currentHeading = getHeading();
+        odo.update();
         waitForStart();
 
         //drive methods are pulled from Drivetrain
+
+
+        //drive code
         while (opModeIsActive()) {
 
-            //drive code
-            while (opModeIsActive()) {
+            strafeRightPinpoint(0.5, 0.1);
+            sleep(100);
 
-                Bot.strafeRight(1, .15);
-                Bot.driveForward(1, 3.85);
-                sleep(1300);
+            driveForwardPinpoint(0.5, 10);
+            sleep(1300);
 
-                requestOpModeStop();
+            odo.update();
+            requestOpModeStop();
 
-            }
-            idle();
         }
+        idle();
     }
 }
 

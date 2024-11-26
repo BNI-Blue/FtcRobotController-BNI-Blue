@@ -14,8 +14,8 @@ public class Pinpoint {
     public LinearOpMode LinearOp = null;
 
     // This is the amount of MM from the pinpoint computer hardware as compared to the logical center of the robot
-    public double x = -101.6;    // Need to update these for Blue Program Bot
-    public double y = -38.1;   // Need to update these for Blue Program Bot
+    public double x = 101.6;    // Need to update these for Blue Program Bot -101.6
+    public double y = -38.1;   // Need to update these for Blue Program Bot  -38.1
 
     public Pinpoint() {
     }
@@ -35,6 +35,10 @@ public class Pinpoint {
         // resets the position and IMU heading to their default state
         pinpoint.resetPosAndIMU();
 
+    }
+
+    public void reset() {
+        pinpoint.resetPosAndIMU();
     }
 
     public void update() {
