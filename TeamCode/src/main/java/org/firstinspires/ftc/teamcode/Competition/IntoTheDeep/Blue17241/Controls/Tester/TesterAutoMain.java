@@ -157,22 +157,22 @@ public abstract class TesterAutoMain extends LinearOpMode {
         odo.update();
         Pose2D pos = odo.getPosition();
 
-        double startPosition = pos.getX(DistanceUnit.INCH);
+        odo.reset();
 
 
         resetHeading();
         currentHeading = getHeading();
 
-        double currentPos = pos.getX(DistanceUnit.INCH);
+        double currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
         double leftSideSpeed = 0;
         double rightSideSpeed = 0;
 
 
         sleep(100);
-        while (currentPos < distance + startPosition && opModeIsActive()) {
+        while (currentPosX < distance && opModeIsActive()) {
             currentHeading = getHeading();
 
-            currentPos = pos.getX(DistanceUnit.INCH);
+            currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
             odo.update();
 //VEERING TO LEFT!
             switch (direction) {
@@ -202,11 +202,52 @@ public abstract class TesterAutoMain extends LinearOpMode {
                     Bot.frontLeftMotor.setPower(-leftSideSpeed);
                     Bot.rearLeftMotor.setPower(-leftSideSpeed);
 
-
                     Bot.frontRightMotor.setPower(-rightSideSpeed);
                     Bot.rearRightMotor.setPower(-rightSideSpeed);
                     break;
-                case "LEFT":
+            }
+
+            odo.update();
+            pos = odo.getPosition();
+
+            telemetry.addData("Left Speed: ", leftSideSpeed);
+            telemetry.addData("Right Speed: ", rightSideSpeed);
+            telemetry.addData("Distance till destination: ", distance - pos.getX(DistanceUnit.INCH));
+            telemetry.addData("Current Position: ", currentPosX);
+            telemetry.addData("Target Position: ", target);
+            telemetry.addData("Current Heading: ", currentHeading);
+            telemetry.update();
+
+        }
+        Bot.stopMotors();
+        idle();
+    }
+
+    public void strafeGyroPinpoint(double speed, double distance, String direction, double target) throws InterruptedException {
+
+        odo.update();
+        Pose2D pos = odo.getPosition();
+
+        double startPosition = pos.getY(DistanceUnit.INCH);
+
+
+        resetHeading();
+        currentHeading = getHeading();
+
+        double currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
+        double leftSideSpeed = 0;
+        double rightSideSpeed = 0;
+
+
+        sleep(100);
+        while (currentPosY < distance + startPosition && opModeIsActive()) {
+            currentHeading = getHeading();
+
+            currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
+            odo.update();
+//VEERING TO LEFT!
+            switch (direction) {
+                case "RIGHT":
                     leftSideSpeed = speed - (currentHeading - target) / 100;            // they need to be different
                     rightSideSpeed = speed + (currentHeading - target) / 100;
 
@@ -220,7 +261,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
                     Bot.frontRightMotor.setPower(-rightSideSpeed);
                     Bot.rearRightMotor.setPower(rightSideSpeed);
                     break;
-                case "RIGHT":
+                case "LEFT":
                     leftSideSpeed = speed - (currentHeading - target) / 100;            // they need to be different
                     rightSideSpeed = speed + (currentHeading - target) / 100;
 
@@ -243,8 +284,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
             telemetry.addData("Left Speed: ", leftSideSpeed);
             telemetry.addData("Right Speed: ", rightSideSpeed);
             telemetry.addData("Distance till destination: ", distance + startPosition - pos.getX(DistanceUnit.INCH));
-            telemetry.addData("Current Position: ", currentPos);
-            telemetry.addData("Target Position: ", target);
+            telemetry.addData("Current Position: ", currentPosY);
             telemetry.addData("Current Heading: ", currentHeading);
             telemetry.update();
 

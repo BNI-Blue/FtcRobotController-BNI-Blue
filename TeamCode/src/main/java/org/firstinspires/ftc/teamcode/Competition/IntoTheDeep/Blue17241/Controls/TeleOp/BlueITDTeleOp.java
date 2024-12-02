@@ -56,7 +56,7 @@ public class BlueITDTeleOp extends OpMode {
         speedControl();
         drive();
         telemetryOutput();
-        //liftControl();
+        liftControl();
         intakeControl();
         preventClawOnStart();
         // changeDriverProfile();
@@ -197,14 +197,16 @@ public class BlueITDTeleOp extends OpMode {
     }
 
 
-//    public void liftControl(){
-//        if(gamepad2.a){
-//            ITDBot.raiseLiftOne(1);
-//        }
-//        else if(gamepad2.b){
-//            ITDBot.lowerLiftOne(1);
-//        }
-//    }
+    public void liftControl() {
+        if (gamepad2.a) {
+            ITDBot.climbingLiftUp(1);
+        } else if (gamepad2.b) {
+            ITDBot.climbingLiftDown(1);
+        } else{
+            ITDBot.climbingLiftStop();
+        }
+    }
+
 
 
     public void intakeControl() {

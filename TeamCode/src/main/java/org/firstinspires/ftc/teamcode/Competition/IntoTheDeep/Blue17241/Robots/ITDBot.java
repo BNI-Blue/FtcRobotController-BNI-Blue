@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
 
@@ -43,10 +42,10 @@ public class ITDBot extends MecanumDrive {
 
         //Climbing Mechanism
         climbingLift = hwBot.dcMotor.get("climbing_lift");
-        climbingLift.setDirection(DcMotorSimple.Direction.REVERSE);//Port _ - Expansion
+        climbingLift.setDirection(DcMotorSimple.Direction.REVERSE);//Port 0 - Expansion
         climbingLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        climbingRelease = hwBot.servo.get("climbing_release");//Port _ - Expansion
+        climbingRelease = hwBot.servo.get("climbing_release");//Port 2 - Expansion
         climbingRelease.setDirection(Servo.Direction.FORWARD);
 
         //Intake and extention
@@ -114,9 +113,11 @@ public class ITDBot extends MecanumDrive {
 
 
     //hanging arm
-    public void climbing_lift(double power){
+    public void climbingLiftUp(double power){
         climbingLift.setPower(Math.abs(power));
     }
+    public void climbingLiftDown(double power){climbingLift.setPower(-Math.abs(power));}
+    public void climbingLiftStop(){climbingLift.setPower(0);}
 
     public void climbing_release(double power){
         climbingLift.setPower(-Math.abs(power));

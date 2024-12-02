@@ -21,8 +21,7 @@ public class TesterBlueNetPinpoint extends TesterBlueAlliance {
             //drive code
             while (opModeIsActive()) {
 
-                //driveForwardPinpoint(.5, 24);
-                driveStraightGyroPinpoint(0.5, 24, "FORWARD", 0);
+                strafeGyroPinpoint(0.5, 24, "RIGHT", 0);
 
 
                 requestOpModeStop();
