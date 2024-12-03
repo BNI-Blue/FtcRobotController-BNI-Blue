@@ -199,10 +199,10 @@ public class MecanumDrive {
     }
 
     public void rotateRight(double speed) {
-        frontLeftMotor.setPower(-speed);
-        frontRightMotor.setPower(speed);
-        rearLeftMotor.setPower(-speed);
-        rearRightMotor.setPower(speed);
+        frontLeftMotor.setPower(speed);
+        frontRightMotor.setPower(-speed);
+        rearLeftMotor.setPower(speed);
+        rearRightMotor.setPower(-speed);
 
     }
 

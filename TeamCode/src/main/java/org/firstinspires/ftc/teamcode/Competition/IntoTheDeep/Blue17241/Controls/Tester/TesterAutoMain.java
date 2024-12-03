@@ -109,30 +109,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
         Bot.stopMotors();
     }
 
-    public void rotateLeftPinpoint(double speed, double distance) {
 
-        odo.update();
-        Pose2D pos = odo.getPosition();
-        while (pos.getX(DistanceUnit.INCH)  < distance && opModeIsActive()) {
-            Bot.rotateLeft(speed);
-            odo.update();
-            pos = odo.getPosition();
-
-        }
-        Bot.stopMotors();
-    }
-    public void rotateRightPinpoint(double speed, double distance) {
-
-        odo.update();
-        Pose2D pos = odo.getPosition();
-        while (pos.getX(DistanceUnit.INCH)  < distance && opModeIsActive()) {
-            Bot.rotateRight(speed);
-            odo.update();
-            pos = odo.getPosition();
-
-        }
-        Bot.stopMotors();
-    }
 
 
 
