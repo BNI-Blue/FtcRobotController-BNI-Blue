@@ -215,8 +215,10 @@ public class BlueITDTeleOp extends OpMode {
 
         if (gamepad2.right_bumper) {
             ITDBot.sampleIntake();
+            telemetry.addLine("right bumper");
         } else if (gamepad2.left_bumper) {
             ITDBot.sampleOuttake();
+            telemetry.addLine("left bumper");
         }
         else{
             ITDBot.intakeStop();

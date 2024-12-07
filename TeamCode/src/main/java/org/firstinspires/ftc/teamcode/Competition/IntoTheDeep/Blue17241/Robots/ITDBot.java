@@ -17,6 +17,8 @@ public class ITDBot extends MecanumDrive {
     //Constructor
     public ITDBot(){}
 
+
+
     //Init Method
     public void initRobot(HardwareMap hwMap) {
         hwBot = hwMap;
@@ -88,8 +90,6 @@ public class ITDBot extends MecanumDrive {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
         sampleIntakeServo.setPower(0.6);
     }
-
-
 
     public void sampleOuttake() {
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
