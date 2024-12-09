@@ -4,6 +4,7 @@ import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls
 
 public abstract class BlueAlliance extends AutoMain {
 
+
     // Helper Method to Drop Sample in Net Area
 
 

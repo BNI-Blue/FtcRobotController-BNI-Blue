@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
 
 public abstract class AutoMain extends LinearOpMode {
@@ -9,15 +10,20 @@ public abstract class AutoMain extends LinearOpMode {
     // Constructor for the Competition Robot for the Blue Team
     public ITDBot ITDBot = new ITDBot();
 
+    public Pinpoint odo = new Pinpoint();
+
     // Helper Method for Initializing, Setting LinearOp, and Updating Telemetry
     public void autoStartUp(){
         ITDBot.initRobot(hardwareMap);
+        odo.initPinpoint(hardwareMap);
         ITDBot.setLinearOp(this);
         telemetry.addLine("Awaiting Start");
         ITDBot.retractIntake();
         telemetry.update();
         ITDBot.intakeHolderUpAuto();
         ITDBot.fillBucket();
+
+
 
     }
 
