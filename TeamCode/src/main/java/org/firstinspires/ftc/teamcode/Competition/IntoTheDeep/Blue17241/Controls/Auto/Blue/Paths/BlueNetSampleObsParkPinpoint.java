@@ -12,13 +12,9 @@ public class BlueNetSampleObsParkPinpoint extends BlueAlliance {
     public void runOpMode() throws InterruptedException{
         // Global Method for Initializing Auto
         autoStartUp();
-
-
-
-        odo.
+        resetHeading();
         currentHeading = getHeading();
         odo.update();
-        odo.initPinpoint();
         waitForStart();
 
         //drive methods are pulled from Drivetrain
@@ -27,15 +23,15 @@ public class BlueNetSampleObsParkPinpoint extends BlueAlliance {
             //drive code
             while (opModeIsActive()) {
 
-                ITDBot.strafeRight(1, .15);
-                ITDBot.driveForward(1, 3.85);
+                strafeRightPinpoint(1, .15);
+                driveForwardPinpoint(1, 3.85);
                 ITDBot.sampleOuttake();
                 sleep(1300);
                 ITDBot.intakeStop();
 
                 //Code for if partner can move away from wall
-                ITDBot.strafeRight(1, .15);
-                ITDBot.driveBack(1, 8);
+                strafeRightPinpoint(1, .15);
+                driveBackPinpoint(1, 8);
                 requestOpModeStop();
 
             }
