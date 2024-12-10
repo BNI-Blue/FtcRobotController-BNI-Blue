@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Tester;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "Tester:Red:Net:Sample", group = "Testers")
 public class TesterRedNetSample extends TesterRedAlliance{
     @Override
@@ -31,8 +32,6 @@ public class TesterRedNetSample extends TesterRedAlliance{
 //                Bot.rotateRight(.5 ,7);
 //                sleep(100);
 //
-//                Bot.driveForward(.5, 24);
-//                sleep(100);
 
 
                 odo.update();

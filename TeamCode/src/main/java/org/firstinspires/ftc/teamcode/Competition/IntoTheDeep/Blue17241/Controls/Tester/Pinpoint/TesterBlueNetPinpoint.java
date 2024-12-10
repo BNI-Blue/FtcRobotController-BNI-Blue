@@ -17,7 +17,6 @@ public class TesterBlueNetPinpoint extends TesterBlueAlliance {
         waitForStart();
 
         //drive methods are pulled from Drivetrain
-        while (opModeIsActive()) {
 
             //drive code
             while (opModeIsActive()) {
@@ -35,6 +34,6 @@ public class TesterBlueNetPinpoint extends TesterBlueAlliance {
 
             }
             idle();
-        }
+
     }
 }
