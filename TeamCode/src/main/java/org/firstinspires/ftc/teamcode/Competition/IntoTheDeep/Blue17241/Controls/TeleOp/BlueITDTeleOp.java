@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
 
+import java.util.function.IntToDoubleFunction;
+
 @TeleOp (name = "ITD Bot TeleOp", group = "Drive")
 public class BlueITDTeleOp extends OpMode {
 
@@ -64,6 +66,8 @@ public class BlueITDTeleOp extends OpMode {
         bucketFlipControl();
         bucketLinearControl();
         slowIntake();
+
+        IntakeAssistControl(); //        This combines multiple movements into one button.
         //combinedControl();
     }
 
@@ -212,13 +216,13 @@ public class BlueITDTeleOp extends OpMode {
     public void intakeControl() {
 
 
-
-        if (gamepad2.right_bumper) {
-            ITDBot.sampleIntake();
-            telemetry.addLine("right bumper");
-        } else if (gamepad2.left_bumper) {
+//        ITDBot.intakeHolderFlip.getPosition() <= 0.6
+        if (gamepad2.left_bumper) {
             ITDBot.sampleOuttake();
-            telemetry.addLine("left bumper");
+//            telemetry.addLine("left bumper");
+        } else if (gamepad2.right_bumper || ITDBot.intakeHolderFlip.getPosition() >= 0.6) {
+            ITDBot.sampleIntake();
+//            telemetry.addLine("right bumper");
         }
         else{
             ITDBot.intakeStop();
@@ -245,6 +249,15 @@ public class BlueITDTeleOp extends OpMode {
         }
         else {
             ITDBot.bucketSlideStop();
+        }
+    }
+
+    public void IntakeAssistControl () {
+//        Take out this conditional and leave just "gamepad2.left_trigger > 0.5 " if D2 wants to be able to retract no matter waht.
+//         && ITDBot.intakeHolderFlip.getPosition() >= 0.6
+        if (gamepad2.left_trigger > 0.5 && ITDBot.intakeHolderFlip.getPosition() >= 0.6) {
+            telemetry.addLine("SAMPLE INTAKE TO BUCKET CONTROL");
+            ITDBot.SampleIntakeToBucket();
         }
     }
 

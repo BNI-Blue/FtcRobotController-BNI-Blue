@@ -171,6 +171,13 @@ public class ITDBot extends MecanumDrive {
         }
     }
 
+    public void SampleIntakeToBucket () {
+        intakeStop();
+        intakeHolderUp();
+        retractIntake();
+//        sampleOuttake();
+    }
+
 
 //    public void raiseArm(){
 //        fourBar.setPower(1);
