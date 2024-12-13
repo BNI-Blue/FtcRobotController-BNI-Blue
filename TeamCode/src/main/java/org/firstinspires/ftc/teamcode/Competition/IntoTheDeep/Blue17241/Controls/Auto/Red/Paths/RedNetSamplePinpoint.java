@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls
 
 //@Disabled
 @Autonomous(name = "Red:Net:Sample:Pinpoint")
-public class RedNetSampleParkPinpoint extends RedAlliance{
+public class RedNetSamplePinpoint extends RedAlliance{
     @Override
     public void runOpMode() throws InterruptedException {
 
