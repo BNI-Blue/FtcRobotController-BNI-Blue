@@ -72,6 +72,16 @@ public class ITDBot extends MecanumDrive {
         bucketLinearSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
+
+
+        //HW Mapping Ex
+
+        //pixelArm = hwBot.dcMotor.get("pixel_arm");//Port 0 - Expansion
+        //pixelArm.setDirection(DcMotor.Direction.FORWARD);
+        //pixelArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        //pixelClawLeft = hwBot.servo.get("pixel_claw_left");//Port 0 - Expansion
+        //pixelClawLeft.setDirection(Servo.Direction.REVERSE);
     }
 
 
@@ -160,5 +170,27 @@ public class ITDBot extends MecanumDrive {
             bucketSlideDown(speed);
         }
     }
+
+    public void SampleIntakeToBucket () {
+        intakeStop();
+        intakeHolderUp();
+        retractIntake();
+//        sampleOuttake();
+    }
+
+
+//    public void raiseArm(){
+//        fourBar.setPower(1);
+//    }
+//    public void raiseArm(double speed, double rotations){
+//        double ticks = rotations * TICKS_PER_ROTATION;
+//        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//
+//        while((Math.abs(frontLeftMotor.getCurrentPosition() ) < ticks && LinearOp.opModeIsActive()) ){
+//            raiseArm();
+//        }
+//    }
+
 
 }

@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
 
+import java.util.function.IntToDoubleFunction;
+
 @TeleOp (name = "ITD Bot TeleOp", group = "Drive")
 public class BlueITDTeleOp extends OpMode {
 
@@ -49,9 +51,6 @@ public class BlueITDTeleOp extends OpMode {
 
 
     public void start() {
-        ITDBot.fillBucket();
-        ITDBot.retractIntake();
-        ITDBot.intakeHolderFlip.setPosition(0.37);
     }
 
     @Override
@@ -59,7 +58,7 @@ public class BlueITDTeleOp extends OpMode {
         speedControl();
         drive();
         telemetryOutput();
-       // liftControl();
+        liftControl();
         intakeControl();
         preventClawOnStart();
         // changeDriverProfile();
@@ -67,6 +66,8 @@ public class BlueITDTeleOp extends OpMode {
         bucketFlipControl();
         bucketLinearControl();
         slowIntake();
+
+        IntakeAssistControl(); //        This combines multiple movements into one button.
         //combinedControl();
     }
 
@@ -76,7 +77,10 @@ public class BlueITDTeleOp extends OpMode {
         } else if (gamepad1.right_bumper) {
             currentProfile = PROFILE_2;
         }
+
     }
+
+
 
     public void drive() {
 
@@ -169,10 +173,10 @@ public class BlueITDTeleOp extends OpMode {
     }
 
     public void bucketFlipControl() {
-        if (gamepad2.dpad_down) {
+        if (gamepad2.dpad_left) {
             ITDBot.fillBucket();
         }
-        if (gamepad2.dpad_up) {
+        if (gamepad2.dpad_right) {
             ITDBot.emptyBucket();
         }
     }
@@ -187,53 +191,73 @@ public class BlueITDTeleOp extends OpMode {
 //    }
 
     public void intakeFlipControl(){
-        if(gamepad2.a && ITDBot.intakeExtender.getPosition() <= 0.65) {
+//        if(gamepad2.y){
+//            ITDBot.intakeHolderUp();
+//        }
+
+        if(gamepad2.x && ITDBot.intakeExtender.getPosition() <= 0.65) {
             ITDBot.intakeHolderDown();
         }
     }
 
 
-//    public void liftControl() {
-//        if (gamepad2.a) {
-//            ITDBot.climbingLiftUp(1);
-//        } else if (gamepad2.b) {
-//            ITDBot.climbingLiftDown(1);
-//        } else{
-//            ITDBot.climbingLiftStop();
-//        }
-//    }
+    public void liftControl() {
+        if (gamepad2.a) {
+            ITDBot.climbingLiftUp(1);
+        } else if (gamepad2.b) {
+            ITDBot.climbingLiftDown(1);
+        } else{
+            ITDBot.climbingLiftStop();
+        }
+    }
+
 
 
     public void intakeControl() {
-        if (gamepad2.right_bumper) {
-            ITDBot.sampleIntake();
-            telemetry.addLine("right bumper");
-        } else if (gamepad2.left_bumper) {
+
+
+//        ITDBot.intakeHolderFlip.getPosition() <= 0.6
+        if (gamepad2.left_bumper) {
             ITDBot.sampleOuttake();
-            telemetry.addLine("left bumper");
+//            telemetry.addLine("left bumper");
+        } else if (gamepad2.right_bumper || ITDBot.intakeHolderFlip.getPosition() >= 0.6) {
+            ITDBot.sampleIntake();
+//            telemetry.addLine("right bumper");
         }
         else{
             ITDBot.intakeStop();
         }
 //*********************************\\
-        if(gamepad2.x){
+        if(gamepad2.dpad_up){
             ITDBot.extendIntake();
         }
-        if (gamepad2.b && ITDBot.intakeHolderFlip.getPosition() <= 0.6) {
+
+        if (gamepad2.dpad_down && ITDBot.intakeHolderFlip.getPosition() <= 0.6) {
             ITDBot.retractIntake();
         }
+
+
     }
 
     public void bucketLinearControl(){
 
-        if (gamepad2.left_stick_y > 0.1) {
+        if (gamepad2.right_stick_y > 0.1) {
             ITDBot.bucketSlideUp(1);
 
-        } else if (gamepad2.left_stick_y < -0.1) {
+        } else if (gamepad2.right_stick_y < -0.1) {
             ITDBot.bucketSlideDown(1);
         }
         else {
             ITDBot.bucketSlideStop();
+        }
+    }
+
+    public void IntakeAssistControl () {
+//        Take out this conditional and leave just "gamepad2.left_trigger > 0.5 " if D2 wants to be able to retract no matter waht.
+//         && ITDBot.intakeHolderFlip.getPosition() >= 0.6
+        if (gamepad2.left_trigger > 0.5 && ITDBot.intakeHolderFlip.getPosition() >= 0.6) {
+            telemetry.addLine("SAMPLE INTAKE TO BUCKET CONTROL");
+            ITDBot.SampleIntakeToBucket();
         }
     }
 
