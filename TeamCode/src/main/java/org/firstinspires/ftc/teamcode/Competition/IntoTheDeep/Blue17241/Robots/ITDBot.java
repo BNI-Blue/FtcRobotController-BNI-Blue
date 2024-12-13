@@ -178,19 +178,4 @@ public class ITDBot extends MecanumDrive {
 //        sampleOuttake();
     }
 
-
-//    public void raiseArm(){
-//        fourBar.setPower(1);
-//    }
-//    public void raiseArm(double speed, double rotations){
-//        double ticks = rotations * TICKS_PER_ROTATION;
-//        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//
-//        while((Math.abs(frontLeftMotor.getCurrentPosition() ) < ticks && LinearOp.opModeIsActive()) ){
-//            raiseArm();
-//        }
-//    }
-
-
 }

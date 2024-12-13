@@ -213,14 +213,13 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
     public void strafeGyroPinpoint(double speed, double distance, String direction, double target) throws InterruptedException {
 
+        resetHeading();
+        currentHeading = getHeading();
+
         odo.update();
         Pose2D pos = odo.getPosition();
 
         double startPosition = pos.getY(DistanceUnit.INCH);
-
-
-        resetHeading();
-        currentHeading = getHeading();
 
         double currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
         double leftSideSpeed = 0;
