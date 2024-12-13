@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Tester;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "Tester:Blue:Net:Sample", group = "Testers")
 public class TesterBlueNetSample extends TesterBlueAlliance {
     @Override
@@ -25,9 +27,15 @@ public class TesterBlueNetSample extends TesterBlueAlliance {
         while (opModeIsActive()) {
 
             strafeRightPinpoint(0.5, 0.1);
-            sleep(100);
+            sleep(1300);
 
-            driveForwardPinpoint(0.5, 10);
+            driveForwardPinpoint(0.5, 3.75);
+            sleep(1300);
+
+            driveBackPinpoint(.5, 8);
+            sleep(1300);
+
+            Bot.rotateRight(.5 ,7);
             sleep(1300);
 
             odo.update();

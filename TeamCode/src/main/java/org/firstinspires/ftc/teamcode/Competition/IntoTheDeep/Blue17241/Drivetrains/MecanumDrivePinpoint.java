@@ -390,8 +390,6 @@ public class MecanumDrivePinpoint {
     public double getEncoderAvgDistanceY() {
         return Math.abs(centerEncoder.getCurrentPosition());
     }
-
-
 //    public void driveForwardPinpoint(double speed, double distance) {
 //
 //        Pose2D pos = odo.getPosition();

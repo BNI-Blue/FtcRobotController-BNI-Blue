@@ -47,15 +47,13 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
     }
 
-    public void driveForwardPinpoint(double speed, double distance) {
 
+
+    public void driveForwardPinpoint(double speed, double distance) {
         odo.update();
         Pose2D pos = odo.getPosition();
-        double initialX = pos.getX(DistanceUnit.INCH);
-        double initialY = pos.getY(DistanceUnit.INCH);
 
-
-        while (pos.getY(DistanceUnit.INCH)  < distance && opModeIsActive()) {
+        while (pos.getX(DistanceUnit.INCH)  < distance && opModeIsActive()) {
             odo.update();
             pos = odo.getPosition();
 
@@ -63,9 +61,9 @@ public abstract class TesterAutoMain extends LinearOpMode {
             odo.update();
             pos = odo.getPosition();
 
-            telemetry.addData("Current X Position", pos.getX(DistanceUnit.INCH));
-            telemetry.addData("Target Distance", distance);
-            telemetry.update();
+//            telemetry.addData("Current X Position", pos.getX(DistanceUnit.INCH));
+//            telemetry.addData("Target Distance", distance);
+//            telemetry.update();
 
         }
         Bot.stopMotors();
@@ -74,11 +72,14 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
         odo.update();
         Pose2D pos = odo.getPosition();
+
         while (pos.getX(DistanceUnit.INCH)  < distance && opModeIsActive()) {
-            Bot.driveBack(speed);
             odo.update();
             pos = odo.getPosition();
 
+            Bot.driveBack(speed);
+            odo.update();
+            pos = odo.getPosition();
         }
         Bot.stopMotors();
     }
@@ -86,7 +87,12 @@ public abstract class TesterAutoMain extends LinearOpMode {
     public void strafeLeftPinpoint(double speed, double distance){
         odo.update();
         Pose2D pos = odo.getPosition();
-        while(pos.getY(DistanceUnit.INCH) < distance && opModeIsActive()){
+        double initialY = (Math.abs(pos.getY(DistanceUnit.INCH)));
+
+        while(initialY < distance && opModeIsActive()){
+            odo.update();
+            pos = odo.getPosition();
+
             Bot.strafeLeft(speed);
             odo.update();
             pos = odo.getPosition();
@@ -97,14 +103,19 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
         odo.update();
         Pose2D pos = odo.getPosition();
-        while (pos.getY(DistanceUnit.INCH)  < distance && opModeIsActive()) {
+        double initialY = (Math.abs(pos.getY(DistanceUnit.INCH)));
+
+        while (initialY < distance && opModeIsActive()) {
+            odo.update();
+            pos = odo.getPosition();
+
             Bot.strafeRight(speed);
             odo.update();
             pos = odo.getPosition();
 
-            telemetry.addData("Current Y Position", pos.getY(DistanceUnit.INCH));
-            telemetry.addData("Target Distance", distance);
-            telemetry.update();
+//            telemetry.addData("Current Y Position", pos.getY(DistanceUnit.INCH));
+//            telemetry.addData("Target Distance", distance);
+//            telemetry.update();
         }
         Bot.stopMotors();
     }
