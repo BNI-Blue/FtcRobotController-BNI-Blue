@@ -20,7 +20,7 @@ public class TesterRedNetPinpoint extends TesterRedAlliance {
 
             strafeGyroPinpoint(0.5, 5, "RIGHT", 0);
             sleep(1000);
-            driveStraightGyroPinpoint(.5, 1.5, "FORWARD", 0);
+            driveStraightGyroPinpoint(.5, 1, "FORWARD", 0);
             sleep(1000);
             driveStraightGyroPinpoint(.5, 13, "BACK", 0);
             sleep(1000);

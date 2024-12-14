@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
-//@Disabled
+@Disabled
 
 @Autonomous(name = "Blue:Obs:GetoutWay:Pinpoint")
 public class BlueObsGetOutofWayPinpoint extends BlueAlliance {

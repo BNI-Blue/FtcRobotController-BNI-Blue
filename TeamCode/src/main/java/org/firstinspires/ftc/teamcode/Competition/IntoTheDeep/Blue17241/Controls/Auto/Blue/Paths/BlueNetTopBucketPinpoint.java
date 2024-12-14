@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
-//@Disabled
+@Disabled
 
 @Autonomous(name ="Blue:Net:TopBucket:Pinpoint")
 public class BlueNetTopBucketPinpoint extends BlueAlliance{
@@ -19,10 +19,36 @@ public class BlueNetTopBucketPinpoint extends BlueAlliance{
 
         while(opModeIsActive()) {
 
-            strafeLeftPinpoint(0.5, 1.6);
-            sleep(100);
-            driveBackPinpoint(0.5, .1);
+            strafeGyroPinpoint(0.5, 1, "LEFT", 0);
+            driveStraightGyroPinpoint(.5, .25, "BACK", 0);
+            sleep(1000);
+            ITDBot.extendIntake();
+            sleep(1000);
             bucketDumpTopLevel();
+            sleep(1000);
+
+//            driveStraightGyroPinpoint(.5, 13, "BACK", 0);
+//            ITDBot.rotateRight(0.65, 3.5);
+//            strafeGyroPinpoint(0.5, 1.5, "LEFT", 0);
+//            driveStraightGyroPinpoint(0.5, 15, "FORWARD", 0);
+//            ITDBot.rotateLeft(0.65, 3);
+//            driveStraightGyroPinpoint(.5, 14, "FORWARD", 0);
+//            driveStraightGyroPinpoint(.5, 18, "BACK", 0);
+//            ITDBot.rotateRight(0.65, 3.5);
+
+//            ITDBot.extendIntake();
+//            sleep(500);
+//            ITDBot.intakeHolderDown();
+//            sleep(500);
+//            ITDBot.sampleIntake();
+//            sleep(1000);
+//            ITDBot.intakeStop();
+//            sleep(500);
+//            ITDBot.intakeHolderUp();
+//            sleep(1000);
+//            ITDBot.retractIntake();
+//            ITDBot.fillBucket();
+//            ITDBot.sampleOuttake();
 
             requestOpModeStop();
         }
