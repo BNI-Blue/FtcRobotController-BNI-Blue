@@ -109,7 +109,7 @@ public class ITDBot extends MecanumDrive {
         intakeHolderFlip.setPosition(.17);
     }
     public void intakeHolderUpAuto(){
-        intakeHolderFlip.setPosition(.37);
+        intakeHolderFlip.setPosition(.22);
     }
 
     public void intakeHolderDown(){

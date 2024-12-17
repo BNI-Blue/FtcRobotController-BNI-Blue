@@ -37,21 +37,21 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.retractIntake();
         telemetry.update();
         ITDBot.intakeHolderUp();
-        ITDBot.fillBucket();
 
     }
 
     public void bucketDumpTopLevel(){
         ITDBot.extendIntake();
         ITDBot.bucketSlideDown(1);
-        sleep(1800);
+        sleep(1100);
         ITDBot.bucketSlideStop();
         ITDBot.emptyBucket();
-        sleep(1500);
-      ITDBot.fillBucket();
+        sleep(1100);
+        ITDBot.fillBucket();
         ITDBot.bucketSlideUp(0.5);
-        sleep(1750);
+        sleep(1450);
         ITDBot.bucketSlideStop();
+        ITDBot.retractIntake();
     }
 
  // Legacy Code from Olivia
@@ -79,8 +79,9 @@ public abstract class AutoMain extends LinearOpMode {
             odo.update();
             pos = odo.getPosition();
 
-            telemetry.addData("Current X Position", pos.getX(DistanceUnit.INCH));
+
             telemetry.addData("Target Distance", distance);
+            telemetry.addData("Current X Position", pos.getX(DistanceUnit.INCH));
             telemetry.update();
 
         }
@@ -118,8 +119,9 @@ public abstract class AutoMain extends LinearOpMode {
             odo.update();
             pos = odo.getPosition();
 
-            telemetry.addData("Current Y Position", pos.getY(DistanceUnit.INCH));
+
             telemetry.addData("Target Distance", distance);
+            telemetry.addData("Current Y Position", pos.getY(DistanceUnit.INCH));
             telemetry.update();
         }
         ITDBot.stopMotors();
@@ -146,19 +148,29 @@ public abstract class AutoMain extends LinearOpMode {
         odo.update();
         Pose2D pos = odo.getPosition();
 
-        odo.reset();
+        //odo.reset();
 
+        double startPosition = pos.getX(DistanceUnit.INCH);
 
         resetHeading();
         currentHeading = getHeading();
+
+//        telemetry.addData("Left Speed: ", leftSideSpeed);
+//        telemetry.addData("Right Speed: ", rightSideSpeed);
+        telemetry.addLine("ODO BEFORE MOVE!!!!");
+        telemetry.addData("Distance till destination: ", distance - pos.getX(DistanceUnit.INCH));
+        telemetry.addData("Target Position: ", target);
+        telemetry.addData("Current Heading: ", currentHeading);
+        telemetry.addData("Current Position: ", (Math.abs(pos.getX(DistanceUnit.INCH))));
+        telemetry.update();
+        //sleep(3000);
 
         double currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
         double leftSideSpeed = 0;
         double rightSideSpeed = 0;
 
-
         sleep(100);
-        while (currentPosX < distance && opModeIsActive()) {
+        while (currentPosX < distance + startPosition && opModeIsActive()) {
             currentHeading = getHeading();
 
             currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
@@ -169,7 +181,6 @@ public abstract class AutoMain extends LinearOpMode {
 
                     leftSideSpeed = speed + (currentHeading - target) / 75;            // they need to be different
                     rightSideSpeed = speed - (currentHeading - target) / 75;   //100
-
 
                     leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
                     rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
@@ -201,10 +212,10 @@ public abstract class AutoMain extends LinearOpMode {
 
             telemetry.addData("Left Speed: ", leftSideSpeed);
             telemetry.addData("Right Speed: ", rightSideSpeed);
-            telemetry.addData("Distance till destination: ", distance - pos.getX(DistanceUnit.INCH));
-            telemetry.addData("Current Position: ", currentPosX);
+            telemetry.addData("Distance till destination: ", distance + startPosition - pos.getX(DistanceUnit.INCH));
             telemetry.addData("Target Position: ", target);
             telemetry.addData("Current Heading: ", currentHeading);
+            telemetry.addData("Current Position: ", currentPosX);
             telemetry.update();
 
         }
@@ -219,14 +230,12 @@ public abstract class AutoMain extends LinearOpMode {
 
         double startPosition = pos.getY(DistanceUnit.INCH);
 
-
         resetHeading();
         currentHeading = getHeading();
 
         double currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
         double leftSideSpeed = 0;
         double rightSideSpeed = 0;
-
 
         sleep(100);
         while (currentPosY < distance + startPosition && opModeIsActive()) {
@@ -245,7 +254,6 @@ public abstract class AutoMain extends LinearOpMode {
 
                     ITDBot.frontLeftMotor.setPower(leftSideSpeed);
                     ITDBot.rearLeftMotor.setPower(-leftSideSpeed);
-
 
                     ITDBot.frontRightMotor.setPower(-rightSideSpeed);
                     ITDBot.rearRightMotor.setPower(rightSideSpeed);
@@ -271,8 +279,8 @@ public abstract class AutoMain extends LinearOpMode {
             telemetry.addData("Left Speed: ", leftSideSpeed);
             telemetry.addData("Right Speed: ", rightSideSpeed);
             telemetry.addData("Distance till destination: ", distance + startPosition - pos.getX(DistanceUnit.INCH));
-            telemetry.addData("Current Position: ", currentPosY);
             telemetry.addData("Current Heading: ", currentHeading);
+            telemetry.addData("Current Position: ", currentPosY);
             telemetry.update();
         }
 
