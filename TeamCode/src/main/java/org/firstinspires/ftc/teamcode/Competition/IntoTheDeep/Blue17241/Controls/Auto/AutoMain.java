@@ -8,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
+import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Drivetrains.MecanumDrive;
 
 public abstract class AutoMain extends LinearOpMode {
 
@@ -20,18 +21,23 @@ public abstract class AutoMain extends LinearOpMode {
 
     public double currentHeading = 0;
 
+    public enum driveDirections {
+        STOP,
+        DRIVE_FORWARD, DRIVE_BACK, STRAFE_LEFT, STRAFE_RIGHT
+    }
+    MecanumDrive.driveDirections driveDirection = MecanumDrive.driveDirections.STOP;
+
     // Helper Method for Initializing, Setting LinearOp, and Updating Telemetry
     public void autoStartUp(){
         ITDBot.initRobot(hardwareMap);
         odo.initPinpoint(hardwareMap);
         ITDBot.setLinearOp(this);
+        odo.setLinearOp(this);
         telemetry.addLine("Awaiting Start");
         ITDBot.retractIntake();
         telemetry.update();
         ITDBot.intakeHolderUp();
         ITDBot.fillBucket();
-
-
 
     }
 
@@ -118,10 +124,6 @@ public abstract class AutoMain extends LinearOpMode {
         }
         ITDBot.stopMotors();
     }
-
-
-
-
 
     public double getHeading() {
         odo.update();
@@ -261,8 +263,6 @@ public abstract class AutoMain extends LinearOpMode {
                     ITDBot.frontRightMotor.setPower(rightSideSpeed);
                     ITDBot.rearRightMotor.setPower(-rightSideSpeed);
                     break;
-
-
             }
 
             odo.update();
@@ -274,13 +274,10 @@ public abstract class AutoMain extends LinearOpMode {
             telemetry.addData("Current Position: ", currentPosY);
             telemetry.addData("Current Heading: ", currentHeading);
             telemetry.update();
-
         }
 
         ITDBot.stopMotors();
 
         idle();
     }
-
 }
-

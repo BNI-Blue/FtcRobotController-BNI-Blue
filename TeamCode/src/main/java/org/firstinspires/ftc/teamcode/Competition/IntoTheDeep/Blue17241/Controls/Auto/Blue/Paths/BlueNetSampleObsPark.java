@@ -25,7 +25,7 @@ public class BlueNetSampleObsPark extends BlueAlliance {
 
                     ITDBot.strafeRight(1, .15);
                     ITDBot.driveForward(1, 3.85);
-                    ITDBot.sampleOuttake();
+                    ITDBot.sampleOuttakeAuto();
                     sleep(1300);
                     ITDBot.intakeStop();
 

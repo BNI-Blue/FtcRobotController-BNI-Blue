@@ -147,7 +147,6 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
         odo.reset();
 
-
         resetHeading();
         currentHeading = getHeading();
 

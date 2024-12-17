@@ -41,12 +41,12 @@ public class RedNetTopBucket extends RedAlliance {
             ITDBot.intakeHolderUp();
             ITDBot.retractIntake();
             sleep(500);
-            ITDBot.sampleOuttake();
+            ITDBot.sampleOuttakeAuto();
             sleep(1250);
 
             ITDBot.intakeStop();
             ITDBot.strafeLeft(.5, 0.85);
-            ITDBot.rotateRight(.5, 2.5);
+            ITDBot.rotateRight(.5, 2.625);
             ITDBot.strafeRight(.5, .4);
             ITDBot.driveBack(.5, 2.2);
             bucketDumpTopLevel();

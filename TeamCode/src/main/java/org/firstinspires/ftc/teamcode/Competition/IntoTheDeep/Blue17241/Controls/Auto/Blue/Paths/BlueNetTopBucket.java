@@ -41,7 +41,7 @@ public class BlueNetTopBucket extends BlueAlliance {
             ITDBot.intakeHolderUp();
             ITDBot.retractIntake();
             sleep(500);
-            ITDBot.sampleOuttake();
+            ITDBot.sampleOuttakeAuto();
             sleep(1250);
 
             ITDBot.intakeStop();

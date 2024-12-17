@@ -22,7 +22,7 @@ public class BlueNetSampleObsParkPinpoint extends BlueAlliance {
 
             strafeRightPinpoint(1, .15);
             driveForwardPinpoint(1, 3.85);
-            ITDBot.sampleOuttake();
+            ITDBot.sampleOuttakeAuto();
             sleep(1300);
             ITDBot.intakeStop();
 

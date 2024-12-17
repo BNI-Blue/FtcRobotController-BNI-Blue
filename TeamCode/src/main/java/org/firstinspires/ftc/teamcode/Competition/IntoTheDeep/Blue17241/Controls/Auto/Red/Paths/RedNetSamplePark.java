@@ -22,7 +22,7 @@ public class RedNetSamplePark extends RedAlliance {
 
             ITDBot.strafeRight(1, .13);
             ITDBot.driveForward(1, 3.7);
-            ITDBot.sampleOuttake();
+            ITDBot.sampleOuttakeAuto();
             sleep(1400);
 
             ITDBot.intakeStop();

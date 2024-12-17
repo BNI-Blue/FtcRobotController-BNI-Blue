@@ -49,7 +49,7 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
 //            sleep(1000);
 //            ITDBot.retractIntake();
 //            ITDBot.fillBucket();
-//            ITDBot.sampleOuttake();
+//            ITDBot.sampleOuttakeAuto();
 
 
 //            driveStraightGyroPinpoint(.5, 14, "FORWARD", 0);

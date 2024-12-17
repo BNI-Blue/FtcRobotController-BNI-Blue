@@ -48,7 +48,7 @@ public class BlueNetTopBucketPinpoint extends BlueAlliance{
 //            sleep(1000);
 //            ITDBot.retractIntake();
 //            ITDBot.fillBucket();
-//            ITDBot.sampleOuttake();
+//            ITDBot.sampleOuttakeAuto();
 
             requestOpModeStop();
         }
