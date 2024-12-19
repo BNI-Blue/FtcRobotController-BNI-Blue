@@ -21,11 +21,16 @@ public abstract class AutoMain extends LinearOpMode {
 
     public double currentHeading = 0;
 
+    public double turnSpeed = 0.65;
+    public double correctSpeed = 0.3;
+
     public enum driveDirections {
         STOP,
         DRIVE_FORWARD, DRIVE_BACK, STRAFE_LEFT, STRAFE_RIGHT
     }
     MecanumDrive.driveDirections driveDirection = MecanumDrive.driveDirections.STOP;
+
+
 
     // Helper Method for Initializing, Setting LinearOp, and Updating Telemetry
     public void autoStartUp(){
@@ -39,6 +44,8 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.intakeHolderUp();
 
     }
+
+
 
     public void bucketDumpTopLevel(){
         ITDBot.extendIntake();
@@ -63,53 +70,61 @@ public abstract class AutoMain extends LinearOpMode {
 //        ITDBot.raiseArm(1, 9.3);
 //    }
 
+
+
     public void driveForwardPinpoint(double speed, double distance) {
 
         odo.update();
         Pose2D pos = odo.getPosition();
-        double initialX = pos.getX(DistanceUnit.INCH);
-        double initialY = pos.getY(DistanceUnit.INCH);
-
-
-        while (pos.getY(DistanceUnit.INCH)  < distance && opModeIsActive()) {
-            odo.update();
-            pos = odo.getPosition();
-
+        while (Math.abs(pos.getX(DistanceUnit.INCH))  < distance && opModeIsActive()) {
             ITDBot.driveForward(speed);
             odo.update();
             pos = odo.getPosition();
 
-
             telemetry.addData("Target Distance", distance);
             telemetry.addData("Current X Position", pos.getX(DistanceUnit.INCH));
             telemetry.update();
-
         }
         ITDBot.stopMotors();
     }
+
+
+
     public void driveBackPinpoint(double speed, double distance) {
 
         odo.update();
         Pose2D pos = odo.getPosition();
-        while (pos.getX(DistanceUnit.INCH)  < distance && opModeIsActive()) {
+        while (Math.abs(pos.getX(DistanceUnit.INCH))  < distance && opModeIsActive()) {
             ITDBot.driveBack(speed);
             odo.update();
             pos = odo.getPosition();
 
+            telemetry.addData("Target Distance", distance);
+            telemetry.addData("Current X Position", pos.getX(DistanceUnit.INCH));
+            telemetry.update();
         }
         ITDBot.stopMotors();
     }
 
+
+
     public void strafeLeftPinpoint(double speed, double distance){
         odo.update();
         Pose2D pos = odo.getPosition();
-        while(pos.getY(DistanceUnit.INCH) < distance && opModeIsActive()){
+        while (pos.getY(DistanceUnit.INCH)  < distance && opModeIsActive()) {
             ITDBot.strafeLeft(speed);
             odo.update();
             pos = odo.getPosition();
+
+            telemetry.addData("Target Distance", distance);
+            telemetry.addData("Current Y Position", pos.getY(DistanceUnit.INCH));
+            telemetry.update();
         }
         ITDBot.stopMotors();
     }
+
+
+
     public void strafeRightPinpoint(double speed, double distance) {
 
         odo.update();
@@ -119,7 +134,6 @@ public abstract class AutoMain extends LinearOpMode {
             odo.update();
             pos = odo.getPosition();
 
-
             telemetry.addData("Target Distance", distance);
             telemetry.addData("Current Y Position", pos.getY(DistanceUnit.INCH));
             telemetry.update();
@@ -127,12 +141,16 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.stopMotors();
     }
 
+
+
     public double getHeading() {
         odo.update();
         Pose2D pos = odo.getPosition();
         // YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         return pos.getHeading(AngleUnit.DEGREES);
     }
+
+
 
     // Helper Method to reset the IMU Yaw Heading
     public void resetHeading() {
@@ -142,6 +160,8 @@ public abstract class AutoMain extends LinearOpMode {
         pos.getHeading(AngleUnit.DEGREES);
         odo.update();
     }
+
+
 
     public void driveStraightGyroPinpoint(double speed, double distance, String direction, double target) throws InterruptedException {
 
@@ -223,6 +243,8 @@ public abstract class AutoMain extends LinearOpMode {
         idle();
     }
 
+
+
     public void strafeGyroPinpoint(double speed, double distance, String direction, double target) throws InterruptedException {
 
         odo.update();
@@ -287,5 +309,62 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.stopMotors();
 
         idle();
+    }
+
+
+
+    public void rotateByGyro(double speed, double targetAngle) {
+        resetHeading();
+        currentHeading = getHeading();
+        if (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
+            while (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
+                ITDBot.rotateRight(speed);
+
+                currentHeading = getHeading();
+                telemetry.addData("Current Angle: ", currentHeading);
+                telemetry.addData("Target Angle: ", targetAngle);
+                telemetry.update();
+            }
+        } else if (currentHeading <= targetAngle - headingTolerance && opModeIsActive()) ;
+        {
+            while (currentHeading <= targetAngle - headingTolerance && opModeIsActive()) {
+                ITDBot.rotateLeft(speed);
+
+                currentHeading = getHeading();
+                telemetry.addData("Current Angle: ", currentHeading);
+                telemetry.addData("Target Angle: ", targetAngle);
+                telemetry.update();
+            }
+        }
+        ITDBot.stopMotors();
+        currentHeading = getHeading();
+    }
+
+
+
+    public void gyroCorrection(double speed, double targetAngle) {
+        currentHeading = getHeading();
+        if (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
+            while (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
+                ITDBot.rotateRight(speed);
+
+                currentHeading = getHeading();
+                telemetry.addData("Current Angle: ", currentHeading);
+                telemetry.addData("Target Angle: ", targetAngle);
+                telemetry.update();
+            }
+        } else if (currentHeading <= targetAngle - headingTolerance && opModeIsActive()) ;
+        {
+            while (currentHeading <= targetAngle - headingTolerance && opModeIsActive()) {
+                ITDBot.rotateLeft(speed);
+
+                currentHeading = getHeading();
+                telemetry.addData("Current Angle: ", currentHeading);
+                telemetry.addData("Target Angle: ", targetAngle);
+                telemetry.update();
+            }
+        }
+        ITDBot.stopMotors();
+        currentHeading = getHeading();
     }
 }
