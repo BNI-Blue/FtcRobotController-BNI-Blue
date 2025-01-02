@@ -29,8 +29,6 @@ public class BlueITDTeleOp extends OpMode {
     double powerThreshold;
     double speedMultiply;
 
-
-
     private static final int PROFILE_1 = 1;  //Charlie
     private static final int PROFILE_2 = 2;  // Evan
     private int currentProfile = PROFILE_2;
@@ -38,7 +36,7 @@ public class BlueITDTeleOp extends OpMode {
 
     public ITDBot ITDBot = new ITDBot();
 
-    double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+    //double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
     // Declare a Servo object
     public Servo intakeHolderFlip = null;
@@ -142,9 +140,6 @@ public class BlueITDTeleOp extends OpMode {
 //    }
 
     public void fieldCentricDrive(){
-            if (gamepad1.options) {
-                ITDBot.imu.resetYaw();
-            }
         double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x;
         double rx = gamepad1.right_stick_x;
@@ -152,7 +147,7 @@ public class BlueITDTeleOp extends OpMode {
         // This button choice was made so that it is hard to hit on accident,
         // it can be freely changed based on preference.
         // The equivalent button is start on Xbox-style controllers.
-        if (gamepad1.options) {
+        if (gamepad1.y) {
             ITDBot.imu.resetYaw();
         }
 
