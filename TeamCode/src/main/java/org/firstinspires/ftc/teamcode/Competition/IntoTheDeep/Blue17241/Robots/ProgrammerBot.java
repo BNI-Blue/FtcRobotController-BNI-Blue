@@ -49,5 +49,14 @@ public class ProgrammerBot extends MecanumDrivePinpoint {
 
         odo = hwBot.get(PinpointDriver.class, "odo");
 
+        RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
+        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
+        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
+
+
+        imu = hwMap.get(IMU.class, "imu");
+        // Adjust the orientation parameters to match your robot
+        imu.initialize(new IMU.Parameters(orientationOnRobot));
+
     }
 }

@@ -139,7 +139,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
         odo.update();
     }
 
-    public void driveStraightGyroPinpoint(double speed, double distance, String direction, double target) throws InterruptedException {
+    public void  driveStraightGyroPinpoint(double speed, double distance, String direction, double target) throws InterruptedException {
 
         odo.update();
         Pose2D pos = odo.getPosition();
