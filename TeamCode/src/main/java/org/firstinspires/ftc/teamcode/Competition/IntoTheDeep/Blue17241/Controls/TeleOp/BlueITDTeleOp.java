@@ -235,8 +235,6 @@ public class BlueITDTeleOp extends OpMode {
         if (gamepad2.dpad_down && ITDBot.intakeHolderFlip.getPosition() <= 0.6) {
             ITDBot.retractIntake();
         }
-
-
     }
 
     public void bucketLinearControl(){
