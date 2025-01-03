@@ -23,7 +23,7 @@ public class TesterAutoFieldCentric extends TesterBlueAlliance {
 
             // Insert Tester Code
 
-            driveToPosition(20,20,-45,.40);
+            driveToPosition(20,20,-45,.50);
             sleep(1000);
            // driveToPosition(-20,-20,45,.40);
            // sleep(1000);

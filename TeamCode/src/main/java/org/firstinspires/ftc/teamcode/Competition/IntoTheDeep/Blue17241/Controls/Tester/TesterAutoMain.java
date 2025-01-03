@@ -291,15 +291,26 @@ public abstract class TesterAutoMain extends LinearOpMode {
         double currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
         double currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
 
+        double startTime = getRuntime();
+        double timeout = 5.0;
+        double prevPosX = 0;
+        double prevPosY = 0;
 
-        while (opModeIsActive() && distanceToTarget(currentPosX, currentPosY, targetX, targetY) > 1) {
+
+        while (opModeIsActive() && distanceToTarget(currentPosX, currentPosY, targetX, targetY) > 3 ) {
             pos = odo.getPosition();
             currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
             currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
             currentHeading = getHeading();
 
-            // Calculate heading and position errors
-            //double headingError = targetHeading - currentHeading;
+//            // Escape Clause
+//            if (Math.abs(currentPosX - prevPosX) < 0.1 && Math.abs(currentPosY - prevPosY ) < 0.1 ) {
+//                break;
+//            }
+
+            prevPosX = currentPosX;
+            prevPosY = currentPosY;
+
             double headingError = 0;
             double deltaX = targetX - currentPosX;
             double deltaY = targetY - currentPosY;
@@ -309,7 +320,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
             // Calculate speed
 
-            double speed = Math.min(maxSpeed, distance * 0.05);
+            double speed = Math.max(0.1, Math.min(maxSpeed, distance * 0.02));
 
             // Calculate desired movement in field coordinates
             double fieldX = deltaX * Math.cos(Math.toRadians(currentHeading)) - deltaY * Math.sin(Math.toRadians(currentHeading));
@@ -323,10 +334,10 @@ public abstract class TesterAutoMain extends LinearOpMode {
             double backRightPower = (fieldY + fieldX - headingError) / denominator * speed;
 
             // Set motor powers
-            Bot.frontLeftMotor.setPower(frontLeftPower);
-            Bot.rearLeftMotor.setPower(backLeftPower);
-            Bot.frontRightMotor.setPower(frontRightPower);
-            Bot.rearRightMotor.setPower(backRightPower);
+            Bot.frontLeftMotor.setPower(applyDeadBand(frontLeftPower, .1));
+            Bot.rearLeftMotor.setPower(applyDeadBand(backLeftPower, -1));
+            Bot.frontRightMotor.setPower(applyDeadBand(frontRightPower, .1));
+            Bot.rearRightMotor.setPower(applyDeadBand(backRightPower, .1));
 
             telemetry.addData("Target X", targetX);
             telemetry.addData("Target Y", targetY);
@@ -339,6 +350,10 @@ public abstract class TesterAutoMain extends LinearOpMode {
         Bot.stopMotors();
     }
 
+
+    public double applyDeadBand(double power, double threshold) {
+        return Math.abs(power) < threshold ? 0 : power;
+    }
 
     public double distanceToTarget(double currentX, double currentY, double targetX, double targetY) {
         return Math.sqrt(Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2));
