@@ -316,15 +316,16 @@ public abstract class TesterAutoMain extends LinearOpMode {
             double backRightPower = (fieldY + fieldX - headingError) / denominator * speed;
 
             // Set motor powers
-            Bot.frontLeftMotor.setPower(frontLeftPower);
-            Bot.rearLeftMotor.setPower(backLeftPower);
-            Bot.frontRightMotor.setPower(frontRightPower);
-            Bot.rearRightMotor.setPower(backRightPower);
+            Bot.frontLeftMotor.setPower(-frontLeftPower);
+            Bot.rearLeftMotor.setPower(-backLeftPower);
+            Bot.frontRightMotor.setPower(-frontRightPower);
+            Bot.rearRightMotor.setPower(-backRightPower);
 
             telemetry.addData("Target X", targetX);
             telemetry.addData("Target Y", targetY);
             telemetry.addData("Current X", currentPosX);
             telemetry.addData("Current Y", currentPosY);
+            telemetry.addData("current heading: ", + currentHeading);
             telemetry.update();
         }
 

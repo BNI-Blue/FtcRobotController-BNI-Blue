@@ -15,14 +15,18 @@ public class TesterAutoFieldCentric extends TesterBlueAlliance {
         resetHeading();
         currentHeading = getHeading();
         odo.update();
+
         waitForStart();
 
 
         while (opModeIsActive()) {
 
             // Insert Tester Code
-            driveToPosition(10,10,45,.40);
 
+            driveToPosition(20,20,-45,.40);
+            sleep(1000);
+            driveToPosition(-20,-20,45,.40);
+            sleep(1000);
             requestOpModeStop();
 
         }
