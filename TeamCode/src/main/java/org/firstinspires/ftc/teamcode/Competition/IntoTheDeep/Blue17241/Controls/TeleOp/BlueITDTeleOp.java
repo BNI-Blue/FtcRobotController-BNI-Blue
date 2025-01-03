@@ -290,7 +290,7 @@ public class BlueITDTeleOp extends OpMode {
         else{
             ITDBot.intakeStop();
         }
-//*********************************\\
+//********** ***********************\\
         if(gamepad2.dpad_up){
             ITDBot.extendIntake();
         }

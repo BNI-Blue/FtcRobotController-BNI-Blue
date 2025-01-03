@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-@Disabled
+//@Disabled
 @Autonomous(name = "Tester:Blue:FieldCentric", group = "Testers")
 public class TesterAutoFieldCentric extends TesterBlueAlliance {
     @Override
@@ -22,10 +22,6 @@ public class TesterAutoFieldCentric extends TesterBlueAlliance {
 
             // Insert Tester Code
             driveToPosition(10,10,45,.40);
-
-
-
-
 
             requestOpModeStop();
 
