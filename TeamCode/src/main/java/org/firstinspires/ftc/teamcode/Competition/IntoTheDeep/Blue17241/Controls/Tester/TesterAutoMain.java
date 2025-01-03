@@ -282,7 +282,6 @@ public abstract class TesterAutoMain extends LinearOpMode {
     }
 
 
-
     // Field Centric Drive to a Position (Distance + Heading)
 
     public void driveToPosition(double targetX, double targetY, double targetHeading, double speed) {
