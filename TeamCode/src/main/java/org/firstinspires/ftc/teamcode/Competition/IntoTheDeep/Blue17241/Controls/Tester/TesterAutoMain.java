@@ -284,9 +284,8 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
     // Field Centric Drive to a Position (Distance + Heading)
 
-    public void driveToPosition(double targetX, double targetY, double targetHeading, double speed) {
+    public void driveToPosition(double targetX, double targetY, double targetHeading, double maxSpeed) {
         currentHeading = getHeading();
-
         odo.update();
         Pose2D pos = odo.getPosition();
         double currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
@@ -300,9 +299,17 @@ public abstract class TesterAutoMain extends LinearOpMode {
             currentHeading = getHeading();
 
             // Calculate heading and position errors
-            double headingError = targetHeading - currentHeading;
+            //double headingError = targetHeading - currentHeading;
+            double headingError = 0;
             double deltaX = targetX - currentPosX;
             double deltaY = targetY - currentPosY;
+
+            //Calculate distance to target
+            double distance = distanceToTarget(currentPosX, currentPosY, targetX, targetY);
+
+            // Calculate speed
+
+            double speed = Math.min(maxSpeed, distance * 0.05);
 
             // Calculate desired movement in field coordinates
             double fieldX = deltaX * Math.cos(Math.toRadians(currentHeading)) - deltaY * Math.sin(Math.toRadians(currentHeading));
@@ -316,10 +323,10 @@ public abstract class TesterAutoMain extends LinearOpMode {
             double backRightPower = (fieldY + fieldX - headingError) / denominator * speed;
 
             // Set motor powers
-            Bot.frontLeftMotor.setPower(-frontLeftPower);
-            Bot.rearLeftMotor.setPower(-backLeftPower);
-            Bot.frontRightMotor.setPower(-frontRightPower);
-            Bot.rearRightMotor.setPower(-backRightPower);
+            Bot.frontLeftMotor.setPower(frontLeftPower);
+            Bot.rearLeftMotor.setPower(backLeftPower);
+            Bot.frontRightMotor.setPower(frontRightPower);
+            Bot.rearRightMotor.setPower(backRightPower);
 
             telemetry.addData("Target X", targetX);
             telemetry.addData("Target Y", targetY);
@@ -332,29 +339,6 @@ public abstract class TesterAutoMain extends LinearOpMode {
         Bot.stopMotors();
     }
 
-    public void rotateToHeading(double targetHeading, double speed) {
-        resetHeading();
-        currentHeading = getHeading();
-
-
-        while (opModeIsActive() && Math.abs(targetHeading - currentHeading) > 1) {
-            currentHeading = getHeading();
-            double headingError = targetHeading - currentHeading;
-
-            double rotationPower = headingError > 0 ? speed : -speed;
-
-            Bot.frontLeftMotor.setPower(rotationPower);
-            Bot.rearLeftMotor.setPower(rotationPower);
-            Bot.frontRightMotor.setPower(-rotationPower);
-            Bot.rearRightMotor.setPower(-rotationPower);
-
-            telemetry.addData("Target Heading", targetHeading);
-            telemetry.addData("Current Heading", currentHeading);
-            telemetry.update();
-        }
-
-        Bot.stopMotors();
-    }
 
     public double distanceToTarget(double currentX, double currentY, double targetX, double targetY) {
         return Math.sqrt(Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2));
