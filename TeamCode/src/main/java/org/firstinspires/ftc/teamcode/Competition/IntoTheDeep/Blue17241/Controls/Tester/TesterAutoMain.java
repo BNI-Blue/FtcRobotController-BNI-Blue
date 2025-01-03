@@ -285,78 +285,74 @@ public abstract class TesterAutoMain extends LinearOpMode {
     // Field Centric Drive to a Position (Distance + Heading)
 
     public void driveToPosition(double targetX, double targetY, double targetHeading, double maxSpeed) {
-        currentHeading = getHeading();
         odo.update();
         Pose2D pos = odo.getPosition();
-        double currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
-        double currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
+        double currentPosX = pos.getX(DistanceUnit.INCH);
+        double currentPosY = pos.getY(DistanceUnit.INCH);
+        double currentHeading = getHeading();
 
-        double startTime = getRuntime();
-        double timeout = 5.0;
-        double prevPosX = 0;
-        double prevPosY = 0;
+        double prevDistance = distanceToTarget(currentPosX, currentPosY, targetX, targetY);
 
-
-        while (opModeIsActive() && distanceToTarget(currentPosX, currentPosY, targetX, targetY) > 3 ) {
+        while (opModeIsActive() && prevDistance > 2) { // Adjusted tolerance
             pos = odo.getPosition();
-            currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
-            currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
+            currentPosX = pos.getX(DistanceUnit.INCH);
+            currentPosY = pos.getY(DistanceUnit.INCH);
             currentHeading = getHeading();
 
-//            // Escape Clause
-//            if (Math.abs(currentPosX - prevPosX) < 0.1 && Math.abs(currentPosY - prevPosY ) < 0.1 ) {
-//                break;
-//            }
-
-            prevPosX = currentPosX;
-            prevPosY = currentPosY;
-
-            double headingError = 0;
+            // Calculate errors
             double deltaX = targetX - currentPosX;
             double deltaY = targetY - currentPosY;
 
-            //Calculate distance to target
+            // Calculate distance to target
             double distance = distanceToTarget(currentPosX, currentPosY, targetX, targetY);
 
-            // Calculate speed
+            // Proportional speed scaling with a minimum speed
+            double speed = Math.max(0.15, Math.min(maxSpeed, distance * 0.05)); // Enforce a minimum speed of 0.15
 
-            double speed = Math.max(0.1, Math.min(maxSpeed, distance * 0.02));
-
-            // Calculate desired movement in field coordinates
+            // Calculate field-centric movement
             double fieldX = deltaX * Math.cos(Math.toRadians(currentHeading)) - deltaY * Math.sin(Math.toRadians(currentHeading));
             double fieldY = deltaX * Math.sin(Math.toRadians(currentHeading)) + deltaY * Math.cos(Math.toRadians(currentHeading));
 
-            // Normalize speeds
-            double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX) + Math.abs(headingError), 1);
-            double frontLeftPower = (fieldY + fieldX + headingError) / denominator * speed;
-            double backLeftPower = (fieldY - fieldX + headingError) / denominator * speed;
-            double frontRightPower = (fieldY - fieldX - headingError) / denominator * speed;
-            double backRightPower = (fieldY + fieldX - headingError) / denominator * speed;
+            // Normalize motor powers
+            double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX), 1);
+            double frontLeftPower = (fieldY + fieldX) / denominator * speed;
+            double backLeftPower = (fieldY - fieldX) / denominator * speed;
+            double frontRightPower = (fieldY - fieldX) / denominator * speed;
+            double backRightPower = (fieldY + fieldX) / denominator * speed;
 
             // Set motor powers
-            Bot.frontLeftMotor.setPower(applyDeadBand(frontLeftPower, .1));
-            Bot.rearLeftMotor.setPower(applyDeadBand(backLeftPower, -1));
-            Bot.frontRightMotor.setPower(applyDeadBand(frontRightPower, .1));
-            Bot.rearRightMotor.setPower(applyDeadBand(backRightPower, .1));
+            Bot.frontLeftMotor.setPower(frontLeftPower);
+            Bot.rearLeftMotor.setPower(backLeftPower);
+            Bot.frontRightMotor.setPower(frontRightPower);
+            Bot.rearRightMotor.setPower(backRightPower);
 
             telemetry.addData("Target X", targetX);
             telemetry.addData("Target Y", targetY);
             telemetry.addData("Current X", currentPosX);
             telemetry.addData("Current Y", currentPosY);
-            telemetry.addData("current heading: ", + currentHeading);
+            telemetry.addData("Distance to Target", distance);
+            telemetry.addData("Speed", speed);
             telemetry.update();
+
+            // Prevent endless looping
+            if (Math.abs(distance - prevDistance) < 0.1) {
+                // Minimal movement, break out of the loop
+                break;
+            }
+
+            prevDistance = distance;
         }
 
-        Bot.stopMotors();
+        Bot.stopMotors(); // Stop motors after reaching target
+    }
+
+    public double distanceToTarget(double currentX, double currentY, double targetX, double targetY) {
+        return Math.sqrt(Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2));
     }
 
 
     public double applyDeadBand(double power, double threshold) {
         return Math.abs(power) < threshold ? 0 : power;
-    }
-
-    public double distanceToTarget(double currentX, double currentY, double targetX, double targetY) {
-        return Math.sqrt(Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2));
     }
 
 
