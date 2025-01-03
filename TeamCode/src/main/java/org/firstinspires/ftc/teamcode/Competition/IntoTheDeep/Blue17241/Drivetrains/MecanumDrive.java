@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 
 public class MecanumDrive {
 
@@ -50,6 +51,8 @@ public class MecanumDrive {
     }
     driveDirections driveDirection = driveDirections.STOP;
 
+    public Pinpoint odo = new Pinpoint();
+
 
     public MecanumDrive() {
 
@@ -83,6 +86,7 @@ public class MecanumDrive {
     public void resetHeading() {
         imu.resetYaw();
     }
+
 
     // Method that corrects the robots original heading.
     // Method assumes the heading to correct to has been set outside of this method

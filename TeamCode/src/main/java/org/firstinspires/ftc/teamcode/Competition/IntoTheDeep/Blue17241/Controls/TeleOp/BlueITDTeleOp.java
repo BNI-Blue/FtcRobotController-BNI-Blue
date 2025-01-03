@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
 
 import java.util.function.IntToDoubleFunction;
@@ -51,6 +52,7 @@ public class BlueITDTeleOp extends OpMode {
     @Override
     public void init() {
         ITDBot.initRobot(hardwareMap);
+        ITDBot.imu.resetYaw();
     }
 
 
@@ -147,11 +149,46 @@ public class BlueITDTeleOp extends OpMode {
         // This button choice was made so that it is hard to hit on accident,
         // it can be freely changed based on preference.
         // The equivalent button is start on Xbox-style controllers.
-        if (gamepad1.y) {
-            ITDBot.imu.resetYaw();
-        }
 
         double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+        // Rotate the movement direction counter to the bot's rotation
+        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+
+        rotX = rotX * 1.1;  // Counteract imperfect strafing
+
+        // Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio,
+        // but only if at least one is out of the range [-1, 1]
+        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+        double frontLeftPower = (rotY + rotX + rx) / denominator;
+        double backLeftPower = (rotY - rotX + rx) / denominator;
+        double frontRightPower = (rotY - rotX - rx) / denominator;
+        double backRightPower = (rotY + rotX - rx) / denominator;
+
+        ITDBot.frontLeftMotor.setPower(frontLeftPower);
+        ITDBot.rearLeftMotor.setPower(backLeftPower);
+        ITDBot.frontRightMotor.setPower(frontRightPower);
+        ITDBot.rearRightMotor.setPower(backRightPower);
+    }
+
+    public void fieldCentricDrivePinpoint(){
+        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+        double x = gamepad1.left_stick_x;
+        double rx = gamepad1.right_stick_x;
+
+        // This button choice was made so that it is hard to hit on accident,
+        // it can be freely changed based on preference.
+        // The equivalent button is start on Xbox-style controllers.
+        if (gamepad1.y) {
+            ITDBot.resetHeading();
+            ITDBot.getHeading();
+            //ITDBot.imu.resetHeading();
+        }
+
+        double botHeading = ITDBot.getHeading();
+        //double botHeading = odo.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
         // Rotate the movement direction counter to the bot's rotation
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
@@ -236,23 +273,11 @@ public class BlueITDTeleOp extends OpMode {
         if(gamepad2.x && ITDBot.intakeExtender.getPosition() <= 0.65) {
             ITDBot.intakeHolderDown();
         }
+
+        //if(gamepad2.)
     }
 
-
-//    public void liftControl() {
-//        if (gamepad2.a) {
-//            ITDBot.climbingLiftUp(1);
-//        } else if (gamepad2.b) {
-//            ITDBot.climbingLiftDown(1);
-//        } else{
-//            ITDBot.climbingLiftStop();
-//        }
-//    }
-
-
-
     public void intakeControl() {
-
 
 //        ITDBot.intakeHolderFlip.getPosition() <= 0.6
         if (gamepad2.left_bumper) {
