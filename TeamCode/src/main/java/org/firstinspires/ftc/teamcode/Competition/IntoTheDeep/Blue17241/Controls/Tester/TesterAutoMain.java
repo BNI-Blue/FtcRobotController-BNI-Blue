@@ -442,13 +442,19 @@ public abstract class TesterAutoMain extends LinearOpMode {
             telemetry.addData("Target Y", targetY);
             telemetry.addData("Current X", currentPosX);
             telemetry.addData("Current Y", currentPosY);
+            telemetry.addData("Previous X", prevPosX);
+            telemetry.addData("Previous Y", prevPosY);
             telemetry.addData("Distance to Target", distance);
             telemetry.addData("Heading Error", headingError);
             telemetry.addData("Heading Correction", headingCorrection);
+            telemetry.addData("Elapsed Time", getRuntime() - startTime);
             telemetry.update();
 
             // Stop if minimal position change detected
-            if (Math.abs(currentPosX - prevPosX) < 0.01 && Math.abs(currentPosY - prevPosY) < 0.01) {
+            double xError = Math.abs(currentPosX) - Math.abs(prevPosX);
+            double yError = Math.abs(currentPosY) - Math.abs(prevPosY);
+
+            if ( xError  < 0.05 &&  yError < 0.05) {
                 break;
             }
 
