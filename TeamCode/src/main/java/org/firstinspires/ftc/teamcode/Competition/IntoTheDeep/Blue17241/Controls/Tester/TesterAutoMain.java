@@ -373,7 +373,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
     double kI_heading = 0.001;
     double kD_heading = 0.005;
     double integralSumHeading = 0;
-    double previousErrorHeading = 0; /
+    double previousErrorHeading = 0;
 
     public void driveToPositionPID(double targetX, double targetY, double targetHeading, double maxSpeed) {
         odo.reset();
