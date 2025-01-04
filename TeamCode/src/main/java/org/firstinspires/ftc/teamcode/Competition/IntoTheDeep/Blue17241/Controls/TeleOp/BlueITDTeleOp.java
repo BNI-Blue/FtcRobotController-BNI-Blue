@@ -69,28 +69,17 @@ public class BlueITDTeleOp extends OpMode {
         //drive();
         telemetryOutput();
         //liftControl();
-        intakeControl();
         preventClawOnStart();
-        // changeDriverProfile();
-        intakeFlipControl();
-        bucketFlipControl();
-        bucketLinearControl();
         slowIntake();
         //fieldCentricDrive();
         fieldCentricDrivePinpoint();
+        gamepadTwoControl();
+        newIntake();
 
         IntakeAssistControl(); //        This combines multiple movements into one button.
         //combinedControl();
     }
 
-    public void changeDriverProfile() {
-        if (gamepad1.left_bumper) {
-            currentProfile = PROFILE_1;
-        } else if (gamepad1.right_bumper) {
-            currentProfile = PROFILE_2;
-        }
-
-    }
 
 //    public void drive() {
 //
@@ -116,7 +105,7 @@ public class BlueITDTeleOp extends OpMode {
 //                rearRightSpeed = leftStickYVal + rightStickXVal - leftStickXVal;
 //                break;
 //            // Name of Driver using Profile 2
-//            case PROFILE_2:
+//            case PROFILE_2: Audrey
 //                //leftStickXVal controls strafing, and rightStickXVal controls rotation.
 //                frontLeftSpeed = leftStickYVal + leftStickXVal + rightStickXVal;
 //                frontRightSpeed = leftStickYVal - leftStickXVal - rightStickXVal;
@@ -267,50 +256,39 @@ public class BlueITDTeleOp extends OpMode {
         }
     }
 
-    public void bucketFlipControl() {
-        if (gamepad2.a) {
-            ITDBot.fillBucket();
-        }
-        if (gamepad2.b) {
-            ITDBot.emptyBucket();
-        }
+    public void newIntake(){
+
     }
 
-//    public void combinedControl(){
-//        if(gamepad2.options){
-//            ITDBot.bucketSlideUp(1, 4.5);
-//            ITDBot.emptyBucket();
-//            ITDBot.fillBucket();
-//            ITDBot.bucketSlideDown(1, 4.3);
-//        }
-//    }
+    public void gamepadTwoControl(){
+        //bucket flip control
+        if (gamepad2.dpad_left) {
+            ITDBot.fillBucket();
+        }
+        if (gamepad2.dpad_right) {
+            ITDBot.emptyBucket();
+        }
 
-    public void intakeFlipControl(){
-//        if(gamepad2.y){
-//            ITDBot.intakeHolderUp();
-//        }
-
+        //intake flip control
         if(gamepad2.x && ITDBot.intakeExtender.getPosition() <= 0.65) {
             ITDBot.intakeHolderDown();
         }
 
-        //if(gamepad2.)
-    }
+        //intake/outtake control
 
-    public void intakeControl() {
-
-//        ITDBot.intakeHolderFlip.getPosition() <= 0.6
+        //ITDBot.intakeHolderFlip.getPosition() <= 0.6
         if (gamepad2.left_bumper) {
             ITDBot.sampleOuttake();
-//            telemetry.addLine("left bumper");
+//      telemetry.addLine("left bumper");
         } else if (gamepad2.right_bumper || ITDBot.intakeHolderFlip.getPosition() >= 0.6) {
             ITDBot.sampleIntake();
-//            telemetry.addLine("right bumper");
+//      telemetry.addLine("right bumper");
         }
         else{
             ITDBot.intakeStop();
         }
-//********** ***********************\\
+
+        //extender control
         if(gamepad2.dpad_up){
             ITDBot.extendIntake();
         }
@@ -318,10 +296,8 @@ public class BlueITDTeleOp extends OpMode {
         if (gamepad2.dpad_down && ITDBot.intakeHolderFlip.getPosition() <= 0.6) {
             ITDBot.retractIntake();
         }
-    }
 
-    public void bucketLinearControl(){
-
+        //bucket linear control
         if (gamepad2.right_stick_y > 0.1) {
             ITDBot.bucketSlideUp(1);
 
@@ -331,6 +307,7 @@ public class BlueITDTeleOp extends OpMode {
         else {
             ITDBot.bucketSlideStop();
         }
+
     }
 
     public void IntakeAssistControl () {
@@ -372,9 +349,6 @@ public class BlueITDTeleOp extends OpMode {
             telemetry.addData("Moving", moving ? "Yes" : "No");
             telemetry.update();
         }
-
-
-
 
         @Override
         public void stop() {

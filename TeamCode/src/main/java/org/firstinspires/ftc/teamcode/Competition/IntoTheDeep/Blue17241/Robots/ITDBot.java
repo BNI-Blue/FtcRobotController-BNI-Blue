@@ -68,6 +68,9 @@ public class ITDBot extends MecanumDrive {
         intakeHolderFlip = hwBot.servo.get("intake_flip"); //Port _ -Expansion
         intakeHolderFlip. setDirection(Servo.Direction.FORWARD);
 
+        intakeRotator = hwBot.servo.get("intake_rotator");
+        intakeRotator.setDirection(Servo.Direction.FORWARD);
+
         //Bucket Linear Slide Extension
         bucketLinearSlide = hwBot.dcMotor.get("bucket_linear_slide");
         bucketLinearSlide.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -189,6 +192,15 @@ public class ITDBot extends MecanumDrive {
         intakeHolderUp();
         retractIntake();
 //        sampleOuttake();
+    }
+
+    public void intakeExtenderIncremental(){
+        //intakeExtender.setPosition();
+
+    }
+
+    public void intakeRotate(){
+
     }
 
 }

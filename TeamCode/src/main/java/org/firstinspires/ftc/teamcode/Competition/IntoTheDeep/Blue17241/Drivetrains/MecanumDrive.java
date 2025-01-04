@@ -29,6 +29,8 @@ public class MecanumDrive {
 
     public Servo intakeExtender = null;
 
+    public Servo intakeRotator = null;
+
     public CRServo sampleIntakeServo = null;
 
     public Servo bucketFlip = null;
