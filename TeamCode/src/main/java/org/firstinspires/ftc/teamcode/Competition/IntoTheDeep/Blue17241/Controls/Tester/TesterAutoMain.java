@@ -283,6 +283,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
 
     public void driveToPosition(double targetX, double targetY, double targetHeading, double maxSpeed) {
+        odo.reset();
         odo.update();
         Pose2D pos = odo.getPosition();
         double currentPosX = pos.getX(DistanceUnit.INCH);
@@ -356,6 +357,107 @@ public abstract class TesterAutoMain extends LinearOpMode {
     public double distanceToTarget(double currentX, double currentY, double targetX, double targetY) {
         return Math.sqrt(Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2));
     }
+
+    // PID Version
+
+    // PID constants for movement (distance to target)
+    double kP_move = 0.05;
+    double kI_move = 0.001;
+    double kD_move = 0.01;
+    double integralSumMove = 0;   // Accumulated integral for movement
+    double previousErrorMove = 0; // Previous distance error for movement
+
+
+    // PID constants for heading correction
+    double kP_heading = 0.02;
+    double kI_heading = 0.001;
+    double kD_heading = 0.005;
+    double integralSumHeading = 0;
+    double previousErrorHeading = 0; /
+
+    public void driveToPositionPID(double targetX, double targetY, double targetHeading, double maxSpeed) {
+        odo.reset();
+        odo.update();
+        Pose2D pos = odo.getPosition();
+        double currentPosX = pos.getX(DistanceUnit.INCH);
+        double currentPosY = pos.getY(DistanceUnit.INCH);
+        double currentHeading = pos.getHeading(AngleUnit.DEGREES);
+
+        double prevPosX = currentPosX;
+        double prevPosY = currentPosY;
+
+        while (opModeIsActive() && distanceToTarget(currentPosX, currentPosY, targetX, targetY) > 2) { // Adjusted tolerance
+            pos = odo.getPosition();
+            currentPosX = pos.getX(DistanceUnit.INCH);
+            currentPosY = pos.getY(DistanceUnit.INCH);
+            currentHeading = pos.getHeading(AngleUnit.DEGREES);
+
+            // Calculate errors for movement
+            double deltaX = targetX - currentPosX;
+            double deltaY = targetY - currentPosY;
+            double distance = distanceToTarget(currentPosX, currentPosY, targetX, targetY);
+
+            // PID for movement
+            double errorMove = distance;
+            integralSumMove += errorMove;
+            double derivativeMove = errorMove - previousErrorMove;
+            double movementSpeed = kP_move * errorMove + kI_move * integralSumMove + kD_move * derivativeMove;
+
+            // Ensure movement speed is within limits
+            movementSpeed = Math.max(0.15, Math.min(maxSpeed, movementSpeed)); // Enforce a minimum speed of 0.15
+
+            previousErrorMove = errorMove;
+
+            // PID for heading correction
+            double headingError = targetHeading - currentHeading;
+            if (headingError > 180) headingError -= 360; // Normalize to [-180, 180]
+            if (headingError < -180) headingError += 360;
+
+            integralSumHeading += headingError;
+            double derivativeHeading = headingError - previousErrorHeading;
+            double headingCorrection = kP_heading * headingError + kI_heading * integralSumHeading + kD_heading * derivativeHeading;
+
+            previousErrorHeading = headingError;
+
+            // Field-centric movement
+            double fieldX = deltaX * Math.cos(Math.toRadians(currentHeading)) - deltaY * Math.sin(Math.toRadians(currentHeading));
+            double fieldY = deltaX * Math.sin(Math.toRadians(currentHeading)) + deltaY * Math.cos(Math.toRadians(currentHeading));
+
+            // Normalize motor powers
+            double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX) + Math.abs(headingCorrection), 1);
+            double frontLeftPower = (fieldY + fieldX + headingCorrection) / denominator * movementSpeed;
+            double backLeftPower = (fieldY - fieldX + headingCorrection) / denominator * movementSpeed;
+            double frontRightPower = (fieldY - fieldX - headingCorrection) / denominator * movementSpeed;
+            double backRightPower = (fieldY + fieldX - headingCorrection) / denominator * movementSpeed;
+
+            // Set motor powers
+            Bot.frontLeftMotor.setPower(frontLeftPower);
+            Bot.rearLeftMotor.setPower(backLeftPower);
+            Bot.frontRightMotor.setPower(frontRightPower);
+            Bot.rearRightMotor.setPower(backRightPower);
+
+            telemetry.addData("Target X", targetX);
+            telemetry.addData("Target Y", targetY);
+            telemetry.addData("Current X", currentPosX);
+            telemetry.addData("Current Y", currentPosY);
+            telemetry.addData("Distance to Target", distance);
+            telemetry.addData("Movement Speed", movementSpeed);
+            telemetry.addData("Heading Error", headingError);
+            telemetry.addData("Heading Correction", headingCorrection);
+            telemetry.update();
+
+            // Stop if minimal position change detected
+            if (Math.abs(currentPosX - prevPosX) < 0.05 && Math.abs(currentPosY - prevPosY) < 0.05) {
+                break;
+            }
+
+            prevPosX = currentPosX;
+            prevPosY = currentPosY;
+        }
+
+        Bot.stopMotors(); // Stop motors after reaching target
+    }
+
 
 
 
