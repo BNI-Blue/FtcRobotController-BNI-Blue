@@ -282,8 +282,6 @@ public abstract class TesterAutoMain extends LinearOpMode {
     }
 
 
-    // Field Centric Drive to a Position (Distance + Heading)
-
     public void driveToPosition(double targetX, double targetY, double targetHeading, double maxSpeed) {
         odo.update();
         Pose2D pos = odo.getPosition();
@@ -291,9 +289,10 @@ public abstract class TesterAutoMain extends LinearOpMode {
         double currentPosY = pos.getY(DistanceUnit.INCH);
         double currentHeading = getHeading();
 
-        double prevDistance = distanceToTarget(currentPosX, currentPosY, targetX, targetY);
+        double prevPosX = currentPosX;
+        double prevPosY = currentPosY;
 
-        while (opModeIsActive() && prevDistance > 2) { // Adjusted tolerance
+        while (opModeIsActive() && distanceToTarget(currentPosX, currentPosY, targetX, targetY) > 2) { // Adjusted tolerance
             pos = odo.getPosition();
             currentPosX = pos.getX(DistanceUnit.INCH);
             currentPosY = pos.getY(DistanceUnit.INCH);
@@ -309,16 +308,23 @@ public abstract class TesterAutoMain extends LinearOpMode {
             // Proportional speed scaling with a minimum speed
             double speed = Math.max(0.15, Math.min(maxSpeed, distance * 0.05)); // Enforce a minimum speed of 0.15
 
+            // Heading correction (P control)
+            double headingError = targetHeading - currentHeading;
+            if (headingError > 180) headingError -= 360; // Normalize to [-180, 180]
+            if (headingError < -180) headingError += 360;
+
+            double headingCorrection = headingError * 0.02; // Proportional constant (tune this)
+
             // Calculate field-centric movement
             double fieldX = deltaX * Math.cos(Math.toRadians(currentHeading)) - deltaY * Math.sin(Math.toRadians(currentHeading));
             double fieldY = deltaX * Math.sin(Math.toRadians(currentHeading)) + deltaY * Math.cos(Math.toRadians(currentHeading));
 
             // Normalize motor powers
-            double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX), 1);
-            double frontLeftPower = (fieldY + fieldX) / denominator * speed;
-            double backLeftPower = (fieldY - fieldX) / denominator * speed;
-            double frontRightPower = (fieldY - fieldX) / denominator * speed;
-            double backRightPower = (fieldY + fieldX) / denominator * speed;
+            double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX) + Math.abs(headingCorrection), 1);
+            double frontLeftPower = (fieldY + fieldX + headingCorrection) / denominator * speed;
+            double backLeftPower = (fieldY - fieldX + headingCorrection) / denominator * speed;
+            double frontRightPower = (fieldY - fieldX - headingCorrection) / denominator * speed;
+            double backRightPower = (fieldY + fieldX - headingCorrection) / denominator * speed;
 
             // Set motor powers
             Bot.frontLeftMotor.setPower(frontLeftPower);
@@ -331,16 +337,17 @@ public abstract class TesterAutoMain extends LinearOpMode {
             telemetry.addData("Current X", currentPosX);
             telemetry.addData("Current Y", currentPosY);
             telemetry.addData("Distance to Target", distance);
-            telemetry.addData("Speed", speed);
+            telemetry.addData("Heading Error", headingError);
+            telemetry.addData("Heading Correction", headingCorrection);
             telemetry.update();
 
-            // Prevent endless looping
-            if (Math.abs(distance - prevDistance) < 0.1) {
-                // Minimal movement, break out of the loop
+            // Stop if minimal position change detected
+            if (Math.abs(currentPosX - prevPosX) < 0.1 && Math.abs(currentPosY - prevPosY) < 0.1) {
                 break;
             }
 
-            prevDistance = distance;
+            prevPosX = currentPosX;
+            prevPosY = currentPosY;
         }
 
         Bot.stopMotors(); // Stop motors after reaching target
@@ -349,6 +356,7 @@ public abstract class TesterAutoMain extends LinearOpMode {
     public double distanceToTarget(double currentX, double currentY, double targetX, double targetY) {
         return Math.sqrt(Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2));
     }
+
 
 
     public double applyDeadBand(double power, double threshold) {
