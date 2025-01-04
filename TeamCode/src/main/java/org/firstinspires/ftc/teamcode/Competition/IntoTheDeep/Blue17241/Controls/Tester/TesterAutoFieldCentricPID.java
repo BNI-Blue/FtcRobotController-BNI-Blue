@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Tester;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 //@Disabled
-@Autonomous(name = "Tester:Blue:FieldCentric", group = "Testers")
-public class TesterAutoFieldCentric extends TesterBlueAlliance {
+@Autonomous(name = "Tester:Blue:FieldCentricPID", group = "Testers")
+public class TesterAutoFieldCentricPID extends TesterBlueAlliance {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -23,7 +22,7 @@ public class TesterAutoFieldCentric extends TesterBlueAlliance {
 
             // Insert Tester Code
 
-            driveToPosition(15, 15,-45,.50);
+            driveToPositionPID(15,15,-45,.50);
             sleep(1000);
 
             requestOpModeStop();
