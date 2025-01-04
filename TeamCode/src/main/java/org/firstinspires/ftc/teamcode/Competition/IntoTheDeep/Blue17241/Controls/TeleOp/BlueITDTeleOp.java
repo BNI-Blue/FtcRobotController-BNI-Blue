@@ -3,10 +3,8 @@ package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Control
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
@@ -33,13 +31,11 @@ public class BlueITDTeleOp extends OpMode {
     private static final int PROFILE_1 = 1;  //Charlie
     private static final int PROFILE_2 = 2;  // Evan
     private int currentProfile = PROFILE_2;
-    //public double mechanismPower = ___;
 
     public ITDBot ITDBot = new ITDBot();
 
-    //double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+    double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-    // Declare a Servo object
     public Servo intakeHolderFlip = null;
 
     // Variables for tracking servo position and movement
@@ -55,7 +51,6 @@ public class BlueITDTeleOp extends OpMode {
         ITDBot.imu.resetYaw();
     }
 
-
     public void start() {
     }
 
@@ -64,18 +59,14 @@ public class BlueITDTeleOp extends OpMode {
         speedControl();
         //drive();
         telemetryOutput();
-        //liftControl();
-        intakeControl();
         preventClawOnStart();
         // changeDriverProfile();
-        intakeFlipControl();
-        bucketFlipControl();
         bucketLinearControl();
         slowIntake();
         fieldCentricDrive();
+        gamepadTwoControls();
 
-        IntakeAssistControl(); //        This combines multiple movements into one button.
-        //combinedControl();
+        IntakeAssistControl();
     }
 
     public void changeDriverProfile() {
@@ -178,17 +169,12 @@ public class BlueITDTeleOp extends OpMode {
         double x = gamepad1.left_stick_x;
         double rx = gamepad1.right_stick_x;
 
-        // This button choice was made so that it is hard to hit on accident,
-        // it can be freely changed based on preference.
-        // The equivalent button is start on Xbox-style controllers.
         if (gamepad1.y) {
             ITDBot.resetHeading();
             ITDBot.getHeading();
-            //ITDBot.imu.resetHeading();
         }
 
         double botHeading = ITDBot.getHeading();
-        //double botHeading = odo.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
         // Rotate the movement direction counter to the bot's rotation
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
@@ -247,54 +233,35 @@ public class BlueITDTeleOp extends OpMode {
         }
     }
 
-    public void bucketFlipControl() {
+    public void gamepadTwoControls(){
+        //bucket controls
         if (gamepad2.a) {
             ITDBot.fillBucket();
         }
         if (gamepad2.b) {
             ITDBot.emptyBucket();
         }
-    }
 
-//    public void combinedControl(){
-//        if(gamepad2.options){
-//            ITDBot.bucketSlideUp(1, 4.5);
-//            ITDBot.emptyBucket();
-//            ITDBot.fillBucket();
-//            ITDBot.bucketSlideDown(1, 4.3);
-//        }
-//    }
-
-    public void intakeFlipControl(){
-//        if(gamepad2.y){
-//            ITDBot.intakeHolderUp();
-//        }
-
+        //intake flip controls
         if(gamepad2.x && ITDBot.intakeExtender.getPosition() <= 0.65) {
             ITDBot.intakeHolderDown();
         }
 
-        //if(gamepad2.)
-    }
-
-    public void intakeControl() {
-
-//        ITDBot.intakeHolderFlip.getPosition() <= 0.6
+        //intake controls
+                //ITDBot.intakeHolderFlip.getPosition() <= 0.6
         if (gamepad2.left_bumper) {
             ITDBot.sampleOuttake();
-//            telemetry.addLine("left bumper");
         } else if (gamepad2.right_bumper || ITDBot.intakeHolderFlip.getPosition() >= 0.6) {
             ITDBot.sampleIntake();
-//            telemetry.addLine("right bumper");
         }
         else{
             ITDBot.intakeStop();
         }
-//********** ***********************\\
+
+        //extender controls
         if(gamepad2.dpad_up){
             ITDBot.extendIntake();
         }
-
         if (gamepad2.dpad_down && ITDBot.intakeHolderFlip.getPosition() <= 0.6) {
             ITDBot.retractIntake();
         }
@@ -312,16 +279,14 @@ public class BlueITDTeleOp extends OpMode {
             ITDBot.bucketSlideStop();
         }
     }
-
     public void IntakeAssistControl () {
-//        Take out this conditional and leave just "gamepad2.left_trigger > 0.5 " if D2 wants to be able to retract no matter waht.
+//        Take out this conditional and leave just "gamepad2.left_trigger > 0.5 " if D2 wants to be able to retract no matter what.
 //         && ITDBot.intakeHolderFlip.getPosition() >= 0.6
         if (gamepad2.left_trigger > 0.5 && ITDBot.intakeHolderFlip.getPosition() >= 0.6) {
             telemetry.addLine("SAMPLE INTAKE TO BUCKET CONTROL");
             ITDBot.SampleIntakeToBucket();
         }
     }
-
     public void slowIntake(){
         currentPosition = ITDBot.intakeHolderFlip.getPosition();
             if (moving) {
@@ -352,14 +317,9 @@ public class BlueITDTeleOp extends OpMode {
             telemetry.addData("Moving", moving ? "Yes" : "No");
             telemetry.update();
         }
-
-
-
-
         @Override
         public void stop() {
             // Make sure to stop the servo or reset it if needed
             ITDBot.intakeHolderFlip.setPosition(0.37);  // Reset the servo to its starting position
         }
     }
-
