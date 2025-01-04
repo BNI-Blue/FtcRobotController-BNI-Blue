@@ -284,37 +284,41 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
     // Field Centric Drive to a Position (Distance + Heading)
 
-    public void driveToPosition(double targetX, double targetY, double targetHeading, double speed) {
-        resetHeading();
-        currentHeading = getHeading();
-
+    public void driveToPosition(double targetX, double targetY, double targetHeading, double maxSpeed) {
         odo.update();
         Pose2D pos = odo.getPosition();
-        double currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
-        double currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
+        double currentPosX = pos.getX(DistanceUnit.INCH);
+        double currentPosY = pos.getY(DistanceUnit.INCH);
+        double currentHeading = getHeading();
 
+        double prevDistance = distanceToTarget(currentPosX, currentPosY, targetX, targetY);
 
-        while (opModeIsActive() && distanceToTarget(currentPosX, currentPosY, targetX, targetY) > 1) {
+        while (opModeIsActive() && prevDistance > 2) { // Adjusted tolerance
             pos = odo.getPosition();
-            currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
-            currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
+            currentPosX = pos.getX(DistanceUnit.INCH);
+            currentPosY = pos.getY(DistanceUnit.INCH);
             currentHeading = getHeading();
 
-            // Calculate heading and position errors
-            double headingError = targetHeading - currentHeading;
+            // Calculate errors
             double deltaX = targetX - currentPosX;
             double deltaY = targetY - currentPosY;
 
-            // Calculate desired movement in field coordinates
+            // Calculate distance to target
+            double distance = distanceToTarget(currentPosX, currentPosY, targetX, targetY);
+
+            // Proportional speed scaling with a minimum speed
+            double speed = Math.max(0.15, Math.min(maxSpeed, distance * 0.05)); // Enforce a minimum speed of 0.15
+
+            // Calculate field-centric movement
             double fieldX = deltaX * Math.cos(Math.toRadians(currentHeading)) - deltaY * Math.sin(Math.toRadians(currentHeading));
             double fieldY = deltaX * Math.sin(Math.toRadians(currentHeading)) + deltaY * Math.cos(Math.toRadians(currentHeading));
 
-            // Normalize speeds
-            double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX) + Math.abs(headingError), 1);
-            double frontLeftPower = (fieldY + fieldX + headingError) / denominator * speed;
-            double backLeftPower = (fieldY - fieldX + headingError) / denominator * speed;
-            double frontRightPower = (fieldY - fieldX - headingError) / denominator * speed;
-            double backRightPower = (fieldY + fieldX - headingError) / denominator * speed;
+            // Normalize motor powers
+            double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX), 1);
+            double frontLeftPower = (fieldY + fieldX) / denominator * speed;
+            double backLeftPower = (fieldY - fieldX) / denominator * speed;
+            double frontRightPower = (fieldY - fieldX) / denominator * speed;
+            double backRightPower = (fieldY + fieldX) / denominator * speed;
 
             // Set motor powers
             Bot.frontLeftMotor.setPower(frontLeftPower);
@@ -326,38 +330,29 @@ public abstract class TesterAutoMain extends LinearOpMode {
             telemetry.addData("Target Y", targetY);
             telemetry.addData("Current X", currentPosX);
             telemetry.addData("Current Y", currentPosY);
+            telemetry.addData("Distance to Target", distance);
+            telemetry.addData("Speed", speed);
             telemetry.update();
+
+            // Prevent endless looping
+            if (Math.abs(distance - prevDistance) < 0.1) {
+                // Minimal movement, break out of the loop
+                break;
+            }
+
+            prevDistance = distance;
         }
 
-        Bot.stopMotors();
-    }
-
-    public void rotateToHeading(double targetHeading, double speed) {
-        resetHeading();
-        currentHeading = getHeading();
-
-
-        while (opModeIsActive() && Math.abs(targetHeading - currentHeading) > 1) {
-            currentHeading = getHeading();
-            double headingError = targetHeading - currentHeading;
-
-            double rotationPower = headingError > 0 ? speed : -speed;
-
-            Bot.frontLeftMotor.setPower(rotationPower);
-            Bot.rearLeftMotor.setPower(rotationPower);
-            Bot.frontRightMotor.setPower(-rotationPower);
-            Bot.rearRightMotor.setPower(-rotationPower);
-
-            telemetry.addData("Target Heading", targetHeading);
-            telemetry.addData("Current Heading", currentHeading);
-            telemetry.update();
-        }
-
-        Bot.stopMotors();
+        Bot.stopMotors(); // Stop motors after reaching target
     }
 
     public double distanceToTarget(double currentX, double currentY, double targetX, double targetY) {
         return Math.sqrt(Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2));
+    }
+
+
+    public double applyDeadBand(double power, double threshold) {
+        return Math.abs(power) < threshold ? 0 : power;
     }
 
 
