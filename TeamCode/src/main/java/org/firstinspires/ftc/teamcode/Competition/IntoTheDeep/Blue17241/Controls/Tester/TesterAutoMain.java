@@ -281,94 +281,24 @@ public abstract class TesterAutoMain extends LinearOpMode {
 
     }
 
-
-    public void driveToPosition(double targetX, double targetY, double targetHeading, double maxSpeed) {
-        odo.update();
-        Pose2D pos = odo.getPosition();
-        double currentPosX = pos.getX(DistanceUnit.INCH);
-        double currentPosY = pos.getY(DistanceUnit.INCH);
-        double currentHeading = getHeading();
-
-        double prevPosX = currentPosX;
-        double prevPosY = currentPosY;
-
-        while (opModeIsActive() && distanceToTarget(currentPosX, currentPosY, targetX, targetY) > 3) { // Adjusted tolerance
-            pos = odo.getPosition();
-            currentPosX = pos.getX(DistanceUnit.INCH);
-            currentPosY = pos.getY(DistanceUnit.INCH);
-            currentHeading = getHeading();
-
-            // Calculate errors
-            double deltaX = targetX - currentPosX;
-            double deltaY = targetY - currentPosY;
-
-            // Calculate distance to target
-            double distance = distanceToTarget(currentPosX, currentPosY, targetX, targetY);
-
-            // Proportional speed scaling with a minimum speed
-            double speed = Math.max(0.15, Math.min(maxSpeed, distance * 0.05)); // Enforce a minimum speed of 0.15
-
-            // Heading correction (P control)
-            double headingError = targetHeading - currentHeading;
-            if (headingError > 180) headingError -= 360; // Normalize to [-180, 180]
-            if (headingError < -180) headingError += 360;
-
-            double headingCorrection = headingError * 0.02; // Proportional constant (tune this)
-
-            // Calculate field-centric movement
-            double fieldX = deltaX * Math.cos(Math.toRadians(currentHeading)) - deltaY * Math.sin(Math.toRadians(currentHeading));
-            double fieldY = deltaX * Math.sin(Math.toRadians(currentHeading)) + deltaY * Math.cos(Math.toRadians(currentHeading));
-
-            // Normalize motor powers
-            double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX) + Math.abs(headingCorrection), 1);
-            double frontLeftPower = (fieldY + fieldX + headingCorrection) / denominator * speed;
-            double backLeftPower = (fieldY - fieldX + headingCorrection) / denominator * speed;
-            double frontRightPower = (fieldY - fieldX - headingCorrection) / denominator * speed;
-            double backRightPower = (fieldY + fieldX - headingCorrection) / denominator * speed;
-
-            // Set motor powers
-            Bot.frontLeftMotor.setPower(frontLeftPower);
-            Bot.rearLeftMotor.setPower(backLeftPower);
-            Bot.frontRightMotor.setPower(frontRightPower);
-            Bot.rearRightMotor.setPower(backRightPower);
-
-            telemetry.addData("Target X", targetX);
-            telemetry.addData("Target Y", targetY);
-            telemetry.addData("Current X", currentPosX);
-            telemetry.addData("Current Y", currentPosY);
-            telemetry.addData("Distance to Target", distance);
-            telemetry.addData("Heading Error", headingError);
-            telemetry.addData("Heading Correction", headingCorrection);
-            telemetry.update();
-
-            // Stop if minimal position change detected
-            if (Math.abs(currentPosX - prevPosX) < 0.1 && Math.abs(currentPosY - prevPosY) < 0.1) {
-                break;
-            }
-
-            prevPosX = currentPosX;
-            prevPosY = currentPosY;
-        }
-
-        Bot.stopMotors(); // Stop motors after reaching target
-    }
-
     public double distanceToTarget(double currentX, double currentY, double targetX, double targetY) {
-        return Math.sqrt(Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2));
+        double targgetXError = Math.abs(targetX) - Math.abs(currentX);
+        double targetYError = Math.abs(targetY) - Math.abs(currentY);
+        return Math.sqrt(Math.pow(targgetXError, 2) + Math.pow(targetYError, 2));
     }
 
     // PID Version
 
     // PID constants for movement (distance to target)
-    double kP_move = 0.05;
+    double kP_move = 0.01;
     double kI_move = 0.001;
-    double kD_move = 0.01;
+    double kD_move = 0.001;
     double integralSumMove = 0;   // Accumulated integral for movement
     double previousErrorMove = 0; // Previous distance error for movement
 
 
     // PID constants for heading correction
-    double kP_heading = 0.01;
+    double kP_heading = 0.09;
     double kI_heading = 0.001;
     double kD_heading = 0.005;
     double integralSumHeading = 0;
@@ -385,18 +315,17 @@ public abstract class TesterAutoMain extends LinearOpMode {
         double prevPosX = currentPosX;
         double prevPosY = currentPosY;
 
-        double startTime = getRuntime();
-
-        while (opModeIsActive() && (getRuntime() - startTime) < 10.0 && distanceToTarget(currentPosX, currentPosY, targetX, targetY) > 3)
+        while (opModeIsActive()  && distanceToTarget(currentPosX, currentPosY, targetX, targetY) > 3)
         {
+            odo.update();
             pos = odo.getPosition();
             currentPosX = pos.getX(DistanceUnit.INCH);
             currentPosY = pos.getY(DistanceUnit.INCH);
             currentHeading = pos.getHeading(AngleUnit.DEGREES);
 
             // Calculate errors
-            double deltaX = targetX - currentPosX;
-            double deltaY = targetY - currentPosY;
+            double deltaX = Math.abs(targetX) - Math.abs(currentPosX);
+            double deltaY = Math.abs(targetY) - Math.abs(currentPosY);
             double distance = distanceToTarget(currentPosX, currentPosY, targetX, targetY);
 
             // PID for movement
@@ -447,16 +376,15 @@ public abstract class TesterAutoMain extends LinearOpMode {
             telemetry.addData("Distance to Target", distance);
             telemetry.addData("Heading Error", headingError);
             telemetry.addData("Heading Correction", headingCorrection);
-            telemetry.addData("Elapsed Time", getRuntime() - startTime);
             telemetry.update();
 
             // Stop if minimal position change detected
             double xError = Math.abs(currentPosX) - Math.abs(prevPosX);
             double yError = Math.abs(currentPosY) - Math.abs(prevPosY);
 
-            if ( xError  < 0.05 &&  yError < 0.05) {
-                break;
-            }
+//            if ( xError  < 0.05 &&  yError < 0.05) {
+//                break;
+//            }
 
             prevPosX = currentPosX;
             prevPosY = currentPosY;

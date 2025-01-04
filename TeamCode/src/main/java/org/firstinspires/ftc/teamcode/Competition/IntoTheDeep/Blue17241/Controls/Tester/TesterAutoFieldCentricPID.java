@@ -22,8 +22,10 @@ public class TesterAutoFieldCentricPID extends TesterBlueAlliance {
 
             // Insert Tester Code
 
-            driveToPositionPID(15,-15,45,.50);
+            driveToPositionPID(0,15,0,.40);
             sleep(4000);
+
+
 
             requestOpModeStop();
 
