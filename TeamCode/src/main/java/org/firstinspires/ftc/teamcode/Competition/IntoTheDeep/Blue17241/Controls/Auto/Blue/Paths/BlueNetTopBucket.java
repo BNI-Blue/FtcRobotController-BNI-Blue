@@ -17,13 +17,13 @@ public class BlueNetTopBucket extends BlueAlliance {
         ITDBot.retractIntake();
 
         while(opModeIsActive()){
-
+// Preloaded sample scoring in top bucket
             ITDBot.strafeLeft(0.5, 1.6);
             sleep(100);
             ITDBot.driveBack(0.5, .45);
             bucketDumpTopLevel();
             ITDBot.retractIntake();
-
+//
             ITDBot.strafeRight(.5, 1);
             ITDBot.driveForward(.5, 3);
             ITDBot.rotateLeft(.5, 2.65);
