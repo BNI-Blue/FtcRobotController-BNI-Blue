@@ -74,9 +74,9 @@ public class BlueITDTeleOp extends OpMode {
         //fieldCentricDrive();
         fieldCentricDrivePinpoint();
         gamepadTwoControl();
-        newIntake();
 
-        IntakeAssistControl(); //        This combines multiple movements into one button.
+        IntakeAssistControl(); //
+        // This combines multiple movements into one button.
         //combinedControl();
     }
 
@@ -245,8 +245,6 @@ public class BlueITDTeleOp extends OpMode {
             speedMultiply = 0.25;
         } else if (gamepad1.dpad_left) {
             speedMultiply = 1;
-        } else {
-            speedMultiply = 1;
         }
     }
 
@@ -256,9 +254,6 @@ public class BlueITDTeleOp extends OpMode {
         }
     }
 
-    public void newIntake(){
-
-    }
 
     public void gamepadTwoControl(){
         //bucket flip control

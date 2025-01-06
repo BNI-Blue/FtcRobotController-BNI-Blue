@@ -147,6 +147,8 @@ public class ITDBot extends MecanumDrive {
         intakeExtender.setPosition(0.983);
     }
 
+    public void neutralIntake(){intakeExtender.setPosition(1);} //position not tested
+
     // bucket mechanism
     public void emptyBucket(){
         bucketFlip.setPosition(0.2);
