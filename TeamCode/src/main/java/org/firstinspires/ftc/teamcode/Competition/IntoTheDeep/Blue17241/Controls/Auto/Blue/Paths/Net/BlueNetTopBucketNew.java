@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.Paths;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.Paths.Net;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
@@ -29,7 +29,7 @@ public class BlueNetTopBucketNew extends BlueAlliance{
             ITDBot.rotateLeft(0.5,1);
             ITDBot.intakeStop();
 
-            ITDBot.intakeHolderUp();
+            ITDBot.scoreIntake();
             ITDBot.retractIntake();
 
             ITDBot.sampleOuttake();

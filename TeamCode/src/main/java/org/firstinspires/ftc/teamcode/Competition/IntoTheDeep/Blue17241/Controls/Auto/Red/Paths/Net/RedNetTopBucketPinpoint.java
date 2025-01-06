@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.Paths;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.Paths.Net;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -30,7 +30,7 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
 
             ITDBot.extendIntake();
             sleep(250);
-            ITDBot.intakeHolderDown();
+            ITDBot.collectIntake();
             ITDBot.sampleIntake();
             sleep(250);
             ITDBot.driveForward(.25);
@@ -42,12 +42,12 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
             sleep(250);
             ITDBot.intakeStop();
             ITDBot.retractIntake();
-            ITDBot.fillBucket();
+            ITDBot.emptyBucket();
             sleep(250);
             ITDBot.sampleOuttakeAuto();
             sleep(600);
             ITDBot.intakeStop();
-            ITDBot.intakeHolderUp();
+            ITDBot.scoreIntake();
 
             gyroCorrection(correctSpeed, -40);
             //rotateByGyro(turnSpeed, -40);
@@ -63,7 +63,7 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
 
             ITDBot.extendIntake();
             sleep(250);
-            ITDBot.intakeHolderDown();
+            ITDBot.collectIntake();
             sleep(250);
             ITDBot.sampleIntake();
             driveForwardPinpoint(.25, 5.5);
@@ -72,12 +72,12 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
             sleep(250);
             ITDBot.intakeStop();
             ITDBot.retractIntake();
-            ITDBot.fillBucket();
+            ITDBot.emptyBucket();
             sleep(250);
             ITDBot.sampleOuttakeAuto();
             sleep(600);
             ITDBot.intakeStop();
-            ITDBot.intakeHolderUp();
+            ITDBot.scoreIntake();
 
             gyroCorrection(correctSpeed, -37.5);
             //rotateByGyro(turnSpeed, -37.5);

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.Paths;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.Paths.Obs;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -6,22 +6,22 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
 @Disabled
-@Autonomous(name = "Blue:GetOutofWay")
-public class BlueObsGetOutofWay extends BlueAlliance {
-    @Override
+
+@Autonomous(name = "Blue:Obs:GetoutWay:Pinpoint")
+public class BlueObsGetOutofWayPinpoint extends BlueAlliance {
+    //@Override
     public void runOpMode() throws InterruptedException{
-
-        // Global Method for Initializing Auto
         autoStartUp();
-
+        resetHeading();
+        currentHeading = getHeading();
+        odo.update();
         waitForStart();
 
-        ITDBot.retractIntake();
 
         //drive methods are pulled from Drivetrain
         while(opModeIsActive()){
 
-            ITDBot.strafeRight(1, 2);
+            strafeRightPinpoint(1, 2);
             sleep(25000);
             requestOpModeStop();
 

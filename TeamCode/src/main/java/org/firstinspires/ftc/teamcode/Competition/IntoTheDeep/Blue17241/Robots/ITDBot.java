@@ -112,20 +112,34 @@ public class ITDBot extends MecanumDrive {
     }
 
 
+
     public void intakeStop() {
         sampleIntakeServo.setPower(0);
     }
 
-    public void intakeHolderUp() {
+    public void scoreIntake() {
         intakeHolderFlip.setPosition(.17);
     }
+    public void collectIntake(){
+        intakeHolderFlip.setPosition(.941);
+    }
+
+
+    public void scoreIntakeManual(){
+        intakeHolderFlip.setDirection(Servo.Direction.FORWARD);
+        //intakeHolderFlip = Range.clip(intakeExtender, 0, 1);
+    }
+    public void collectIntakeManual(){
+        intakeHolderFlip.setDirection(Servo.Direction.REVERSE);
+        //intakeHolderFlip = Range.clip(intakeExtender, 0, 1);
+    }
+
+    public void submersibleIntake(){intakeHolderFlip.setPosition(0.8);}//not tested
+
     public void intakeHolderUpAuto(){
         intakeHolderFlip.setPosition(.22);
     }
 
-    public void intakeHolderDown(){
-        intakeHolderFlip.setPosition(.941);
-    }
 
 
     //hanging arm
@@ -139,44 +153,50 @@ public class ITDBot extends MecanumDrive {
         climbingLift.setPower(-Math.abs(power));
     }
 
+
+
     //extending/retracting arm
     public void extendIntake() {
-        intakeExtender.setPosition(0.451);
+        intakeExtender.setPosition(0.8);//originally was 0.451
     }
     public void retractIntake() {
-        intakeExtender.setPosition(0.983);
+        intakeExtender.setPosition(0.03);
+    }//originally was 0.983
+
+    public void neutralIntake(){intakeExtender.setPosition(0.5);} //position not tested
+
+    public void extendIntakeManual(){
+        intakeExtender.setDirection(Servo.Direction.FORWARD);
+        //intakeExtender = Range.clip(intakeExtender, 0, 1);
+    }
+    public void retractIntakeManual(){
+        intakeExtender.setDirection(Servo.Direction.REVERSE);
+        //intakeExtender = Range.clip(intakeExtender, 0, 1);
     }
 
-    public void neutralIntake(){intakeExtender.setPosition(1);} //position not tested
+
+
 
     // bucket mechanism
-    public void emptyBucket(){
+    public void fillBucket(){
         bucketFlip.setPosition(0.2);
     }
-    public void fillBucket(){
+    public void emptyBucket(){
         bucketFlip.setPosition(.9);
     }
 
+
+
     // bucket linear extention
-    public void bucketSlideUp(double power) {
+    public void bucketSlideDown(double power) {
         bucketLinearSlide.setPower(Math.abs(power));
     }
 
-    public void bucketSlideDown(double power) {
+    public void bucketSlideUp(double power) {
         bucketLinearSlide.setPower(-Math.abs(power));
     }
     public void bucketSlideStop() {
         bucketLinearSlide.setPower(0);
-    }
-
-    public void bucketSlideUp(double speed, double rotations){
-        double ticks = rotations * TICKS_PER_ROTATION;
-        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        while((Math.abs(frontLeftMotor.getCurrentPosition() ) < ticks && LinearOp.opModeIsActive()) ){
-            bucketSlideUp(speed);
-        }
     }
 
     public void bucketSlideDown(double speed, double rotations){
@@ -191,18 +211,19 @@ public class ITDBot extends MecanumDrive {
 
     public void SampleIntakeToBucket () {
         intakeStop();
-        intakeHolderUp();
+        scoreIntake();
         retractIntake();
 //        sampleOuttake();
     }
 
-    public void intakeExtenderIncremental(){
-        //intakeExtender.setPosition();
-
+    public void scoringTransferStart(){
+        fillBucket();
+        scoreIntake();
+        retractIntake();
+        sampleOuttake();
+        intakeStop();
+        neutralIntake();
     }
 
-    public void intakeRotate(){
-
-    }
 
 }

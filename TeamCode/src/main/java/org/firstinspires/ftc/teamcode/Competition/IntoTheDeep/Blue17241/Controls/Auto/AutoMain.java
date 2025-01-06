@@ -41,7 +41,7 @@ public abstract class AutoMain extends LinearOpMode {
         telemetry.addLine("Awaiting Start");
         ITDBot.retractIntake();
         telemetry.update();
-        ITDBot.intakeHolderUp();
+        ITDBot.scoreIntake();
 
     }
 
@@ -49,29 +49,18 @@ public abstract class AutoMain extends LinearOpMode {
 
     public void bucketDumpTopLevel(){
         ITDBot.extendIntake();
-        ITDBot.bucketSlideDown(1);
+        ITDBot.bucketSlideUp(1);
         sleep(1100);
         ITDBot.bucketSlideStop();
-        ITDBot.emptyBucket();
-        sleep(1100);
         ITDBot.fillBucket();
-        ITDBot.bucketSlideUp(0.5);
+        sleep(1100);
+        ITDBot.emptyBucket();
+        ITDBot.bucketSlideDown(0.5);
         sleep(1450);
         ITDBot.bucketSlideStop();
         ITDBot.retractIntake();
     }
 
-    public void extenderExtended(){
-        ITDBot.intakeExtender.setPosition(0.451);//In teleop - position is 0.451
-    }
-
-    public void extenderRetracted(){
-        ITDBot.intakeExtender.setPosition(0.03);//This is the number Duval said in the email, in TeleOp - position is 0.983
-    }
-
-    public void extenderNeutral(){
-        ITDBot.intakeExtender.setPosition();
-    }
 
  // Legacy Code from Olivia
 

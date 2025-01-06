@@ -1,14 +1,15 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.Paths;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.Paths.Net;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.RedAlliance;
 
-@Autonomous(name = "Blue:Net:TopBucket:LowBarTouch")
-public class BlueNetTopBucketLowBar extends BlueAlliance {
+@Disabled
+@Autonomous(name = "Red:Net:TopBucket:LowBarTouch")
+public class RedNetTopBucketLowBar extends RedAlliance {
     @Override
     public void runOpMode() throws InterruptedException {
-
         // Global Method for Initializing Auto
         autoStartUp();
 
