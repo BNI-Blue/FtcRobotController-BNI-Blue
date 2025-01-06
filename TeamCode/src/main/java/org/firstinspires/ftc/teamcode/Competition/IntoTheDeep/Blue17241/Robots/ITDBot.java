@@ -58,7 +58,8 @@ public class ITDBot extends MecanumDrive {
 
         //CRServos HW Mapping
         sampleIntakeServo = hwBot.get(CRServo.class, "intake_CRServo");//port 0 - expansion
-        sampleIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
+        // sampleIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //Bucket flip
         bucketFlip = hwBot.servo.get("bucket_flip"); //Port - Expansion
@@ -67,9 +68,6 @@ public class ITDBot extends MecanumDrive {
         //Intake Flip
         intakeHolderFlip = hwBot.servo.get("intake_flip"); //Port _ -Expansion
         intakeHolderFlip. setDirection(Servo.Direction.FORWARD);
-
-        intakeRotator = hwBot.servo.get("intake_rotator");
-        intakeRotator.setDirection(Servo.Direction.FORWARD);
 
         //Bucket Linear Slide Extension
         bucketLinearSlide = hwBot.dcMotor.get("bucket_linear_slide");
@@ -80,48 +78,36 @@ public class ITDBot extends MecanumDrive {
         RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
         RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
-
         imu = hwMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
         imu.initialize(new IMU.Parameters(orientationOnRobot));
 
-        //HW Mapping Ex
-
-        //pixelArm = hwBot.dcMotor.get("pixel_arm");//Port 0 - Expansion
-        //pixelArm.setDirection(DcMotor.Direction.FORWARD);
-        //pixelArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        //pixelClawLeft = hwBot.servo.get("pixel_claw_left");//Port 0 - Expansion
-        //pixelClawLeft.setDirection(Servo.Direction.REVERSE);
     }
 
 
     //intake samples mech
     public void sampleIntake() {
-        sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
-        sampleIntakeServo.setPower(0.6);
+        sampleIntakeServo.setPower(-0.4);
     }
 
     public void sampleOuttake() {
-        sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
-        sampleIntakeServo.setPower(-0.2);
+        sampleIntakeServo.setPower(0.6);
     }
     public void sampleOuttakeAuto() {
-        sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
         sampleIntakeServo.setPower(-0.4);
     }
 
 
-
     public void intakeStop() {
+
         sampleIntakeServo.setPower(0);
     }
 
     public void scoreIntake() {
-        intakeHolderFlip.setPosition(.17);
+        intakeHolderFlip.setPosition(.03);
     }
     public void collectIntake(){
-        intakeHolderFlip.setPosition(.941);
+        intakeHolderFlip.setPosition(.54);
     }
 
 
@@ -134,7 +120,7 @@ public class ITDBot extends MecanumDrive {
         //intakeHolderFlip = Range.clip(intakeExtender, 0, 1);
     }
 
-    public void submersibleIntake(){intakeHolderFlip.setPosition(0.8);}//not tested
+    public void submersibleIntake(){intakeHolderFlip.setPosition(0.5);}//not tested
 
     public void intakeHolderUpAuto(){
         intakeHolderFlip.setPosition(.22);
@@ -143,27 +129,27 @@ public class ITDBot extends MecanumDrive {
 
 
     //hanging arm
-    public void climbingLiftUp(double power){
-        climbingLift.setPower(Math.abs(power));
-    }
-    public void climbingLiftDown(double power){climbingLift.setPower(-Math.abs(power));}
-    public void climbingLiftStop(){climbingLift.setPower(0);}
-
-    public void climbing_release(double power){
-        climbingLift.setPower(-Math.abs(power));
-    }
+//    public void climbingLiftUp(double power){
+//        climbingLift.setPower(Math.abs(power));
+//    }
+//    public void climbingLiftDown(double power){climbingLift.setPower(-Math.abs(power));}
+//    public void climbingLiftStop(){climbingLift.setPower(0);}
+//
+//    public void climbing_release(double power){
+//        climbingLift.setPower(-Math.abs(power));
+//    }
 
 
 
     //extending/retracting arm
     public void extendIntake() {
-        intakeExtender.setPosition(0.8);//originally was 0.451
+        intakeExtender.setPosition(0.95);//correct as of 1/6/25
     }
     public void retractIntake() {
-        intakeExtender.setPosition(0.03);
-    }//originally was 0.983
+        intakeExtender.setPosition(0.6);// correct as of 1/6/25
+    }
 
-    public void neutralIntake(){intakeExtender.setPosition(0.5);} //position not tested
+    public void neutralIntake(){intakeExtender.setPosition(0.7);} //correct as of 1/6/25
 
     public void extendIntakeManual(){
         intakeExtender.setDirection(Servo.Direction.FORWARD);

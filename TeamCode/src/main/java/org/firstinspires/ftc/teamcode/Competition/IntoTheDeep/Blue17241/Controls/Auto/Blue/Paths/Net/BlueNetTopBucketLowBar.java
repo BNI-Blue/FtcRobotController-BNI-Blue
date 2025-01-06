@@ -30,7 +30,7 @@ public class BlueNetTopBucketLowBar extends BlueAlliance {
             ITDBot.strafeLeft(0.5,3);
             sleep(50);
             ITDBot.driveForward(0.5,2);
-            ITDBot.climbingLiftUp(0.5);
+           // ITDBot.climbingLiftUp(0.5);
 
             requestOpModeStop();
         }

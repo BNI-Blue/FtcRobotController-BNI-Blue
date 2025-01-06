@@ -61,19 +61,18 @@ public class BlueITDTeleOp extends OpMode {
 
     @Override
     public void loop() {
-        speedControl();
-        //drive();
-        telemetryOutput();
+       // speedControl();
+       // telemetryOutput();
         //liftControl();
         preventClawOnStart();
-        slowIntake();
+        //slowIntake();
         bucketControl();
         intakeControl();
-        //fieldCentricDrive();
+        intakeHolderFlipControl();
         fieldCentricDrivePinpoint();
-        transferControl();
+        //transferControl();
 
-        IntakeAssistControl(); //This combines multiple movements into one button.
+        //IntakeAssistControl(); //This combines multiple movements into one button.
     }
 
 
@@ -273,39 +272,24 @@ public class BlueITDTeleOp extends OpMode {
 
 
     public void intakeControl(){
-        if(gamepad2.x && ITDBot.intakeExtender.getPosition() <= 0.65) {
-            ITDBot.collectIntake();
-        }
-        if(gamepad2.b){
-            ITDBot.scoreIntake();
-        }
 
         if(gamepad2.right_bumper){
-            ITDBot.submersibleIntake();
-        }
-
-        if(gamepad2.right_stick_x > 0.1){
-            ITDBot.extendIntakeManual();
-        }
-        if(gamepad2.right_stick_x < -0.1){
-            ITDBot.retractIntakeManual();
-        }
-
-
-        if (gamepad2.left_stick_y > 0.1) {
-            ITDBot.sampleOuttake();
-
-        } else if (gamepad2.left_stick_y < -0.1 || ITDBot.intakeHolderFlip.getPosition() >= 0.6) {
             ITDBot.sampleIntake();
         }
-        else {
-            ITDBot.bucketSlideStop();
+
+        else if(gamepad2.left_bumper){
+            ITDBot.sampleOuttake();
         }
+
+        else {
+            ITDBot.intakeStop();
+        }
+
 
         if(gamepad2.dpad_up){
             ITDBot.extendIntake();
         }
-        if (gamepad2.dpad_down && ITDBot.intakeHolderFlip.getPosition() <= 0.6) {
+        if (gamepad2.dpad_down ) {
             ITDBot.retractIntake();
         }
         if(gamepad2.a){
@@ -313,13 +297,24 @@ public class BlueITDTeleOp extends OpMode {
         }
 
 
-        if(gamepad2.left_stick_x > 0.1){
-            ITDBot.scoreIntakeManual();
-        }
-        if(gamepad2.left_stick_x < -0.1){
-            ITDBot.collectIntakeManual();
-        }
     }
+
+    public void intakeHolderFlipControl(){
+
+        if (gamepad2.left_trigger > 0.1){
+            ITDBot.scoreIntake();
+        }
+        if (gamepad2.right_trigger > 0.1){
+            ITDBot.collectIntake();
+        }
+        if (gamepad2.y){
+            ITDBot.submersibleIntake();
+        }
+
+    }
+
+
+
 
 
     public void IntakeAssistControl () {
@@ -332,7 +327,7 @@ public class BlueITDTeleOp extends OpMode {
     }
 
     public void transferControl(){
-        if(gamepad2.start){
+        if(gamepad2.back){
             ITDBot.scoringTransferStart();
         }
     }
