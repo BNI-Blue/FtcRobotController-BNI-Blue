@@ -61,6 +61,18 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.retractIntake();
     }
 
+    public void extenderExtended(){
+        ITDBot.intakeExtender.setPosition(0.451);//In teleop - position is 0.451
+    }
+
+    public void extenderRetracted(){
+        ITDBot.intakeExtender.setPosition(0.03);//This is the number Duval said in the email, in TeleOp - position is 0.983
+    }
+
+    public void extenderNeutral(){
+        ITDBot.intakeExtender.setPosition();
+    }
+
  // Legacy Code from Olivia
 
 //     public void dropBasketOne(){
