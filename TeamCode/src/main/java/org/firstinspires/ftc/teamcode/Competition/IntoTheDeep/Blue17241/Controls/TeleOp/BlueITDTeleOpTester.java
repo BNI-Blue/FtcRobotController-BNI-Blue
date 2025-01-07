@@ -104,6 +104,7 @@ public class BlueITDTeleOpTester extends OpMode {
             case EXTEND:
                 ITDBot.extendIntake();
                 extendState = ExtendStates.DELAY;
+                timer.reset();
                 break;
             case DELAY:
                 if (timer.time() > .5) {

@@ -145,11 +145,11 @@ public class ITDBot extends MecanumDrive {
 
     // ******* Helper Method for Bucket mechanism *******
     public void fillBucket(){
-        bucketFlip.setPosition(0.2);            //correct as of 1/6/25
+        bucketFlip.setPosition(0.9);            //correct as of 1/7/25
     }
 
     public void emptyBucket(){
-        bucketFlip.setPosition(.9);             //correct as of 1/6/25
+        bucketFlip.setPosition(.2);             //correct as of 1/7/25
     }
 
 
