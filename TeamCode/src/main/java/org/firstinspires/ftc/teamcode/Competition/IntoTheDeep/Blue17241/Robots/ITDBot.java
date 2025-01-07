@@ -14,7 +14,7 @@ public class ITDBot extends MecanumDrive {
 
     public HardwareMap hwBot = null;
 
-    //Mechanisms Variables
+    //Mechanisms Variables have all been moved to Mecanum Drive Class
 
     //Constructor
     public ITDBot(){}
@@ -52,28 +52,29 @@ public class ITDBot extends MecanumDrive {
         climbingRelease = hwBot.servo.get("climbing_release");//Port 2 - Expansion
         climbingRelease.setDirection(Servo.Direction.FORWARD);
 
-        //Intake and extention
+        //Intake Linear Slide Extension
         intakeExtender = hwBot.servo.get("intake_extender");//Port 1 - Expansion
         intakeExtender.setDirection(Servo.Direction.FORWARD);
 
-        //CRServos HW Mapping
+        //Intake FlyWheels
         sampleIntakeServo = hwBot.get(CRServo.class, "intake_CRServo");//port 0 - expansion
         sampleIntakeServo.setDirection(CRServo.Direction.FORWARD);
         // sampleIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        //Bucket flip
-        bucketFlip = hwBot.servo.get("bucket_flip"); //Port - Expansion
-        bucketFlip.setDirection(Servo.Direction.FORWARD);
-
-        //Intake Flip
+        //Intake Flip Mechanism
         intakeHolderFlip = hwBot.servo.get("intake_flip"); //Port _ -Expansion
         intakeHolderFlip. setDirection(Servo.Direction.FORWARD);
+
+        //Bucket Flip Mechanism
+        bucketFlip = hwBot.servo.get("bucket_flip"); //Port - Expansion
+        bucketFlip.setDirection(Servo.Direction.FORWARD);
 
         //Bucket Linear Slide Extension
         bucketLinearSlide = hwBot.dcMotor.get("bucket_linear_slide");
         bucketLinearSlide.setDirection(DcMotorSimple.Direction.FORWARD);
         bucketLinearSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        //IMU for Rev Robotics Control Hub
         RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
         RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
         RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
@@ -85,71 +86,51 @@ public class ITDBot extends MecanumDrive {
     }
 
 
-    //intake samples mech
+    // *******  Helper Methods for Intake FlyWheels *********
     public void sampleIntake() {
-        sampleIntakeServo.setPower(-0.4);
+        sampleIntakeServo.setPower(-0.4);           //correct as of 1/6/25
     }
 
     public void sampleOuttake() {
-        sampleIntakeServo.setPower(0.6);
+        sampleIntakeServo.setPower(0.6);            //correct as of 1/6/25
     }
+
+    public void intakeStop() {
+        sampleIntakeServo.setPower(0);
+    }
+
     public void sampleOuttakeAuto() {
         sampleIntakeServo.setPower(-0.4);
     }
 
 
-    public void intakeStop() {
-
-        sampleIntakeServo.setPower(0);
-    }
-
+    // *******  Helper Methods for Intake Flip Mechanism *******
     public void scoreIntake() {
-        intakeHolderFlip.setPosition(.03);
+        intakeHolderFlip.setPosition(.03);          //correct as of 1/6/25
     }
     public void collectIntake(){
-        intakeHolderFlip.setPosition(.54);
+        intakeHolderFlip.setPosition(.54);          //correct as of 1/6/25
     }
 
+    public void submersibleIntake(){
+        intakeHolderFlip.setPosition(0.5);}         //not tested
 
-    public void scoreIntakeManual(){
-        intakeHolderFlip.setDirection(Servo.Direction.FORWARD);
-        //intakeHolderFlip = Range.clip(intakeExtender, 0, 1);
-    }
-    public void collectIntakeManual(){
-        intakeHolderFlip.setDirection(Servo.Direction.REVERSE);
-        //intakeHolderFlip = Range.clip(intakeExtender, 0, 1);
-    }
-
-    public void submersibleIntake(){intakeHolderFlip.setPosition(0.5);}//not tested
-
-    public void intakeHolderUpAuto(){
+    public void intakeHolderUpAuto(){               //not tested
         intakeHolderFlip.setPosition(.22);
     }
 
 
 
-    //hanging arm
-//    public void climbingLiftUp(double power){
-//        climbingLift.setPower(Math.abs(power));
-//    }
-//    public void climbingLiftDown(double power){climbingLift.setPower(-Math.abs(power));}
-//    public void climbingLiftStop(){climbingLift.setPower(0);}
-//
-//    public void climbing_release(double power){
-//        climbingLift.setPower(-Math.abs(power));
-//    }
-
-
-
-    //extending/retracting arm
+    // *******  Helper Methods for Intake Extension *******
     public void extendIntake() {
-        intakeExtender.setPosition(0.95);//correct as of 1/6/25
+        intakeExtender.setPosition(0.95);       //correct as of 1/6/25
     }
     public void retractIntake() {
-        intakeExtender.setPosition(0.6);// correct as of 1/6/25
+        intakeExtender.setPosition(0.6);        // correct as of 1/6/25
     }
 
-    public void neutralIntake(){intakeExtender.setPosition(0.7);} //correct as of 1/6/25
+    public void neutralIntake(){
+        intakeExtender.setPosition(0.7);}       //correct as of 1/6/25
 
     public void extendIntakeManual(){
         intakeExtender.setDirection(Servo.Direction.FORWARD);
@@ -161,19 +142,16 @@ public class ITDBot extends MecanumDrive {
     }
 
 
-
-
-    // bucket mechanism
+    // ******* Helper Method for Bucket mechanism *******
     public void fillBucket(){
-        bucketFlip.setPosition(0.2);
+        bucketFlip.setPosition(0.2);            //correct as of 1/6/25
     }
+
     public void emptyBucket(){
-        bucketFlip.setPosition(.9);
+        bucketFlip.setPosition(.9);             //correct as of 1/6/25
     }
 
 
-
-    // bucket linear extention
     public void bucketSlideDown(double power) {
         bucketLinearSlide.setPower(Math.abs(power));
     }
@@ -181,6 +159,7 @@ public class ITDBot extends MecanumDrive {
     public void bucketSlideUp(double power) {
         bucketLinearSlide.setPower(-Math.abs(power));
     }
+
     public void bucketSlideStop() {
         bucketLinearSlide.setPower(0);
     }
@@ -194,6 +173,20 @@ public class ITDBot extends MecanumDrive {
             bucketSlideDown(speed);
         }
     }
+
+    // *******  Helper Methods for Human / Manual Control of Extension and Retraction of Intake
+    // Currently Not Used as of 1/6/25
+
+    public void scoreIntakeManual(){
+        intakeHolderFlip.setDirection(Servo.Direction.FORWARD);
+        //intakeHolderFlip = Range.clip(intakeExtender, 0, 1);
+    }
+    public void collectIntakeManual(){
+        intakeHolderFlip.setDirection(Servo.Direction.REVERSE);
+        //intakeHolderFlip = Range.clip(intakeExtender, 0, 1);
+    }
+
+    // ******* Controller Methods (combine various helper methods)
 
     public void SampleIntakeToBucket () {
         intakeStop();
