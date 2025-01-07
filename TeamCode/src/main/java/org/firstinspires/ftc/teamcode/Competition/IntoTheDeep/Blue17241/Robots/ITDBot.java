@@ -262,7 +262,7 @@ public class ITDBot extends MecanumDrive {
     }
 
 
-    public void retractScoreSampleControl() {
+    public void retractCollectSampleControl() {
         switch (retractState) {
             case FLIP_UP:
                 scoreIntake();
@@ -281,7 +281,7 @@ public class ITDBot extends MecanumDrive {
         }
     }
 
-    public void transferSampleBucketControl() {
+    public void transferSampleControl() {
         switch (transferState) {
             case BUCKET_START:
                 fillBucket();
