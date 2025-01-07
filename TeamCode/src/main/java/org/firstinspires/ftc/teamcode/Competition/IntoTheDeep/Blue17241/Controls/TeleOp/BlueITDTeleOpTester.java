@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
 
-@TeleOp (name = "State Tester", group = "Drive")
+@TeleOp (name = "Blue State Tester", group = "Drive")
 public class BlueITDTeleOpTester extends OpMode {
 
 
@@ -35,10 +35,8 @@ public class BlueITDTeleOpTester extends OpMode {
     @Override
     public void loop() {
 
-       // telemetryOutput();
-        //transferControl();
+       stateControl();
 
-        //IntakeAssistControl(); //This combines multiple movements into one button.
     }
 
     @Override
