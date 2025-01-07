@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
@@ -62,7 +63,7 @@ public class BlueITDTeleOp extends OpMode {
     @Override
     public void loop() {
        // speedControl();
-       // telemetryOutput();
+       telemetryOutput();
         //liftControl();
         preventClawOnStart();
         //slowIntake();
@@ -75,61 +76,19 @@ public class BlueITDTeleOp extends OpMode {
         //IntakeAssistControl(); //This combines multiple movements into one button.
     }
 
+    @Override
+    public void stop() {
+        // Make sure to stop the servo or reset it if needed
+        ITDBot.intakeHolderFlip.setPosition(0.37);  // Reset the servo to its starting position
+    }
 
-//    public void drive() {
-//
-//        // Joystick values
-//        leftStickYVal = -gamepad1.left_stick_y;
-//        leftStickYVal = Range.clip(leftStickYVal, -1, 1);
-//        //double rightStickYVal = gamepad1.right_stick_y;
-//        //rightStickYVal = Range.clip(rightStickYVal, -1, 1);
-//
-//        leftStickXVal = gamepad1.left_stick_x;
-//        leftStickXVal = Range.clip(leftStickXVal, -1, 1);
-//        rightStickXVal = gamepad1.right_stick_x;
-//        rightStickXVal = Range.clip(rightStickXVal, -1, 1);
-//
-//        switch (currentProfile) {
-//
-//            // Name of Driver using Profile 1
-//            case PROFILE_1:
-//                // leftStickXVal controls rotation, and rightStickXVal controls strafing.
-//                frontLeftSpeed = leftStickYVal + rightStickXVal + leftStickXVal;    // Vertical + Rotation + Staffing
-//                frontRightSpeed = leftStickYVal - rightStickXVal - leftStickXVal;   // Vertical - Rotation - Strafing(sign in front is the way the motor is turning in relation to the others)
-//                rearLeftSpeed = leftStickYVal - rightStickXVal + leftStickXVal;
-//                rearRightSpeed = leftStickYVal + rightStickXVal - leftStickXVal;
-//                break;
-//            // Name of Driver using Profile 2
-//            case PROFILE_2: Audrey
-//                //leftStickXVal controls strafing, and rightStickXVal controls rotation.
-//                frontLeftSpeed = leftStickYVal + leftStickXVal + rightStickXVal;
-//                frontRightSpeed = leftStickYVal - leftStickXVal - rightStickXVal;
-//                rearLeftSpeed = leftStickYVal - leftStickXVal + rightStickXVal;
-//                rearRightSpeed = leftStickYVal + leftStickXVal - rightStickXVal;
-//                break;
-//
-//            // Default Driver Profile
-//            default:
-//                frontLeftSpeed = 0;
-//                frontRightSpeed = 0;
-//                rearLeftSpeed = 0;
-//                rearRightSpeed = 0;
-//                break;
-//        }
-//
-//        // Clipping motor speeds to [-1, 1]
-//        frontLeftSpeed = Range.clip(frontLeftSpeed, -1, 1);
-//        frontRightSpeed = Range.clip(frontRightSpeed, -1, 1);
-//        rearLeftSpeed = Range.clip(rearLeftSpeed, -1, 1);
-//        rearRightSpeed = Range.clip(rearRightSpeed, -1, 1);
-//
-//        // Setting motor powers (with threshold check)
-//        setMotorPower(ITDBot.frontLeftMotor, frontLeftSpeed, powerThreshold, speedMultiply);
-//        setMotorPower(ITDBot.frontRightMotor, frontRightSpeed, powerThreshold, speedMultiply);
-//        setMotorPower(ITDBot.rearLeftMotor, rearLeftSpeed, powerThreshold, speedMultiply);
-//        setMotorPower(ITDBot.rearRightMotor, rearRightSpeed, powerThreshold, speedMultiply);
-//    }
 
+    // ********* TeleOp Control Methods **************
+
+
+
+
+    // ****** Helper Method to reset Pinpoint Heading
     public void resetHeading() {
         odo.reset();
         Pose2D pos = odo.getPosition();
@@ -138,6 +97,8 @@ public class BlueITDTeleOp extends OpMode {
         odo.update();
     }
 
+    // ****** Helper Method to get Pinpoint Heading
+
     public double getHeading() {
         odo.update();
         Pose2D pos = odo.getPosition();
@@ -145,38 +106,8 @@ public class BlueITDTeleOp extends OpMode {
         return pos.getHeading(AngleUnit.DEGREES);
     }
 
-//    public void fieldCentricDrive(){
-//        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-//        double x = gamepad1.left_stick_x;
-//        double rx = gamepad1.right_stick_x;
-//
-//        // This button choice was made so that it is hard to hit on accident,
-//        // it can be freely changed based on preference.
-//        // The equivalent button is start on Xbox-style controllers.
-//
-//        double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-//
-//        // Rotate the movement direction counter to the bot's rotation
-//        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-//        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
-//
-//        rotX = rotX * 1.1;  // Counteract imperfect strafing
-//
-//        // Denominator is the largest motor power (absolute value) or 1
-//        // This ensures all the powers maintain the same ratio,
-//        // but only if at least one is out of the range [-1, 1]
-//        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-//        double frontLeftPower = (rotY + rotX + rx) / denominator;
-//        double backLeftPower = (rotY - rotX + rx) / denominator;
-//        double frontRightPower = (rotY - rotX - rx) / denominator;
-//        double backRightPower = (rotY + rotX - rx) / denominator;
-//
-//        ITDBot.frontLeftMotor.setPower(frontLeftPower);
-//        ITDBot.rearLeftMotor.setPower(backLeftPower);
-//        ITDBot.frontRightMotor.setPower(frontRightPower);
-//        ITDBot.rearRightMotor.setPower(backRightPower);
-//    }
 
+    // ***** Field Centric Drive
     public void fieldCentricDrivePinpoint(){
         double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x;
@@ -215,6 +146,7 @@ public class BlueITDTeleOp extends OpMode {
         ITDBot.rearRightMotor.setPower(backRightPower);
     }
 
+    // ****** Helper method to set Motor Power
     public void setMotorPower(DcMotor motor, double speed, double threshold, double multiplier) {
         if (speed <= threshold && speed >= -threshold) {
             motor.setPower(0);
@@ -223,6 +155,7 @@ public class BlueITDTeleOp extends OpMode {
         }
     }
 
+    // ***** Helper Method for Telemetry
     public void telemetryOutput() {
         telemetry.addData("pwr ", "FL motor ", +frontLeftSpeed);
         telemetry.addData("pwr ", "FR motor ", +frontRightSpeed);
@@ -231,6 +164,7 @@ public class BlueITDTeleOp extends OpMode {
         telemetry.update();
     }
 
+    // ***** Helper Method for Speed Control
     public void speedControl() {
         if (gamepad1.dpad_up) {
             speedMultiply = 0.5;
@@ -242,6 +176,8 @@ public class BlueITDTeleOp extends OpMode {
             speedMultiply = 1;
         }
     }
+
+    //*********  Driver 1 and Driver 2 Control Methods
 
     public void preventClawOnStart() {
         if (gamepad1.a) {
@@ -257,7 +193,6 @@ public class BlueITDTeleOp extends OpMode {
         if (gamepad2.dpad_right) {
             ITDBot.fillBucket();
         }
-
 
         if (gamepad2.right_stick_y > 0.1) {
             ITDBot.bucketSlideDown(1);
@@ -285,7 +220,6 @@ public class BlueITDTeleOp extends OpMode {
             ITDBot.intakeStop();
         }
 
-
         if(gamepad2.dpad_up){
             ITDBot.extendIntake();
         }
@@ -312,8 +246,6 @@ public class BlueITDTeleOp extends OpMode {
         }
 
     }
-
-
 
 
 
@@ -361,12 +293,101 @@ public class BlueITDTeleOp extends OpMode {
             telemetry.addData("Servo Position", currentPosition);
             telemetry.addData("Moving", moving ? "Yes" : "No");
             telemetry.update();
+    }
+
+
+
+    // ********  Legacy Drive Control Methods
+
+    // Robot Centric Drive Method
+    public void drive() {
+
+        // Joystick values
+        leftStickYVal = -gamepad1.left_stick_y;
+        leftStickYVal = Range.clip(leftStickYVal, -1, 1);
+        //double rightStickYVal = gamepad1.right_stick_y;
+        //rightStickYVal = Range.clip(rightStickYVal, -1, 1);
+
+        leftStickXVal = gamepad1.left_stick_x;
+        leftStickXVal = Range.clip(leftStickXVal, -1, 1);
+        rightStickXVal = gamepad1.right_stick_x;
+        rightStickXVal = Range.clip(rightStickXVal, -1, 1);
+
+        switch (currentProfile) {
+
+            // Name of Driver using Profile 1
+            case PROFILE_1:
+                // leftStickXVal controls rotation, and rightStickXVal controls strafing.
+                frontLeftSpeed = leftStickYVal + rightStickXVal + leftStickXVal;    // Vertical + Rotation + Staffing
+                frontRightSpeed = leftStickYVal - rightStickXVal - leftStickXVal;   // Vertical - Rotation - Strafing(sign in front is the way the motor is turning in relation to the others)
+                rearLeftSpeed = leftStickYVal - rightStickXVal + leftStickXVal;
+                rearRightSpeed = leftStickYVal + rightStickXVal - leftStickXVal;
+                break;
+            // Name of Driver using Profile 2
+            case PROFILE_2: //Audrey
+                //leftStickXVal controls strafing, and rightStickXVal controls rotation.
+                frontLeftSpeed = leftStickYVal + leftStickXVal + rightStickXVal;
+                frontRightSpeed = leftStickYVal - leftStickXVal - rightStickXVal;
+                rearLeftSpeed = leftStickYVal - leftStickXVal + rightStickXVal;
+                rearRightSpeed = leftStickYVal + leftStickXVal - rightStickXVal;
+                break;
+
+            // Default Driver Profile
+            default:
+                frontLeftSpeed = 0;
+                frontRightSpeed = 0;
+                rearLeftSpeed = 0;
+                rearRightSpeed = 0;
+                break;
         }
 
-        @Override
-        public void stop() {
-            // Make sure to stop the servo or reset it if needed
-            ITDBot.intakeHolderFlip.setPosition(0.37);  // Reset the servo to its starting position
-        }
+        // Clipping motor speeds to [-1, 1]
+        frontLeftSpeed = Range.clip(frontLeftSpeed, -1, 1);
+        frontRightSpeed = Range.clip(frontRightSpeed, -1, 1);
+        rearLeftSpeed = Range.clip(rearLeftSpeed, -1, 1);
+        rearRightSpeed = Range.clip(rearRightSpeed, -1, 1);
+
+        // Setting motor powers (with threshold check)
+        setMotorPower(ITDBot.frontLeftMotor, frontLeftSpeed, powerThreshold, speedMultiply);
+        setMotorPower(ITDBot.frontRightMotor, frontRightSpeed, powerThreshold, speedMultiply);
+        setMotorPower(ITDBot.rearLeftMotor, rearLeftSpeed, powerThreshold, speedMultiply);
+        setMotorPower(ITDBot.rearRightMotor, rearRightSpeed, powerThreshold, speedMultiply);
     }
+
+// Field Centric Drive using Rev Robotics Control Hub
+//    public void fieldCentricDrive(){
+//        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+//        double x = gamepad1.left_stick_x;
+//        double rx = gamepad1.right_stick_x;
+//
+//        // This button choice was made so that it is hard to hit on accident,
+//        // it can be freely changed based on preference.
+//        // The equivalent button is start on Xbox-style controllers.
+//
+//        double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+//
+//        // Rotate the movement direction counter to the bot's rotation
+//        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+//        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+//
+//        rotX = rotX * 1.1;  // Counteract imperfect strafing
+//
+//        // Denominator is the largest motor power (absolute value) or 1
+//        // This ensures all the powers maintain the same ratio,
+//        // but only if at least one is out of the range [-1, 1]
+//        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+//        double frontLeftPower = (rotY + rotX + rx) / denominator;
+//        double backLeftPower = (rotY - rotX + rx) / denominator;
+//        double frontRightPower = (rotY - rotX - rx) / denominator;
+//        double backRightPower = (rotY + rotX - rx) / denominator;
+//
+//        ITDBot.frontLeftMotor.setPower(frontLeftPower);
+//        ITDBot.rearLeftMotor.setPower(backLeftPower);
+//        ITDBot.frontRightMotor.setPower(frontRightPower);
+//        ITDBot.rearRightMotor.setPower(backRightPower);
+//    }
+
+
+
+}
 
