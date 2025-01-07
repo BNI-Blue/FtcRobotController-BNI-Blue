@@ -86,8 +86,6 @@ public class BlueITDTeleOp extends OpMode {
     // ********* TeleOp Control Methods **************
 
 
-
-
     // ****** Helper Method to reset Pinpoint Heading
     public void resetHeading() {
         odo.reset();
@@ -387,7 +385,4 @@ public class BlueITDTeleOp extends OpMode {
 //        ITDBot.rearRightMotor.setPower(backRightPower);
 //    }
 
-
-
 }
-

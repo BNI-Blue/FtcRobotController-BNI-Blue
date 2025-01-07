@@ -10,8 +10,6 @@ import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.I
 @TeleOp (name = "Blue State Tester", group = "Drive")
 public class BlueITDStateTester extends OpMode {
 
-
-
     public ITDBot ITDBot = new ITDBot();
     public Pinpoint odo = new Pinpoint();
 
@@ -156,7 +154,7 @@ public class BlueITDStateTester extends OpMode {
                 transferState = TransferStates.DELAY;
                 break;
             case DELAY:
-                if (timer.time() > .5) {
+                if (timer.seconds() > .5) {
                     transferState = TransferStates.OUTAKE_STOP;
                 }
                 break;
@@ -172,9 +170,5 @@ public class BlueITDStateTester extends OpMode {
                 break;
         }
     }
-
-
-
-
 }
 
