@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
 
@@ -186,7 +187,7 @@ public class ITDBot extends MecanumDrive {
         //intakeHolderFlip = Range.clip(intakeExtender, 0, 1);
     }
 
-    // ******* Controller Methods (combine various helper methods)
+    // ******* Controller Methods written by Olivia (combine various helper methods)
 
     public void SampleIntakeToBucket () {
         intakeStop();
@@ -203,6 +204,112 @@ public class ITDBot extends MecanumDrive {
         intakeStop();
         neutralIntake();
     }
+
+    // ******* Controller Methods using Machine States
+
+    ElapsedTime timer = new ElapsedTime();
+
+    public enum ExtendStates {
+        EXTEND,
+        DELAY,
+        FLIP_DOWN,
+        INTAKE_START,
+        READY;
+    }
+
+    public enum RetractStates {
+        FLIP_UP,
+        OUTAKE_STOP,
+        RETRACT,
+        READY;
+    }
+
+    public enum TransferStates {
+        BUCKET_START,
+        OUTAKE_START,
+        DELAY,
+        OUTAKE_STOP,
+        MOVE_NEUTRAL,
+        READY;
+    }
+
+    public ExtendStates extendState = ExtendStates.READY;
+    public RetractStates retractState = RetractStates.READY;
+    public TransferStates transferState = TransferStates.READY;
+
+    public void extendCollectSampleControl() {
+        switch (extendState) {
+            case EXTEND:
+                extendIntake();
+                extendState = ExtendStates.DELAY;
+                break;
+            case DELAY:
+                if (timer.time() > .5) {
+                    extendState = ExtendStates.FLIP_DOWN;
+                }
+                break;
+            case FLIP_DOWN:
+                collectIntake();
+                extendState = ExtendStates.INTAKE_START;
+                break;
+            case INTAKE_START:
+                sampleIntake();
+                extendState = ExtendStates.READY;
+                break;
+            case READY:
+                break;
+        }
+    }
+
+
+    public void retractScoreSampleControl() {
+        switch (retractState) {
+            case FLIP_UP:
+                scoreIntake();
+                retractState = RetractStates.OUTAKE_STOP;
+                break;
+            case OUTAKE_STOP:
+                intakeStop();
+                retractState = RetractStates.RETRACT;
+                break;
+            case RETRACT:
+                retractIntake();
+                retractState = RetractStates.READY;
+                break;
+            case READY:
+                break;
+        }
+    }
+
+    public void transferSampleBucketControl() {
+        switch (transferState) {
+            case BUCKET_START:
+                fillBucket();
+                transferState = TransferStates.OUTAKE_START;
+                break;
+            case OUTAKE_START:
+                sampleOuttake();
+                timer.reset();
+                transferState = TransferStates.DELAY;
+                break;
+            case DELAY:
+                if (timer.time() > .5) {
+                    transferState = TransferStates.OUTAKE_STOP;
+                }
+                break;
+            case OUTAKE_STOP:
+                intakeStop();
+                transferState = TransferStates.MOVE_NEUTRAL;
+                break;
+            case MOVE_NEUTRAL:
+                neutralIntake();
+                transferState = TransferStates.READY;
+                break;
+            case READY:
+                break;
+        }
+    }
+
 
 
 }
