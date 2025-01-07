@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
 
@@ -20,6 +21,9 @@ public class ITDBot extends MecanumDrive {
     //Constructor
     public ITDBot(){}
 
+    public double servoPos = 0.6;
+
+    public double incVal = 0.005;
 
 
     //Init Method
@@ -77,7 +81,7 @@ public class ITDBot extends MecanumDrive {
 
         //IMU for Rev Robotics Control Hub
         RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
-        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
         RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
         imu = hwMap.get(IMU.class, "imu");
@@ -114,7 +118,7 @@ public class ITDBot extends MecanumDrive {
     }
 
     public void submersibleIntake(){
-        intakeHolderFlip.setPosition(0.5);}         //not tested
+        intakeHolderFlip.setPosition(0.4);}         //not tested
 
     public void intakeHolderUpAuto(){               //not tested
         intakeHolderFlip.setPosition(.22);
@@ -134,13 +138,16 @@ public class ITDBot extends MecanumDrive {
         intakeExtender.setPosition(0.7);}       //correct as of 1/6/25
 
     public void extendIntakeManual(){
-        intakeExtender.setDirection(Servo.Direction.FORWARD);
-        //intakeExtender = Range.clip(intakeExtender, 0, 1);
+        servoPos += incVal;
+        servoPos = Range.clip(servoPos, 0.6,  0.95);
+        intakeExtender.setPosition(servoPos);
     }
     public void retractIntakeManual(){
-        intakeExtender.setDirection(Servo.Direction.REVERSE);
-        //intakeExtender = Range.clip(intakeExtender, 0, 1);
+        servoPos -= incVal;
+        servoPos = Range.clip(servoPos,0.6,0.95);
+        intakeExtender.setPosition(servoPos);
     }
+
 
 
     // ******* Helper Method for Bucket mechanism *******

@@ -33,6 +33,7 @@ public class BlueITDTeleOp extends OpMode {
     private int currentProfile = PROFILE_2;
     //public double mechanismPower = ___;
 
+
     public ITDBot ITDBot = new ITDBot();
 
     public Pinpoint odo = new Pinpoint();
@@ -53,7 +54,8 @@ public class BlueITDTeleOp extends OpMode {
     public void init() {
         ITDBot.initRobot(hardwareMap);
         odo.initPinpoint(hardwareMap);
-        ITDBot.imu.resetYaw();
+       // resetHeading();                       // PINPOINT
+       ITDBot.imu.resetYaw();                   // REV
     }
 
 
@@ -70,7 +72,9 @@ public class BlueITDTeleOp extends OpMode {
         bucketControl();
         intakeControl();
         intakeHolderFlipControl();
-        fieldCentricDrivePinpoint();
+        fieldCentricDrive();
+        //fieldCentricDrivePinpoint();
+        //driveCases();
         //transferControl();
 
         //IntakeAssistControl(); //This combines multiple movements into one button.
@@ -159,6 +163,7 @@ public class BlueITDTeleOp extends OpMode {
         telemetry.addData("pwr ", "FR motor ", +frontRightSpeed);
         telemetry.addData("pwr ", "RL motor ", +rearLeftSpeed);
         telemetry.addData("pwr ", "RR motor ", +rearRightSpeed);
+        telemetry.addData("pin ", "Heading ",  getHeading());
         telemetry.update();
     }
 
@@ -226,6 +231,13 @@ public class BlueITDTeleOp extends OpMode {
         }
         if(gamepad2.a){
             ITDBot.neutralIntake();
+        }
+
+        if(gamepad2.left_stick_y>0.1){
+            ITDBot.retractIntakeManual();
+        }
+        if(gamepad2.left_stick_y<-0.1){
+            ITDBot.extendIntakeManual();
         }
 
 
@@ -297,6 +309,45 @@ public class BlueITDTeleOp extends OpMode {
 
     // ********  Legacy Drive Control Methods
 
+    public void fieldCentricDrive() {
+        if (gamepad1.options) {
+            ITDBot.imu.resetYaw();
+        }
+        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+        double x = gamepad1.left_stick_x;
+        double rx = gamepad1.right_stick_x;
+
+        // This button choice was made so that it is hard to hit on accident,
+        // it can be freely changed based on preference.
+        // The equivalent button is start on Xbox-style controllers.
+        if (gamepad1.options) {
+            ITDBot.imu.resetYaw();
+        }
+
+        double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+        // Rotate the movement direction counter to the bot's rotation
+        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+
+        rotX = rotX * 1.1;  // Counteract imperfect strafing
+
+        // Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio,
+        // but only if at least one is out of the range [-1, 1]
+        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+        double frontLeftPower = (rotY + rotX + rx) / denominator;
+        double backLeftPower = (rotY - rotX + rx) / denominator;
+        double frontRightPower = (rotY - rotX - rx) / denominator;
+        double backRightPower = (rotY + rotX - rx) / denominator;
+
+        ITDBot.frontLeftMotor.setPower(frontLeftPower);
+        ITDBot.rearLeftMotor.setPower(backLeftPower);
+        ITDBot.frontRightMotor.setPower(frontRightPower);
+        ITDBot.rearRightMotor.setPower(backRightPower);
+    }
+
+
     // Robot Centric Drive Method
     public void drive() {
 
@@ -351,6 +402,16 @@ public class BlueITDTeleOp extends OpMode {
         setMotorPower(ITDBot.rearLeftMotor, rearLeftSpeed, powerThreshold, speedMultiply);
         setMotorPower(ITDBot.rearRightMotor, rearRightSpeed, powerThreshold, speedMultiply);
     }
+
+//    public void driveCases(){
+//        if(gamepad1.left_bumper){
+//            fieldCentricDrivePinpoint();
+//        }
+//        if(gamepad1.right_bumper){
+//            drive();
+//        }
+//    }
+
 
 // Field Centric Drive using Rev Robotics Control Hub
 //    public void fieldCentricDrive(){
