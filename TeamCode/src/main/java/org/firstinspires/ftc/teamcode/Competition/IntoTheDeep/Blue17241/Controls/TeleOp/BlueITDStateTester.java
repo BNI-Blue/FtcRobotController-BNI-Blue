@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
 
 @TeleOp (name = "Blue State Tester", group = "Drive")
-public class BlueITDTeleOpTester extends OpMode {
+public class BlueITDStateTester extends OpMode {
 
 
 
@@ -103,7 +103,7 @@ public class BlueITDTeleOpTester extends OpMode {
         switch (extendState) {
             case EXTEND:
                 ITDBot.extendIntake();
-                extendState = ExtendStates.DELAY;
+                extendState = ExtendStates.FLIP_DOWN;
                 timer.reset();
                 break;
             case DELAY:
