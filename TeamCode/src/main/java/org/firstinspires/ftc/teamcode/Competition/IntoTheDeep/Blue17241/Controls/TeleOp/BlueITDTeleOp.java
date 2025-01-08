@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
@@ -164,6 +165,8 @@ public class BlueITDTeleOp extends OpMode {
         telemetry.addData("pwr ", "RL motor ", +rearLeftSpeed);
         telemetry.addData("pwr ", "RR motor ", +rearRightSpeed);
         telemetry.addData("pin ", "Heading ",  getHeading());
+        telemetry.addData("Current X Pos:", odo.getPosition().getX(DistanceUnit.INCH));
+        telemetry.addData("Current Y Pos:", odo.getPosition().getY(DistanceUnit.INCH));
         telemetry.update();
     }
 
