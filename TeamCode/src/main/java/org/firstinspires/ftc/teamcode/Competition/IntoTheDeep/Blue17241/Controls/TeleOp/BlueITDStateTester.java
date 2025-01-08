@@ -34,6 +34,10 @@ public class BlueITDStateTester extends OpMode {
     public void loop() {
 
        stateControl();
+        extendCollectSampleControl();
+        retractCollectSampleControl();
+        transferSampleControl();
+        updateTelemetry();
 
     }
 
@@ -101,7 +105,7 @@ public class BlueITDStateTester extends OpMode {
         switch (extendState) {
             case EXTEND:
                 ITDBot.extendIntake();
-                extendState = ExtendStates.FLIP_DOWN;
+                extendState = ExtendStates.DELAY;
                 timer.reset();
                 break;
             case DELAY:
@@ -169,6 +173,13 @@ public class BlueITDStateTester extends OpMode {
             case READY:
                 break;
         }
+    }
+
+    public void updateTelemetry() {
+        telemetry.addData("Extend State", extendState);
+        telemetry.addData("Retract State", retractState);
+        telemetry.addData("Transfer State", transferState);
+        telemetry.update();
     }
 }
 
