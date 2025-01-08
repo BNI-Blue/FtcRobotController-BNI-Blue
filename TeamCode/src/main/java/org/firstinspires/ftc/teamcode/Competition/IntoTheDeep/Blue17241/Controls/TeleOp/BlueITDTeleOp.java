@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
@@ -107,6 +108,7 @@ public class BlueITDTeleOp extends OpMode {
 
     // ***** Field Centric Drive
     public void fieldCentricDrivePinpoint(){
+
         double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x;
         double rx = gamepad1.right_stick_x;
@@ -159,6 +161,8 @@ public class BlueITDTeleOp extends OpMode {
         telemetry.addData("pwr ", "FR motor ", +frontRightSpeed);
         telemetry.addData("pwr ", "RL motor ", +rearLeftSpeed);
         telemetry.addData("pwr ", "RR motor ", +rearRightSpeed);
+        telemetry.addData("Current X Position", odo.getPosition().getX(DistanceUnit.INCH));
+        telemetry.addData("Current Y Position", odo.getPosition().getX(DistanceUnit.INCH));
         telemetry.update();
     }
 
