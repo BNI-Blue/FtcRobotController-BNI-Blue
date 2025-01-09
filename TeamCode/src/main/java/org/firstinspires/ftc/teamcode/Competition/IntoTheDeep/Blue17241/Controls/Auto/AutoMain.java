@@ -169,7 +169,7 @@ public abstract class AutoMain extends LinearOpMode {
         odo.update();
         Pose2D pos = odo.getPosition();
 
-        //odo.reset();
+        odo.reset();
 
         double startPosition = pos.getX(DistanceUnit.INCH);
 
@@ -182,7 +182,6 @@ public abstract class AutoMain extends LinearOpMode {
         telemetry.addData("Distance till destination: ", distance - pos.getX(DistanceUnit.INCH));
         telemetry.addData("Target Position: ", target);
         telemetry.addData("Current Heading: ", currentHeading);
-        telemetry.addData("Current Position: ", (Math.abs(pos.getX(DistanceUnit.INCH))));
         telemetry.update();
         //sleep(3000);
 
@@ -236,7 +235,7 @@ public abstract class AutoMain extends LinearOpMode {
             telemetry.addData("Distance till destination: ", distance + startPosition - pos.getX(DistanceUnit.INCH));
             telemetry.addData("Target Position: ", target);
             telemetry.addData("Current Heading: ", currentHeading);
-            telemetry.addData("Current Position: ", currentPosX);
+            telemetry.addData("Current Position X : ", currentPosX);
             telemetry.update();
 
         }
@@ -244,12 +243,12 @@ public abstract class AutoMain extends LinearOpMode {
         idle();
     }
 
-
-
     public void strafeGyroPinpoint(double speed, double distance, String direction, double target) throws InterruptedException {
 
         odo.update();
         Pose2D pos = odo.getPosition();
+
+        odo.reset();
 
         double startPosition = pos.getY(DistanceUnit.INCH);
 

@@ -21,7 +21,7 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
             bucketDumpTopLevel();
             strafeGyroPinpoint(.55, 2, "RIGHT", 0);
 
-            driveStraightGyroPinpoint(.65, 24.5, "FORWARD", 0);
+            driveStraightGyroPinpoint(.65, 12, "FORWARD", 0);//24.5
             sleep(100);
             gyroCorrection(.25, 12);
             sleep(100);
