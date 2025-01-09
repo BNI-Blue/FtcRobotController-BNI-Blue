@@ -17,47 +17,53 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
         while(opModeIsActive()) {
 
             strafeGyroPinpoint(0.55, 7, "LEFT", 0);
-            driveStraightGyroPinpoint(.55, 0.74, "BACK", 0);
+            driveStraightGyroPinpoint(.55, 0.65, "BACK", 0);
             bucketDumpTopLevel();
-            strafeGyroPinpoint(.55, 2, "RIGHT", 0);
+            strafeGyroPinpoint(.55, 1.2, "RIGHT", 0);
 
-            driveStraightGyroPinpoint(.65, 12, "FORWARD", 0);//24.5
+            gyroCorrection(.25, 43.5);
             sleep(100);
-            gyroCorrection(.25, 12);
-            sleep(100);
-            gyroCorrection(correctSpeed, 49.25);
+            //driveStraightGyroPinpoint(.65, 2, "FORWARD", 0);
+
             //rotateByGyro(turnSpeed, 37.25);
 
             ITDBot.extendIntake();
             sleep(250);
             ITDBot.collectIntake();
+            sleep(250);
             ITDBot.sampleIntake();
             sleep(250);
             ITDBot.driveForward(.25);
-            sleep(800);
+            sleep(750);
             ITDBot.stopMotors();
             sleep(550);
             ITDBot.intakeStop();
             ITDBot.intakeHolderUpAuto();
             sleep(250);
-            ITDBot.intakeStop();
             ITDBot.retractIntake();
-            ITDBot.emptyBucket();
+            ITDBot.fillBucket();
             sleep(250);
+            ITDBot.intakeHolderUpAuto();
+            sleep(150);
+            ITDBot.scoreIntake();
+            sleep(200);
             ITDBot.sampleOuttakeAuto();
             sleep(600);
             ITDBot.intakeStop();
-            ITDBot.scoreIntake();
+            sleep(200);
+            gyroCorrection(.25, -5);
+            bucketDumpTopLevel();
+
 
             gyroCorrection(correctSpeed, -40);
             //rotateByGyro(turnSpeed, -40);
             sleep(250);
             strafeGyroPinpoint(.5 ,1, "RIGHT", 0);
-            driveStraightGyroPinpoint(.5, 17, "BACK", 0);
+            driveStraightGyroPinpoint(.5, 3, "BACK", 0);
             strafeGyroPinpoint(.5, 1, "RIGHT", 0);
             bucketDumpTopLevel();
 
-            driveStraightGyroPinpoint(.55, 24.5, "FORWARD", 0);
+            driveStraightGyroPinpoint(.55, 1, "FORWARD", 0);
             //rotateByGyro(turnSpeed, 53.5);
             gyroCorrection(correctSpeed, 53.5);
 
@@ -82,7 +88,7 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
             gyroCorrection(correctSpeed, -37.5);
             //rotateByGyro(turnSpeed, -37.5);
             //ITDBot.rotateRight(.5, 1);
-            driveStraightGyroPinpoint(.5, 18, "BACK", 0);
+            driveStraightGyroPinpoint(.5, 1, "BACK", 0);
             gyroCorrection(.5, 0);
             gyroCorrection(.5, -3);
             //rotateByGyro(turnSpeed, -3);

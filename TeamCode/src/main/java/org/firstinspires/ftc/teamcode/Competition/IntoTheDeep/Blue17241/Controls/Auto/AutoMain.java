@@ -52,9 +52,9 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.bucketSlideUp(1);
         sleep(1100);
         ITDBot.bucketSlideStop();
-        ITDBot.fillBucket();
-        sleep(1100);
         ITDBot.emptyBucket();
+        sleep(1100);
+        ITDBot.fillBucket();
         ITDBot.bucketSlideDown(0.5);
         sleep(1450);
         ITDBot.bucketSlideStop();
@@ -186,6 +186,7 @@ public abstract class AutoMain extends LinearOpMode {
         //sleep(3000);
 
         double currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
+        double currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
         double leftSideSpeed = 0;
         double rightSideSpeed = 0;
 
@@ -235,7 +236,8 @@ public abstract class AutoMain extends LinearOpMode {
             telemetry.addData("Distance till destination: ", distance + startPosition - pos.getX(DistanceUnit.INCH));
             telemetry.addData("Target Position: ", target);
             telemetry.addData("Current Heading: ", currentHeading);
-            telemetry.addData("Current Position X : ", currentPosX);
+            telemetry.addData("Current Position X: ", currentPosX);
+            telemetry.addData("Current Position Y: ", currentPosY);
             telemetry.update();
 
         }
@@ -255,6 +257,7 @@ public abstract class AutoMain extends LinearOpMode {
         resetHeading();
         currentHeading = getHeading();
 
+        double currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
         double currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
         double leftSideSpeed = 0;
         double rightSideSpeed = 0;
@@ -302,7 +305,8 @@ public abstract class AutoMain extends LinearOpMode {
             telemetry.addData("Right Speed: ", rightSideSpeed);
             telemetry.addData("Distance till destination: ", distance + startPosition - pos.getX(DistanceUnit.INCH));
             telemetry.addData("Current Heading: ", currentHeading);
-            telemetry.addData("Current Position: ", currentPosY);
+            telemetry.addData("Current Position: X ", currentPosX);
+            telemetry.addData("Current Position: Y ", currentPosY);
             telemetry.update();
         }
 
