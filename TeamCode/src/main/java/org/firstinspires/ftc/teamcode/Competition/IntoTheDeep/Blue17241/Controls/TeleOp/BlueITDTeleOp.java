@@ -234,13 +234,13 @@ public class BlueITDTeleOp extends OpMode {
             ITDBot.intakeStop();
         }
 
-        if(gamepad2.dpad_up){
+        if(gamepad2.y){
             ITDBot.extendIntake();
         }
-        if (gamepad2.dpad_down ) {
+        if (gamepad2.a ) {
             ITDBot.retractIntake();
         }
-        if(gamepad2.a){
+        if(gamepad2.dpad_down){
             ITDBot.neutralIntake();
         }
 
@@ -262,7 +262,7 @@ public class BlueITDTeleOp extends OpMode {
         if (gamepad2.right_trigger > 0.1){
             ITDBot.collectIntake();
         }
-        if (gamepad2.y){
+        if (gamepad2.dpad_up){
             ITDBot.submersibleIntake();
         }
 
