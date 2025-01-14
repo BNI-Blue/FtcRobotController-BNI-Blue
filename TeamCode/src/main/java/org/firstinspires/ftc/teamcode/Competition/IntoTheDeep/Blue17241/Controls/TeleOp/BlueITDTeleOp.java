@@ -27,7 +27,7 @@ public class BlueITDTeleOp extends OpMode {
     double rearRightSpeed;
 
     double powerThreshold;
-    double speedMultiply;
+    double speedMultiply = 0.75;
 
     private static final int PROFILE_1 = 1;  //Charlie
     private static final int PROFILE_2 = 2;  // Evan
@@ -65,7 +65,7 @@ public class BlueITDTeleOp extends OpMode {
 
     @Override
     public void loop() {
-       // speedControl();
+        speedControl();
        telemetryOutput();
         //liftControl();
         preventClawOnStart();
@@ -73,8 +73,9 @@ public class BlueITDTeleOp extends OpMode {
         bucketControl();
         intakeControl();
         intakeHolderFlipControl();
-        fieldCentricDrive();
-        imuStart();
+        drive();
+        //fieldCentricDrive();
+        //imuStart();
         //fieldCentricDrivePinpoint();
         //driveCases();
         //transferControl();
@@ -364,8 +365,8 @@ public class BlueITDTeleOp extends OpMode {
         // Joystick values
         leftStickYVal = -gamepad1.left_stick_y;
         leftStickYVal = Range.clip(leftStickYVal, -1, 1);
-        //double rightStickYVal = gamepad1.right_stick_y;
-        //rightStickYVal = Range.clip(rightStickYVal, -1, 1);
+        rightStickYVal = gamepad1.right_stick_y;
+        rightStickYVal = Range.clip(rightStickYVal, -1, 1);
 
         leftStickXVal = gamepad1.left_stick_x;
         leftStickXVal = Range.clip(leftStickXVal, -1, 1);
