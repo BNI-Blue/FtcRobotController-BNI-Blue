@@ -74,6 +74,7 @@ public class BlueITDTeleOp extends OpMode {
         intakeControl();
         intakeHolderFlipControl();
         fieldCentricDrive();
+        imuStart();
         //fieldCentricDrivePinpoint();
         //driveCases();
         //transferControl();
@@ -180,6 +181,12 @@ public class BlueITDTeleOp extends OpMode {
             speedMultiply = 0.25;
         } else if (gamepad1.dpad_left) {
             speedMultiply = 1;
+        }
+    }
+
+    public void imuStart(){
+        if(gamepad1.options){
+            ITDBot.imu.resetYaw();
         }
     }
 

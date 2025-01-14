@@ -21,7 +21,7 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
             bucketDumpTopLevel();
             strafeGyroPinpoint(.55, 1.2, "RIGHT", 0);
 
-            gyroCorrection(.25, 43.5);
+            gyroCorrection(.25, 48.5);
             sleep(100);
             //driveStraightGyroPinpoint(.65, 2, "FORWARD", 0);
 
@@ -38,20 +38,18 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
             ITDBot.stopMotors();
             sleep(550);
             ITDBot.intakeStop();
-            ITDBot.intakeHolderUpAuto();
+            ITDBot.scoreIntake();
             sleep(250);
             ITDBot.retractIntake();
             ITDBot.fillBucket();
             sleep(250);
-            ITDBot.intakeHolderUpAuto();
-            sleep(150);
             ITDBot.scoreIntake();
             sleep(200);
-            ITDBot.sampleOuttakeAuto();
-            sleep(600);
+            ITDBot.sampleOuttake();
+            sleep(750);
             ITDBot.intakeStop();
-            sleep(200);
-            gyroCorrection(.25, -5);
+            sleep(100);
+            gyroCorrection(.25, -15);
             bucketDumpTopLevel();
 
 

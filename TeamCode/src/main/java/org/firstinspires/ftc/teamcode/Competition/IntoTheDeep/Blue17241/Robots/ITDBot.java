@@ -131,7 +131,7 @@ public class ITDBot extends MecanumDrive {
         intakeExtender.setPosition(0.95);       //correct as of 1/6/25
     }
     public void retractIntake() {
-        intakeExtender.setPosition(0.6);        // correct as of 1/6/25
+        intakeExtender.setPosition(0.5);        // correct as of 1/6/25
     }
 
     public void neutralIntake(){
