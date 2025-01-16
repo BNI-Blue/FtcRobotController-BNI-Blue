@@ -16,40 +16,43 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
 
         while(opModeIsActive()) {
 
+            // score preloaded sample
             strafeGyroPinpoint(0.55, 7, "LEFT", 0);
-            driveStraightGyroPinpoint(.55, 0.65, "BACK", 0);
+            driveStraightGyroPinpoint(.55, 0.5, "BACK", 0);
             bucketDumpTopLevel();
-            strafeGyroPinpoint(.55, 1.2, "RIGHT", 0);
+            driveStraightGyroPinpoint(.5, 1, "BACK", 0);
 
-            gyroCorrection(.25, 48.5);
+            //strafeGyroPinpoint(.55, 1.2, "RIGHT", 0);
+
+            //prepare for first field sample
+            rotateByGyro(.3, 13);
+            //gyroCorrection(.25, 10);
             sleep(100);
-            //driveStraightGyroPinpoint(.65, 2, "FORWARD", 0);
-
-            //rotateByGyro(turnSpeed, 37.25);
-
-            ITDBot.extendIntake();
-            sleep(250);
             ITDBot.collectIntake();
             sleep(250);
+
+            //collect and score first field sample
             ITDBot.sampleIntake();
             sleep(250);
             ITDBot.driveForward(.25);
-            sleep(750);
-            ITDBot.stopMotors();
-            sleep(550);
-            ITDBot.intakeStop();
+            sleep(400);
             ITDBot.scoreIntake();
             sleep(250);
             ITDBot.retractIntake();
+            sleep(250);
+            ITDBot.intakeStop();
             ITDBot.fillBucket();
+
+
             sleep(250);
             ITDBot.scoreIntake();
-            sleep(200);
+            sleep(100);
             ITDBot.sampleOuttake();
             sleep(750);
             ITDBot.intakeStop();
             sleep(100);
-            gyroCorrection(.25, -15);
+            gyroCorrection(.25, -45);
+            driveStraightGyroPinpoint(.5, 5, "BACK", 0);
             bucketDumpTopLevel();
 
 

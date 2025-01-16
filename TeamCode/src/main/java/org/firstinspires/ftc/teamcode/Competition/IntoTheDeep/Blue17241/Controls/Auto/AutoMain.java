@@ -58,7 +58,9 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.bucketSlideDown(0.5);
         sleep(1450);
         ITDBot.bucketSlideStop();
-        ITDBot.retractIntake();
+        ITDBot.retractIntakeManual();
+        sleep(150);
+        ITDBot.intakeStop();
     }
 
 
@@ -347,6 +349,7 @@ public abstract class AutoMain extends LinearOpMode {
 
 
     public void gyroCorrection(double speed, double targetAngle) {
+        resetHeading();
         currentHeading = getHeading();
         if (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
             while (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
