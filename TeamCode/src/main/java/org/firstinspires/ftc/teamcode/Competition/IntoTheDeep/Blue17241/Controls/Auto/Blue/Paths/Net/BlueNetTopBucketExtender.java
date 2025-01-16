@@ -25,7 +25,7 @@ public class BlueNetTopBucketExtender extends BlueAlliance {
             bucketDumpTopLevel();
             ITDBot.retractIntake();
 
-            rotateByGyro(.5, 5);
+            rotateByGyroPinpoint(.5, 5);
             ITDBot.collectIntake();
             ITDBot.sampleIntake();
             sleep(200);
@@ -41,11 +41,11 @@ public class BlueNetTopBucketExtender extends BlueAlliance {
             ITDBot.neutralIntake();
 
             driveStraightGyroPinpoint(.75, 5, "BACK", 0);
-            rotateByGyro(.5, -5);
+            rotateByGyroPinpoint(.5, -5);
             bucketDumpTopLevel();
 
 
-            rotateByGyro(.5, 10);
+            rotateByGyroPinpoint(.5, 10);
             ITDBot.collectIntake();
             ITDBot.sampleIntake();
             sleep(200);
@@ -61,10 +61,10 @@ public class BlueNetTopBucketExtender extends BlueAlliance {
             ITDBot.neutralIntake();
 
             driveStraightGyroPinpoint(.75, 5, "BACK", 0);
-            rotateByGyro(.5, -10);
+            rotateByGyroPinpoint(.5, -10);
             bucketDumpTopLevel();
 
-            rotateByGyro(.5, 15);
+            rotateByGyroPinpoint(.5, 15);
             ITDBot.collectIntake();
             ITDBot.sampleIntake();
             sleep(200);
@@ -80,7 +80,7 @@ public class BlueNetTopBucketExtender extends BlueAlliance {
             ITDBot.neutralIntake();
 
             driveStraightGyroPinpoint(.75, 5, "BACK", 0);
-            rotateByGyro(.5, -15);
+            rotateByGyroPinpoint(.5, -15);
             bucketDumpTopLevel();
 
 

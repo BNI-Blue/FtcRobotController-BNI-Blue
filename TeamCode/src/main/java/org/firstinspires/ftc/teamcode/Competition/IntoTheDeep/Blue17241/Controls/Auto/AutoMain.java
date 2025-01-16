@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
 import org.firstinspires.ftc.teamcode.Competition.Z20232024CenterStage.Blue17241.Drivetrains.MecanumDrive;
@@ -146,7 +147,7 @@ public abstract class AutoMain extends LinearOpMode {
 
 
 
-    public double getHeading() {
+    public double getHeadingPinpoint() {
         odo.update();
         Pose2D pos = odo.getPosition();
         // YawPitchRollAngles \orientation = imu.getRobotYawPitchRollAngles();
@@ -154,12 +155,21 @@ public abstract class AutoMain extends LinearOpMode {
     }
 
 
+    public double getHeadingRev(){
+        YawPitchRollAngles orientation = ITDBot.imu.getRobotYawPitchRollAngles();
+        return orientation.getYaw(AngleUnit.DEGREES);
+    }
+
+    public void resetHeadingRev(){
+        ITDBot.imu.resetYaw();
+    }
+
+
 
     // Helper Method to reset the IMU Yaw Heading
-    public void resetHeading() {
+    public void resetHeadingPinpoint() {
         odo.reset();
         Pose2D pos = odo.getPosition();
-
         pos.getHeading(AngleUnit.DEGREES);
         odo.update();
     }
@@ -175,8 +185,8 @@ public abstract class AutoMain extends LinearOpMode {
 
         double startPosition = pos.getX(DistanceUnit.INCH);
 
-        resetHeading();
-        currentHeading = getHeading();
+        resetHeadingPinpoint();
+        currentHeading = getHeadingPinpoint();
 
 //        telemetry.addData("Left Speed: ", leftSideSpeed);
 //        telemetry.addData("Right Speed: ", rightSideSpeed);
@@ -194,7 +204,7 @@ public abstract class AutoMain extends LinearOpMode {
 
         sleep(100);
         while (currentPosX < distance + startPosition && opModeIsActive()) {
-            currentHeading = getHeading();
+            currentHeading = getHeadingPinpoint();
 
             currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
             odo.update();
@@ -256,8 +266,8 @@ public abstract class AutoMain extends LinearOpMode {
 
         double startPosition = pos.getY(DistanceUnit.INCH);
 
-        resetHeading();
-        currentHeading = getHeading();
+        resetHeadingPinpoint();
+        currentHeading = getHeadingPinpoint();
 
         double currentPosX = (Math.abs(pos.getX(DistanceUnit.INCH)));
         double currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
@@ -266,7 +276,7 @@ public abstract class AutoMain extends LinearOpMode {
 
         sleep(100);
         while (currentPosY < distance + startPosition && opModeIsActive()) {
-            currentHeading = getHeading();
+            currentHeading = getHeadingPinpoint();
 
             currentPosY = (Math.abs(pos.getY(DistanceUnit.INCH)));
             odo.update();
@@ -319,43 +329,66 @@ public abstract class AutoMain extends LinearOpMode {
 
 
 
-    public void rotateByGyro(double speed, double targetAngle) {
-        resetHeading();
-        currentHeading = getHeading();
+    public void rotateByGyroPinpoint(double speed, double targetAngle) {
+        resetHeadingPinpoint();
+        currentHeading = getHeadingPinpoint();
         if (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
             while (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
                 ITDBot.rotateRight(speed);
 
-                currentHeading = getHeading();
+                currentHeading = getHeadingPinpoint();
                 telemetry.addData("Current Angle: ", currentHeading);
                 telemetry.addData("Target Angle: ", targetAngle);
                 telemetry.update();
             }
-        } else if (currentHeading <= targetAngle - headingTolerance && opModeIsActive()) ;
-        {
+        } else if (currentHeading <= targetAngle - headingTolerance && opModeIsActive()) {
             while (currentHeading <= targetAngle - headingTolerance && opModeIsActive()) {
                 ITDBot.rotateLeft(speed);
 
-                currentHeading = getHeading();
+                currentHeading = getHeadingPinpoint();
                 telemetry.addData("Current Angle: ", currentHeading);
                 telemetry.addData("Target Angle: ", targetAngle);
                 telemetry.update();
             }
         }
         ITDBot.stopMotors();
-        currentHeading = getHeading();
+        currentHeading = getHeadingPinpoint();
+    }
+    public void rotateByGyroRev(double speed, double targetAngle) {
+        resetHeadingRev();
+        currentHeading = getHeadingRev();
+        if (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
+            while (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
+                ITDBot.rotateRight(speed);
+
+                currentHeading = getHeadingRev();
+                telemetry.addData("Current Angle: ", currentHeading);
+                telemetry.addData("Target Angle: ", targetAngle);
+                telemetry.update();
+            }
+        } else if (currentHeading <= targetAngle - headingTolerance && opModeIsActive()) {
+            while (currentHeading <= targetAngle - headingTolerance && opModeIsActive()) {
+                ITDBot.rotateLeft(speed);
+
+                currentHeading = getHeadingRev();
+                telemetry.addData("Current Angle: ", currentHeading);
+                telemetry.addData("Target Angle: ", targetAngle);
+                telemetry.update();
+            }
+        }
+        ITDBot.stopMotors();
+        currentHeading = getHeadingRev();
     }
 
 
-
     public void gyroCorrection(double speed, double targetAngle) {
-        resetHeading();
-        currentHeading = getHeading();
+        resetHeadingPinpoint();
+        currentHeading = getHeadingPinpoint();
         if (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
             while (currentHeading >= targetAngle + headingTolerance && opModeIsActive()) {
                 ITDBot.rotateRight(speed);
 
-                currentHeading = getHeading();
+                currentHeading = getHeadingPinpoint();
                 telemetry.addData("Current Angle: ", currentHeading);
                 telemetry.addData("Target Angle: ", targetAngle);
                 telemetry.update();
@@ -365,13 +398,13 @@ public abstract class AutoMain extends LinearOpMode {
             while (currentHeading <= targetAngle - headingTolerance && opModeIsActive()) {
                 ITDBot.rotateLeft(speed);
 
-                currentHeading = getHeading();
+                currentHeading = getHeadingPinpoint();
                 telemetry.addData("Current Angle: ", currentHeading);
                 telemetry.addData("Target Angle: ", targetAngle);
                 telemetry.update();
             }
         }
         ITDBot.stopMotors();
-        currentHeading = getHeading();
+        currentHeading = getHeadingPinpoint();
     }
 }

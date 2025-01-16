@@ -9,8 +9,8 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
     //@Override
     public void runOpMode() throws InterruptedException{
         autoStartUp();
-        resetHeading();
-        currentHeading = getHeading();
+        resetHeadingPinpoint();
+        currentHeading = getHeadingPinpoint();
         odo.update();
         waitForStart();
 
@@ -25,7 +25,7 @@ public class RedNetTopBucketPinpoint extends RedAlliance {
             //strafeGyroPinpoint(.55, 1.2, "RIGHT", 0);
 
             //prepare for first field sample
-            rotateByGyro(.3, 13);
+            rotateByGyroRev(.3, 15);
             //gyroCorrection(.25, 10);
             sleep(100);
             ITDBot.collectIntake();

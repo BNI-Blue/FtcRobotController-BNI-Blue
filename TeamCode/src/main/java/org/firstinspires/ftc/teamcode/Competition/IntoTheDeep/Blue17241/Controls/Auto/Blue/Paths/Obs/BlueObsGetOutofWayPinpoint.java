@@ -12,8 +12,8 @@ public class BlueObsGetOutofWayPinpoint extends BlueAlliance {
     //@Override
     public void runOpMode() throws InterruptedException{
         autoStartUp();
-        resetHeading();
-        currentHeading = getHeading();
+        resetHeadingPinpoint();
+        currentHeading = getHeadingPinpoint();
         odo.update();
         waitForStart();
 

@@ -12,8 +12,8 @@ public class BlueNetSampleObsParkPinpoint extends BlueAlliance {
     public void runOpMode() throws InterruptedException{
         // Global Method for Initializing Auto
         autoStartUp();
-        resetHeading();
-        currentHeading = getHeading();
+        resetHeadingPinpoint();
+        currentHeading = getHeadingPinpoint();
         odo.update();
         waitForStart();
 

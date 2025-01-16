@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls
 public class StrafePinpoint extends RedAlliance {
     public void runOpMode() throws InterruptedException{
         autoStartUp();
-        resetHeading();
-        currentHeading = getHeading();
+        resetHeadingPinpoint();
+        currentHeading = getHeadingPinpoint();
         odo.update();
         waitForStart();
 

@@ -13,8 +13,8 @@ public class RedNetSamplePinpoint extends RedAlliance{
 
         // Global Method for Initializing Auto
         autoStartUp();
-        resetHeading();
-        currentHeading = getHeading();
+        resetHeadingPinpoint();
+        currentHeading = getHeadingPinpoint();
         odo.update();
         waitForStart();
 
