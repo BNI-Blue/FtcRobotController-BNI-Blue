@@ -51,17 +51,15 @@ public class BlueITDStateTester extends OpMode {
 
         if(gamepad2.right_bumper) {
             extendState = ExtendStates.EXTEND;
-            extendCollectSampleControl();
         }
         if (gamepad2.left_bumper){
-
             retractState= RetractStates.FLIP_UP;
-            retractCollectSampleControl();
+
         }
 
         if(gamepad2.dpad_up){
             transferState = TransferStates.BUCKET_START;
-            transferSampleControl();
+
         }
         if (gamepad2.a ) {
             extendState = ExtendStates.READY;
