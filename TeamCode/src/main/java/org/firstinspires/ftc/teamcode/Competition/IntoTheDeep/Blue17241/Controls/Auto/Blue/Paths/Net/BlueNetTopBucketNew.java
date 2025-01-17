@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.Paths.Net;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
+@Disabled
 @Autonomous(name = "Blue:Net:TopBucket:New")
 public class BlueNetTopBucketNew extends BlueAlliance{
     @Override

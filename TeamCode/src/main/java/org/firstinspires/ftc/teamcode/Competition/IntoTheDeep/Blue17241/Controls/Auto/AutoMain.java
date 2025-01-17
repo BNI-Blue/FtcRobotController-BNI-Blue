@@ -64,23 +64,37 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.intakeStop();
     }
 
-    public void pickUpSample(){
+    public void bucketDumpTopLevelTwo(){
+        ITDBot.extendIntake();
+        ITDBot.bucketSlideUp(1);
+        sleep(1100);
+        ITDBot.bucketSlideStop();
+        ITDBot.emptyBucket();
+        sleep(1100);
+        ITDBot.fillBucket();
+        ITDBot.bucketSlideDown(0.5);
+        sleep(1450);
+        ITDBot.bucketSlideStop();
+    }
+
+    public void pickUpSampleOne(){
         ITDBot.sampleIntake();
         sleep(250);
         ITDBot.collectIntake();
         sleep(200);
 
         ITDBot.extendIntake();
-        sleep(100);
-        ITDBot.driveForward(.35);
-        sleep(500);
+        sleep(300);
+        ITDBot.driveForward(.45);
+        sleep(250);
         ITDBot.stopMotors();
         sleep(750);
+        ITDBot.intakeStop();
+        sleep(100);
         ITDBot.scoreIntake();
         sleep(250);
         ITDBot.retractIntake();
         sleep(250);
-        ITDBot.intakeStop();
         ITDBot.fillBucket();
 
         sleep(250);
@@ -89,6 +103,7 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.intakeStop();
         sleep(100);
     }
+
 
 
  // Legacy Code from Olivia
@@ -159,7 +174,8 @@ public abstract class AutoMain extends LinearOpMode {
 
         odo.update();
         Pose2D pos = odo.getPosition();
-        while (pos.getY(DistanceUnit.INCH)  < distance && opModeIsActive()) {
+        //double startPosition = (Math.abs(pos.getY(DistanceUnit.INCH)));
+        while (Math.abs(pos.getY(DistanceUnit.INCH)) < distance && opModeIsActive()) {
             ITDBot.strafeRight(speed);
             odo.update();
             pos = odo.getPosition();

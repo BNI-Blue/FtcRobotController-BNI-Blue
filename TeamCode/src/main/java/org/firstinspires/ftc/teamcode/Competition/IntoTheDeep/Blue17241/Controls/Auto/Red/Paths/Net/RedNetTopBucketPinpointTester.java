@@ -1,14 +1,11 @@
-package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.Paths.Net;
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.Paths.Net;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.RedAlliance;
 
-@Disabled
-
-@Autonomous(name ="Blue:Net:TopBucket:Pinpoint")
-public class BlueNetTopBucketPinpoint extends BlueAlliance{
+@Autonomous(name ="Red:Net:TopBucket:Pinpoint")
+public class RedNetTopBucketPinpointTester extends RedAlliance {
     //@Override
     public void runOpMode() throws InterruptedException{
         autoStartUp();
@@ -33,7 +30,7 @@ public class BlueNetTopBucketPinpoint extends BlueAlliance{
 
             rotateByGyroRev(.25, -21);
             driveBackPinpoint(.5, 1.5);
-            bucketDumpTopLevel();
+            bucketDumpTopLevelTwo();
 
             //rotateByGyroRev(.5, 25);
 
@@ -48,6 +45,7 @@ public class BlueNetTopBucketPinpoint extends BlueAlliance{
 
             driveStraightGyroPinpoint(.5, 26, "FORWARD", 0);
             rotateByGyroRev(.5, 50);
+
 
             requestOpModeStop();
         }
