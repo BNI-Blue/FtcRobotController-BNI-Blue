@@ -64,6 +64,32 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.intakeStop();
     }
 
+    public void pickUpSample(){
+        ITDBot.sampleIntake();
+        sleep(250);
+        ITDBot.collectIntake();
+        sleep(200);
+
+        ITDBot.extendIntake();
+        sleep(100);
+        ITDBot.driveForward(.35);
+        sleep(500);
+        ITDBot.stopMotors();
+        sleep(750);
+        ITDBot.scoreIntake();
+        sleep(250);
+        ITDBot.retractIntake();
+        sleep(250);
+        ITDBot.intakeStop();
+        ITDBot.fillBucket();
+
+        sleep(250);
+        ITDBot.sampleOuttake();
+        sleep(750);
+        ITDBot.intakeStop();
+        sleep(100);
+    }
+
 
  // Legacy Code from Olivia
 
