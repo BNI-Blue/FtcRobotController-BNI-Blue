@@ -20,33 +20,33 @@ public class BlueNetTopBucketPinpoint extends BlueAlliance{
         while(opModeIsActive()) {
 
             // score preloaded sample
-            strafeGyroPinpoint(0.55, 7.5, "LEFT", 0);
-//            driveStraightGyroPinpoint(.5, 1.51, "BACK", 0);
-            driveBackPinpoint(.5, 1.7);
-            //ITDBot.driveBack(0.5,1.5);
+            strafeLeftPinpoint_Cum(0.55, 9);
+            sleep(100);
+            driveBackPinpoint_Cum(.55, 1.6);
             bucketDumpTopLevel();
 
 
             //prepare for first field sample
-            ITDBot.driveForward(.5, .1);
-            //strafeGyroPinpoint(0.5,0.65, "RIGHT",0);
+            strafeRightPinpoint_Cum(0.5,0.2);
             rotateByGyroRev(.3, 27.5);
-            sleep(100);
+//            sleep(100);
+//
 
+            sleep(5000);
             //collect first field sample
 
             blueNetSampleOne();
-
-            //move to bucket with first sample
-            rotateByGyroRev(.25, -27.5);
-//            strafeGyroPinpoint(.5,4,"RIGHT",0);
-            ITDBot.strafeRight(0.5,1);
-            ITDBot.driveBack(.5, 1.75);
-//            driveStraightGyroPinpoint(0.5,6,"BACK",0);
-            ITDBot.intakeStop();
-
-            //score first field sample
-            bucketDumpTopLevel();
+//
+//            //move to bucket with first sample
+//            rotateByGyroRev(.25, -27.5);
+////            strafeGyroPinpoint(.5,4,"RIGHT",0);
+//            ITDBot.strafeRight(0.5,1);
+//            ITDBot.driveBack(.5, 1.75);
+////            driveStraightGyroPinpoint(0.5,6,"BACK",0);
+//            ITDBot.intakeStop();
+//
+//            //score first field sample
+//            bucketDumpTopLevel();
 
             requestOpModeStop();
         }

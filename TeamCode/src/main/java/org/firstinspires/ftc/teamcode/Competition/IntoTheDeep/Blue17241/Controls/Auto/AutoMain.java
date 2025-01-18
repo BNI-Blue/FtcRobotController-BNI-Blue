@@ -18,7 +18,7 @@ public abstract class AutoMain extends LinearOpMode {
 
     public Pinpoint odo = new Pinpoint();
 
-    public double headingTolerance = 0.5;
+    public double headingTolerance = 0.5; //
 
     public double currentHeading = 0;
 
@@ -119,18 +119,33 @@ public abstract class AutoMain extends LinearOpMode {
 
 
 
-    public void driveForwardPinpoint(double speed, double distance) {
+    public void driveForwardPinpoint_Cum (double speed, double distance) {  // Cum stands for cumulative
 
+        odo.update();
+        Pose2D pos = odo.getPosition();
+        double targetDistance = distance + Math.abs(pos.getX(DistanceUnit.INCH));
+        double startPos = pos.getX(DistanceUnit.INCH);
+        double currentPos = Math.abs(pos.getX(DistanceUnit.INCH));
+        double distanceTraveled = 0;
+        while (distanceTraveled < targetDistance && opModeIsActive()) {
+            distanceTraveled =  Math.abs(startPos - pos.getX(DistanceUnit.INCH));
+            ITDBot.driveForward(speed);
+            odo.update();
+            pos = odo.getPosition();
+
+
+            telemetry.addData("Target Distance", distance);
+            telemetry.addData("Current X Position", pos.getX(DistanceUnit.INCH));
+            telemetry.update();
+        }
+        ITDBot.stopMotors();
+    }
+
+    public void driveForwardPinpoint(double speed, double distance) {
 
         odo.update();
         Pose2D pos = odo.getPosition();
 
-        odo.reset();
-
-        double startPosition = pos.getX(DistanceUnit.INCH);
-
-        resetHeadingPinpoint();
-        currentHeading = getHeadingPinpoint();
 
         while (Math.abs(pos.getX(DistanceUnit.INCH))  < distance && opModeIsActive()) {
             ITDBot.driveForward(speed);
@@ -145,10 +160,32 @@ public abstract class AutoMain extends LinearOpMode {
     }
 
 
+    public void driveBackPinpoint_Cum (double speed, double distance) { // Cum stands for cumulative
+
+        odo.update();
+        Pose2D pos = odo.getPosition();
+        double targetDistance = distance + Math.abs(pos.getX(DistanceUnit.INCH));
+        double startPos = pos.getX(DistanceUnit.INCH);
+        double currentPos = Math.abs(pos.getX(DistanceUnit.INCH));
+        double distanceTraveled = 0;
+        while (distanceTraveled < targetDistance && opModeIsActive()) {
+            distanceTraveled =  Math.abs(startPos - pos.getX(DistanceUnit.INCH));
+            ITDBot.driveBack(speed);
+            odo.update();
+            pos = odo.getPosition();
+
+
+            telemetry.addData("Target Distance", distance);
+            telemetry.addData("Current X Position", pos.getX(DistanceUnit.INCH));
+            telemetry.update();
+        }
+        ITDBot.stopMotors();
+    }
 
     public void driveBackPinpoint(double speed, double distance) {
 
         odo.update();
+//        odo.reset();
         Pose2D pos = odo.getPosition();
         while (Math.abs(pos.getX(DistanceUnit.INCH))  < distance && opModeIsActive()) {
             ITDBot.driveBack(speed);
@@ -163,6 +200,27 @@ public abstract class AutoMain extends LinearOpMode {
     }
 
 
+
+    public void strafeLeftPinpoint_Cum (double speed, double distance){ // Cum stands for cumulative
+        odo.update();
+        Pose2D pos = odo.getPosition();
+        double targetDistance = distance + Math.abs(pos.getY(DistanceUnit.INCH));
+        double startPos = pos.getY(DistanceUnit.INCH);
+        double currentPos = Math.abs(pos.getY(DistanceUnit.INCH));
+        double distanceTraveled = 0;
+        while (distanceTraveled < targetDistance && opModeIsActive()) {
+            distanceTraveled =  Math.abs(startPos - pos.getY(DistanceUnit.INCH));
+            ITDBot.strafeLeft(speed);
+            odo.update();
+            pos = odo.getPosition();
+
+
+            telemetry.addData("Target Distance", distance);
+            telemetry.addData("Current Y Position", pos.getY(DistanceUnit.INCH));
+            telemetry.update();
+        }
+        ITDBot.stopMotors();
+    }
 
     public void strafeLeftPinpoint(double speed, double distance){
         odo.update();
@@ -179,7 +237,26 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.stopMotors();
     }
 
+    public void strafeRightPinpoint_Cum (double speed, double distance){ // Cum stands for cumulative
+        odo.update();
+        Pose2D pos = odo.getPosition();
+        double targetDistance = distance + Math.abs(pos.getY(DistanceUnit.INCH));
+        double startPos = pos.getY(DistanceUnit.INCH);
+        double currentPos = Math.abs(pos.getY(DistanceUnit.INCH));
+        double distanceTraveled = 0;
+        while (distanceTraveled < targetDistance && opModeIsActive()) {
+            distanceTraveled =  Math.abs(startPos - pos.getY(DistanceUnit.INCH));
+            ITDBot.strafeRight(speed);
+            odo.update();
+            pos = odo.getPosition();
 
+
+            telemetry.addData("Target Distance", distance);
+            telemetry.addData("Current Y Position", pos.getY(DistanceUnit.INCH));
+            telemetry.update();
+        }
+        ITDBot.stopMotors();
+    }
 
     public void strafeRightPinpoint(double speed, double distance) {
 

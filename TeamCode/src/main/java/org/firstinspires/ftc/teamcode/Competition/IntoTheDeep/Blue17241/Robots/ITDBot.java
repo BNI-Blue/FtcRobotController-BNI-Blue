@@ -131,7 +131,7 @@ public class ITDBot extends MecanumDrive {
     }
 
     public void collectIntake(){
-        intakeHolderFlip.setPosition(.595);   //.54       //correct as of 1/6/25
+        intakeHolderFlip.setPosition(0.555);   // 0.595 correct as of 1/18/25
         intakeState = "collect";
     }
 
@@ -148,9 +148,9 @@ public class ITDBot extends MecanumDrive {
     }
 
     public void submersibleIntake(){
-        intakeHolderFlip.setPosition(0.555);
+        intakeHolderFlip.setPosition(0.595);
         intakeState = "submersible";
-    }         //0.59 correct as of 1/8/25
+    }         //0.555 correct as of 1/18/25
 
 
     public void intakeHolderUpAuto(){               //not tested

@@ -14,19 +14,19 @@ public abstract class BlueAlliance extends AutoMain {
         ITDBot.extendIntake();
         sleep(300);
 
-        driveForwardPinpoint(0.3,2);
-        sleep(750);
-        ITDBot.intakeStop();
-        sleep(100);
-        ITDBot.scoreIntake();
-        sleep(250);
-        ITDBot.retractIntake();
-        sleep(250);
-        ITDBot.fillBucket();
-
-        sleep(250);
-        ITDBot.sampleOuttake();
-        sleep(750);
+//        driveForwardPinpoint_Cum(0.3,2);
+//        sleep(750);
+//        ITDBot.intakeStop();
+//        sleep(100);
+//        ITDBot.scoreIntake();
+//        sleep(250);
+//        ITDBot.retractIntake();
+//        sleep(250);
+//        ITDBot.fillBucket();
+//
+//        sleep(250);
+//        ITDBot.sampleOuttake();
+//        sleep(750);
     }
 
     public void blueNetSampleTwo(){
