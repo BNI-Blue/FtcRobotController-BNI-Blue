@@ -119,7 +119,7 @@ public abstract class AutoMain extends LinearOpMode {
 
 
 
-    public void driveForwardPinpoint_Cum (double speed, double distance) {  // Cum stands for cumulative
+    public void driveForwardPinpointCumulative(double speed, double distance) {  // Cum stands for cumulative
 
         odo.update();
         Pose2D pos = odo.getPosition();
@@ -160,7 +160,7 @@ public abstract class AutoMain extends LinearOpMode {
     }
 
 
-    public void driveBackPinpoint_Cum (double speed, double distance) { // Cum stands for cumulative
+    public void driveBackPinpointCumulative(double speed, double distance) {
 
         odo.update();
         Pose2D pos = odo.getPosition();
@@ -201,7 +201,7 @@ public abstract class AutoMain extends LinearOpMode {
 
 
 
-    public void strafeLeftPinpoint_Cum (double speed, double distance){ // Cum stands for cumulative
+    public void strafeLeftPinpointCumulative(double speed, double distance){
         odo.update();
         Pose2D pos = odo.getPosition();
         double targetDistance = distance + Math.abs(pos.getY(DistanceUnit.INCH));
@@ -237,7 +237,7 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.stopMotors();
     }
 
-    public void strafeRightPinpoint_Cum (double speed, double distance){ // Cum stands for cumulative
+    public void strafeRightPinpointCumulative(double speed, double distance){
         odo.update();
         Pose2D pos = odo.getPosition();
         double targetDistance = distance + Math.abs(pos.getY(DistanceUnit.INCH));

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.Paths.Net;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
@@ -20,14 +19,14 @@ public class BlueNetTopBucketPinpoint extends BlueAlliance{
         while(opModeIsActive()) {
 
             // score preloaded sample
-            strafeLeftPinpoint_Cum(0.55, 9);
+            strafeLeftPinpointCumulative(0.55, 9);
             sleep(100);
-            driveBackPinpoint_Cum(.55, 1.6);
+            driveBackPinpointCumulative(.55, 1.6);
             bucketDumpTopLevel();
 
 
             //prepare for first field sample
-            strafeRightPinpoint_Cum(0.5,0.2);
+            strafeRightPinpointCumulative(0.5,0.2);
             rotateByGyroRev(.3, 27.5);
 //            sleep(100);
 //
