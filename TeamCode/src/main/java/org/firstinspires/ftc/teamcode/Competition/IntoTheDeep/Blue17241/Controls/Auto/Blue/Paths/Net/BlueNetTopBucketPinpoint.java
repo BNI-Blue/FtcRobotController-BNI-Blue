@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Blue.BlueAlliance;
 
-@Disabled
+//@Disabled
 
 @Autonomous(name ="Blue:Net:TopBucket:Pinpoint")
 public class BlueNetTopBucketPinpoint extends BlueAlliance{
@@ -20,34 +20,33 @@ public class BlueNetTopBucketPinpoint extends BlueAlliance{
         while(opModeIsActive()) {
 
             // score preloaded sample
-            strafeGyroPinpoint(0.55, 7, "LEFT", 0);
-            driveStraightGyroPinpoint(.55, 0.5, "BACK", 0);
+            strafeGyroPinpoint(0.55, 7.5, "LEFT", 0);
+//            driveStraightGyroPinpoint(.5, 1.51, "BACK", 0);
+            driveBackPinpoint(.5, 1.7);
+            //ITDBot.driveBack(0.5,1.5);
             bucketDumpTopLevel();
 
 
             //prepare for first field sample
-            rotateByGyroRev(.3, 21);
+            ITDBot.driveForward(.5, .1);
+            //strafeGyroPinpoint(0.5,0.65, "RIGHT",0);
+            rotateByGyroRev(.3, 27.5);
             sleep(100);
 
-            pickUpSampleOne();
+            //collect first field sample
 
-            rotateByGyroRev(.25, -21);
-            driveBackPinpoint(.5, 1.5);
+            blueNetSampleOne();
+
+            //move to bucket with first sample
+            rotateByGyroRev(.25, -27.5);
+//            strafeGyroPinpoint(.5,4,"RIGHT",0);
+            ITDBot.strafeRight(0.5,1);
+            ITDBot.driveBack(.5, 1.75);
+//            driveStraightGyroPinpoint(0.5,6,"BACK",0);
+            ITDBot.intakeStop();
+
+            //score first field sample
             bucketDumpTopLevel();
-
-            //rotateByGyroRev(.5, 25);
-
-            rotateByGyroRev(.25, 41);
-
-            pickUpSampleOne();
-
-            rotateByGyroRev(.25, -41);
-            strafeRightPinpoint(.35, 8);
-            driveBackPinpoint(.5, 1.25);
-            bucketDumpTopLevel();
-
-            driveStraightGyroPinpoint(.5, 26, "FORWARD", 0);
-            rotateByGyroRev(.5, 50);
 
             requestOpModeStop();
         }

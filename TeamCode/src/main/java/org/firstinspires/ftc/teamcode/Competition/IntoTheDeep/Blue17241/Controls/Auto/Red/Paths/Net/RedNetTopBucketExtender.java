@@ -27,7 +27,7 @@ public class RedNetTopBucketExtender extends RedAlliance {
 
             rotateByGyroPinpoint(.5, 5);
             ITDBot.collectIntake();
-            ITDBot.sampleIntake();
+            ITDBot.sampleIntakeAuto();
             sleep(200);
             ITDBot.extendIntake();
             driveStraightGyroPinpoint(.75, 5, "FORWARD", 0);
@@ -47,7 +47,7 @@ public class RedNetTopBucketExtender extends RedAlliance {
 
             rotateByGyroPinpoint(.5, 10);
             ITDBot.collectIntake();
-            ITDBot.sampleIntake();
+            ITDBot.sampleIntakeAuto();
             sleep(200);
             ITDBot.extendIntake();
             driveStraightGyroPinpoint(.75, 4, "FORWARD", 0);
@@ -66,7 +66,7 @@ public class RedNetTopBucketExtender extends RedAlliance {
 
             rotateByGyroPinpoint(.5, 15);
             ITDBot.collectIntake();
-            ITDBot.sampleIntake();
+            ITDBot.sampleIntakeAuto();
             sleep(200);
             ITDBot.extendIntake();
             driveStraightGyroPinpoint(.75, 5, "FORWARD", 0);

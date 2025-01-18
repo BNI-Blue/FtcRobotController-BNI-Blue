@@ -49,7 +49,7 @@ public class BlueITDTeleOp extends OpMode {
     public double targetPosition = 0.17;  // Target position (1.0 is fully extended)
     public double increment = 0.005;  // How much to increment the servo position each loop
     public ElapsedTime runtime = new ElapsedTime();
-    public boolean moving = false;  // State variable to track if servo is moving
+    private boolean moving = false;  // State variable to track if servo is moving
 
     @Override
     public void init() {

@@ -23,7 +23,7 @@ public class OneServoTester extends OpMode {
         intakeRotate = hardwareMap.get(CRServo.class, "intake_CRServo");//port 0 - expansion
         intakeRotate.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        grabberArmLeft = hardwareMap.servo.get("intake_extender");
+        grabberArmLeft = hardwareMap.servo.get("intake_flip");
         grabberArmLeft.setPosition(grabberLeftArmPos);
 
 
@@ -47,11 +47,11 @@ public class OneServoTester extends OpMode {
         }
         if (gamepad1.y) {
             //grabberLeftArmPos = .2;
-            grabberArmLeft.setPosition(0.1);
+            grabberArmLeft.setPosition(0.6);
         }
         if (gamepad1.b) {
             //grabberLeftArmPos = .9;
-            grabberArmLeft.setPosition(0.9);
+            grabberArmLeft.setPosition(0.5);
         }
 
        // if (gamepad1.a) {

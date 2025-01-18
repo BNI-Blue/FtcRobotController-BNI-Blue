@@ -51,7 +51,7 @@ public abstract class AutoMain extends LinearOpMode {
     public void bucketDumpTopLevel(){
         ITDBot.extendIntake();
         ITDBot.bucketSlideUp(1);
-        sleep(1100);
+        sleep(1300);
         ITDBot.bucketSlideStop();
         ITDBot.emptyBucket();
         sleep(1100);
@@ -77,17 +77,19 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.bucketSlideStop();
     }
 
-    public void pickUpSampleOne(){
-        ITDBot.sampleIntake();
-        sleep(250);
+    public void pickUpSampleOne() throws InterruptedException {
+        ITDBot.sampleIntakeAuto();
+        sleep(300);
         ITDBot.collectIntake();
-        sleep(200);
+        sleep(150);
 
         ITDBot.extendIntake();
         sleep(300);
-        ITDBot.driveForward(.45);
-        sleep(250);
-        ITDBot.stopMotors();
+//        ITDBot.driveForward(.45);
+//        sleep(400);
+//        ITDBot.stopMotors();
+
+        ITDBot.driveForward(1,2);
         sleep(750);
         ITDBot.intakeStop();
         sleep(100);
@@ -119,8 +121,17 @@ public abstract class AutoMain extends LinearOpMode {
 
     public void driveForwardPinpoint(double speed, double distance) {
 
+
         odo.update();
         Pose2D pos = odo.getPosition();
+
+        odo.reset();
+
+        double startPosition = pos.getX(DistanceUnit.INCH);
+
+        resetHeadingPinpoint();
+        currentHeading = getHeadingPinpoint();
+
         while (Math.abs(pos.getX(DistanceUnit.INCH))  < distance && opModeIsActive()) {
             ITDBot.driveForward(speed);
             odo.update();

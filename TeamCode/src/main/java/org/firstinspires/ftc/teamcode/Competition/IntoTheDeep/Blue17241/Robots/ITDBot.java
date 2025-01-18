@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Drivetrains.MecanumDrive;
@@ -24,6 +23,11 @@ public class ITDBot extends MecanumDrive {
     public double servoPos = 0.6;
 
     public double incVal = 0.005;
+
+
+    String intakeState = null;
+
+    private boolean moving = false;  // State variable to track if servo is moving
 
 
     //Init Method
@@ -92,12 +96,18 @@ public class ITDBot extends MecanumDrive {
 
 
     // *******  Helper Methods for Intake FlyWheels *********
-    public void sampleIntake() {
-        sampleIntakeServo.setPower(-0.4);           //correct as of 1/6/25
+    public void sampleIntakeAuto() {
+        sampleIntakeServo.setPower(-0.75);           //correct as of 1/6/25
     }
 
+    public void sampleIntake(){
+        sampleIntakeServo.setPower(-0.4);
+    }
+
+
+
     public void sampleOuttake() {
-        sampleIntakeServo.setPower(0.6);            //correct as of 1/6/25
+        sampleIntakeServo.setPower(0.75);            //correct as of 1/6/25
     }
 
     public void intakeStop() {
@@ -111,17 +121,73 @@ public class ITDBot extends MecanumDrive {
 
     // *******  Helper Methods for Intake Flip Mechanism *******
     public void scoreIntake() {
-        intakeHolderFlip.setPosition(.03);          //correct as of 1/6/25
+        intakeHolderFlip.setPosition(.05);   //.1       //correct as of 1/6/25
+        intakeState = "score";
     }
+
+    public void scoreIntakeSlow() {
+        intakeHolderFlip.setPosition(.1);          //correct as of 1/6/25
+        intakeState = "score";
+    }
+
     public void collectIntake(){
-        intakeHolderFlip.setPosition(.54);          //correct as of 1/6/25
+        intakeHolderFlip.setPosition(.595);   //.54       //correct as of 1/6/25
+        intakeState = "collect";
+    }
+
+    public void collectIntakeSlow(){
+        if (intakeState.equals("score")) {
+            moving = true;
+            slowServo(.54);          //correct as of 1/6/25
+        }
+        else {
+            intakeHolderFlip.setPosition(.54);          //correct as of 1/6/25
+        }
+
+        intakeState = "collect";
     }
 
     public void submersibleIntake(){
-        intakeHolderFlip.setPosition(0.555);}         //0.59 correct as of 1/8/25
+        intakeHolderFlip.setPosition(0.555);
+        intakeState = "submersible";
+    }         //0.59 correct as of 1/8/25
+
 
     public void intakeHolderUpAuto(){               //not tested
         intakeHolderFlip.setPosition(.22);
+        intakeState = "auto";
+    }
+
+
+    public void slowServo(double targetPosition){
+        double currentPosition = intakeHolderFlip.getPosition();
+        if (moving) {
+            // Gradually move the servo to the target position in small increments
+            if (Math.abs(currentPosition - targetPosition) > incVal) {
+                if (currentPosition < targetPosition) {
+                    currentPosition += incVal;
+                } else {
+                    currentPosition -= incVal;
+                }
+                intakeHolderFlip.setPosition(currentPosition);  // Set the servo's position
+            } else {
+                // Once we're close to the target, stop     and set the servo position exactly
+                currentPosition = targetPosition;
+                intakeHolderFlip.setPosition(currentPosition);
+                moving = false;  // Stop the movement
+            }
+        }
+
+        // For example, you can trigger the servo movement when the 'A' button is pressed
+//        if (gamepad2.y) {
+//            // Start the movement towards the target position
+//            moving = true;
+//        }
+
+        // You can use telemetry to visualize the current servo position
+//        linetelemetry.addData("Servo Position", currentPosition);
+//        telemetry.addData("Moving", moving ? "Yes" : "No");
+//        telemetry.update();
     }
 
 
@@ -211,5 +277,4 @@ public class ITDBot extends MecanumDrive {
         intakeStop();
         neutralIntake();
     }
-
 }

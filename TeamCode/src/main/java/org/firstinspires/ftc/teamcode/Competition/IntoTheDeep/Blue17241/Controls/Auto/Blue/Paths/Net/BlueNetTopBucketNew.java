@@ -25,7 +25,7 @@ public class BlueNetTopBucketNew extends BlueAlliance{
             ITDBot.retractIntake();
 
             //Engage intake to intake! and Extend extender WITH INTAKE INTAKING
-            ITDBot.sampleIntake();
+            ITDBot.sampleIntakeAuto();
             ITDBot.extendIntake();
 
             ITDBot.driveForward(0.5,0.5);

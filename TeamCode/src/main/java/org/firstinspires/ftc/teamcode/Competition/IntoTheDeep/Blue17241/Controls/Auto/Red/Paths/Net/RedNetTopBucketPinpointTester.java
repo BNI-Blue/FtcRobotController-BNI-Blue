@@ -26,7 +26,7 @@ public class RedNetTopBucketPinpointTester extends RedAlliance {
             rotateByGyroRev(.3, 21);
             sleep(100);
 
-            pickUpSampleOne();
+            redNetSampleOne();
 
             rotateByGyroRev(.25, -21);
             driveBackPinpoint(.5, 1.5);
@@ -36,7 +36,7 @@ public class RedNetTopBucketPinpointTester extends RedAlliance {
 
             rotateByGyroRev(.25, 41);
 
-            pickUpSampleOne();
+            redNetSampleTwo();
 
             rotateByGyroRev(.25, -41);
             strafeRightPinpoint(.35, 8);

@@ -17,35 +17,43 @@ public class RedNetTopBucketPinpoint3Samples extends RedAlliance {
         while(opModeIsActive()) {
 
             // score preloaded sample
-            strafeGyroPinpoint(0.55, 7, "LEFT", 0);
-            sleep(500);
-            driveStraightGyroPinpoint(.55, 0.5, "BACK", 0);
+            strafeGyroPinpoint(0.55, 7.5, "LEFT", 0);
+            driveStraightGyroPinpoint(.55, 1.5, "BACK", 0);
             bucketDumpTopLevel();
 
 
             //prepare for first field sample
-            rotateByGyroRev(.3, 21);
+            strafeGyroPinpoint(0.5,0.7, "RIGHT",0);
+            rotateByGyroRev(.3, 27.5);
             sleep(100);
 
+            //collect first field sample
             pickUpSampleOne();
 
-            rotateByGyroRev(.25, -21);
-            driveBackPinpoint(.5, 1.5);
+            //move to bucket with first sample
+            rotateByGyroRev(.25, -27.5);
+            driveBackPinpoint(.5, 6);
+            strafeGyroPinpoint(.5,2,"RIGHT",0);
+
+            //score first field sample
             bucketDumpTopLevel();
 
             //rotateByGyroRev(.5, 25);
 
-            rotateByGyroRev(.25, 41);
+            //move to second field sample
+            rotateByGyroRev(.25, 40.25);
 
+            //collect second field sample
             pickUpSampleOne();
 
-            rotateByGyroRev(.25, -41);
-            strafeRightPinpoint(.35, 8);
-            driveBackPinpoint(.5, 1.25);
+            //move to buckets with second field sample
+            rotateByGyroRev(.25, -40.25);
+            strafeRightPinpoint(.35, 3);
+            driveBackPinpoint(.5, 1.5);
             bucketDumpTopLevel();
 
-            driveStraightGyroPinpoint(.5, 26, "FORWARD", 0);
-            rotateByGyroRev(.5, 50);
+//            driveStraightGyroPinpoint(.5, 26, "FORWARD", 0);
+//            rotateByGyroRev(.5, 50);
 
             requestOpModeStop();
         }

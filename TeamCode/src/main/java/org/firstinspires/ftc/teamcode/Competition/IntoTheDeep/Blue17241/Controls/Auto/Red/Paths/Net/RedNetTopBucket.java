@@ -36,7 +36,7 @@ public class RedNetTopBucket extends RedAlliance {
             ITDBot.collectIntake();
             sleep(1000);
             ITDBot.driveForward(.5, .6);
-            ITDBot.sampleIntake();
+            ITDBot.sampleIntakeAuto();
             ITDBot.driveForward(.35, .55);
             sleep(1000);
             ITDBot.intakeStop();
