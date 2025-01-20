@@ -7,25 +7,19 @@ public abstract class RedAlliance extends AutoMain {
 
     public void redNetSampleOne(){
         ITDBot.sampleIntakeAuto();
-        sleep(300);
+        sleep(200);
         ITDBot.collectIntake();
-        sleep(150);
+        sleep(1000);
 
-
-        driveForwardPinpointCumulative(1, 2);
-        sleep(750);
+        driveForwardPinpointCumulative(.25, 7.25);
+        sleep(700);
         ITDBot.intakeStop();
-        sleep(100);
+        sleep(200);
         ITDBot.scoreIntake();
-        sleep(250);
+        sleep(400);
         ITDBot.retractIntake();
-        sleep(250);
+        sleep(400);
         ITDBot.fillBucket();
-
-        sleep(250);
-        ITDBot.sampleOuttake();
-        sleep(750);
-        ITDBot.intakeStop();
         sleep(100);
     }
 
@@ -33,16 +27,13 @@ public abstract class RedAlliance extends AutoMain {
         ITDBot.sampleIntakeAuto();
         sleep(300);
         ITDBot.collectIntake();
-        sleep(150);
+        sleep(1000);
 
         ITDBot.extendIntake();
         sleep(300);
-//        ITDBot.driveForward(.45);
-//        sleep(400);
-//        ITDBot.stopMotors();
 
-        ITDBot.driveForward(1,2);
-        sleep(750);
+        driveForwardPinpointCumulative(.25, 7.25);
+        sleep(700);
         ITDBot.intakeStop();
         sleep(100);
         ITDBot.scoreIntake();
@@ -50,18 +41,13 @@ public abstract class RedAlliance extends AutoMain {
         ITDBot.retractIntake();
         sleep(250);
         ITDBot.fillBucket();
-
         sleep(250);
-        ITDBot.sampleOuttake();
-        sleep(750);
-        ITDBot.intakeStop();
-        sleep(100);
     }
 
     public void redNetSampleThree(){
         ITDBot.sampleIntakeAuto();
         sleep(300);
-        ITDBot.collectIntake();
+        ITDBot.submersibleIntake();
         sleep(150);
 
         ITDBot.extendIntake();
@@ -90,28 +76,28 @@ public abstract class RedAlliance extends AutoMain {
 
     public void redNetPreloadSpikeOne(){
         // score preloaded sample
-        strafeLeftPinpointCumulative(.55, 7.5);
-        driveBackPinpointCumulative(.55, 1.5);
-        //strafeGyroPinpoint(0.55, 7.5, "LEFT", 0);
-        //driveStraightGyroPinpoint(.55, 1.5, "BACK", 0);
+        strafeLeftPinpointCumulative(.55, 6);
+        driveBackPinpointCumulative(.55, 1.15);
         bucketDumpTopLevelTwo();
 
-
         //prepare for first field sample
-        strafeRightPinpointCumulative(.5, .7);
-        //strafeGyroPinpoint(0.5,0.7, "RIGHT",0);
-        rotateByGyroRev(.3, 27.5);
+        strafeRightPinpointCumulative(.5, 1);
+        rotateByGyroRev(.3, 31);
         sleep(100);
+        driveBackPinpointCumulative(.5 ,.5);
 
         //collect first field sample
         redNetSampleOne();
 
         //move to bucket with first sample
-        rotateByGyroRev(.25, -27.5);
-        driveBackPinpointCumulative(.5, 6);
-        //driveBackPinpoint(.5, 6);
-        strafeRightPinpointCumulative(.5 ,2);
-        //strafeGyroPinpoint(.5,2,"RIGHT",0);
+        rotateByGyroRev(.25, -31);
+        //driveBackPinpointCumulative(.5, .72);
+        strafeRightPinpointCumulative(.5, 2);
+        driveBackPinpointCumulative(.5, 2.85);
+        ITDBot.sampleOuttake();
+        sleep(750);
+        ITDBot.intakeStop();
+        rotateByGyroRev(.5, 2.5);
 
         //score first field sample
         bucketDumpTopLevelOne();
@@ -119,15 +105,22 @@ public abstract class RedAlliance extends AutoMain {
 
 
     public void redNetSpikeTwo(){
-        rotateByGyroRev(.25, 40.25);
+        rotateByGyroRev(.25, 50);
+
         //collect second field sample
         redNetSampleTwo();
 
         //move to buckets with second field sample
-        rotateByGyroRev(.25, -40.25);
-        strafeRightPinpointCumulative(.35, 3);
-        //strafeRightPinpoint(.35, 3);
-        driveBackPinpointCumulative(.5 ,1.5);
+        rotateByGyroRev(.25, -50);
+        strafeRightPinpointCumulative(.35, 7.75);
+        driveBackPinpointCumulative(.5 ,3.1);
+
+        ITDBot.sampleOuttake();
+        sleep(750);
+        ITDBot.intakeStop();
+        sleep(100);
+
+        rotateByGyroRev(.25, 6);
         //driveBackPinpoint(.5, 1.5);
         bucketDumpTopLevelOne();
     }

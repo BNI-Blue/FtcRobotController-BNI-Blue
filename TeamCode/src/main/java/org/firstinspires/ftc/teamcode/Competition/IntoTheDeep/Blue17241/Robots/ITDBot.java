@@ -107,7 +107,7 @@ public class ITDBot extends MecanumDrive {
 
 
     public void sampleOuttake() {
-        sampleIntakeServo.setPower(0.6);            //correct as of 1/6/25
+        sampleIntakeServo.setPower(0.5);            //correct as of 1/6/25
     }
 
     public void intakeStop() {

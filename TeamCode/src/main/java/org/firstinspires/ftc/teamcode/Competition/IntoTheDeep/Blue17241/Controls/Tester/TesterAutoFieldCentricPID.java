@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Tester;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "Tester:Blue:FieldCentricPID", group = "Testers")
 public class TesterAutoFieldCentricPID extends TesterBlueAlliance {
     @Override

@@ -20,8 +20,8 @@ public class BlueObservationParkPinpoint extends BlueAlliance {
 
         while (opModeIsActive()){
 
-            strafeLeftPinpoint(1, .2);
-            driveForwardPinpoint(1, 2.5);
+            strafeRightPinpoint(1, .2);
+            driveBackPinpointCumulative(1, 7);
 
             requestOpModeStop();
 

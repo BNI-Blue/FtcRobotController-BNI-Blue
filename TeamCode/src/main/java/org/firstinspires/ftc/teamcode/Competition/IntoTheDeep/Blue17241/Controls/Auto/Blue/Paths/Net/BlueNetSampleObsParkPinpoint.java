@@ -22,9 +22,6 @@ public class BlueNetSampleObsParkPinpoint extends BlueAlliance {
 
             strafeRightPinpoint(1, .15);
             driveForwardPinpoint(1, 3.85);
-            ITDBot.sampleOuttakeAuto();
-            sleep(1300);
-            ITDBot.intakeStop();
 
                 //Code for if partner can move away from wall
             strafeRightPinpoint(1, .15);

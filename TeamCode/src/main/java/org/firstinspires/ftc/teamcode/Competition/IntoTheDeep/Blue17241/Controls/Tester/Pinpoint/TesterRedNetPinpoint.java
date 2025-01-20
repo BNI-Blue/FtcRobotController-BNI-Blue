@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Tester.Pinpoint;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Tester.TesterRedAlliance;
 
 @Autonomous(name = "RedNetPinpoint")
-//@Disabled
+@Disabled
 public class TesterRedNetPinpoint extends TesterRedAlliance {
     @Override
     public void runOpMode() throws InterruptedException {

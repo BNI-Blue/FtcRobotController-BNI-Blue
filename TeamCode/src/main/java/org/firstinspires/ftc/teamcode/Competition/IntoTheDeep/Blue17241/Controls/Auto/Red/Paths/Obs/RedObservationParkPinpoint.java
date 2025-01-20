@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.RedAlliance;
 
-@Disabled
-@Autonomous(name = "Red:ObsPark:Pinpoint")
+//@Disabled
+@Autonomous(name = "Red:Observation:Park:Pinpoint")
 public class RedObservationParkPinpoint extends RedAlliance {
     //@Override
     public void runOpMode() throws InterruptedException{
@@ -22,7 +22,7 @@ public class RedObservationParkPinpoint extends RedAlliance {
         while (opModeIsActive()){
 
             strafeRightPinpoint(1, .2);
-            strafeLeftPinpoint(1, 2.5);
+            driveBackPinpointCumulative(1, 7);
 
             requestOpModeStop();
 

@@ -50,6 +50,7 @@ public abstract class AutoMain extends LinearOpMode {
 
     public void bucketDumpTopLevelOne(){
         ITDBot.extendIntake();
+        sleep(750);
         ITDBot.bucketSlideUp(1);
         sleep(1300);
         ITDBot.bucketSlideStop();
@@ -66,6 +67,7 @@ public abstract class AutoMain extends LinearOpMode {
 
     public void bucketDumpTopLevelTwo(){
         ITDBot.extendIntake();
+        sleep(500);
         ITDBot.bucketSlideUp(1);
         sleep(1275);
         ITDBot.bucketSlideStop();
@@ -83,7 +85,8 @@ public abstract class AutoMain extends LinearOpMode {
         odo.update();
         Pose2D pos = odo.getPosition();
 //        double targetDistance = distance + Math.abs(pos.getY(DistanceUnit.INCH));
-        double targetDistance = distance;        double startPos = pos.getX(DistanceUnit.INCH);
+        double targetDistance = distance;
+        double startPos = pos.getX(DistanceUnit.INCH);
         double currentPos = Math.abs(pos.getX(DistanceUnit.INCH));
         double distanceTraveled = 0;
         while (distanceTraveled < targetDistance && opModeIsActive()) {
