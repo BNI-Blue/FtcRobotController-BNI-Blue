@@ -48,7 +48,7 @@ public abstract class AutoMain extends LinearOpMode {
 
 
 
-    public void bucketDumpTopLevel(){
+    public void bucketDumpTopLevelOne(){
         ITDBot.extendIntake();
         ITDBot.bucketSlideUp(1);
         sleep(1300);
@@ -67,64 +67,23 @@ public abstract class AutoMain extends LinearOpMode {
     public void bucketDumpTopLevelTwo(){
         ITDBot.extendIntake();
         ITDBot.bucketSlideUp(1);
-        sleep(1100);
+        sleep(1275);
         ITDBot.bucketSlideStop();
         ITDBot.emptyBucket();
-        sleep(1100);
+        sleep(1300);
         ITDBot.fillBucket();
         ITDBot.bucketSlideDown(0.5);
         sleep(1450);
         ITDBot.bucketSlideStop();
     }
 
-    public void pickUpSampleOne() throws InterruptedException {
-        ITDBot.sampleIntakeAuto();
-        sleep(300);
-        ITDBot.collectIntake();
-        sleep(150);
-
-        ITDBot.extendIntake();
-        sleep(300);
-//        ITDBot.driveForward(.45);
-//        sleep(400);
-//        ITDBot.stopMotors();
-
-        ITDBot.driveForward(1,2);
-        sleep(750);
-        ITDBot.intakeStop();
-        sleep(100);
-        ITDBot.scoreIntake();
-        sleep(250);
-        ITDBot.retractIntake();
-        sleep(250);
-        ITDBot.fillBucket();
-
-        sleep(250);
-        ITDBot.sampleOuttake();
-        sleep(750);
-        ITDBot.intakeStop();
-        sleep(100);
-    }
-
-
-
- // Legacy Code from Olivia
-
-//     public void dropBasketOne(){
-//        ITDBot.raiseArm(1, 5.7);
-//    }
-//    public void dropBasketTwo(){
-//        ITDBot.raiseArm(1, 9.3);
-//    }
-
-
 
     public void driveForwardPinpointCumulative(double speed, double distance) {  // Cum stands for cumulative
 
         odo.update();
         Pose2D pos = odo.getPosition();
-        double targetDistance = distance + Math.abs(pos.getX(DistanceUnit.INCH));
-        double startPos = pos.getX(DistanceUnit.INCH);
+//        double targetDistance = distance + Math.abs(pos.getY(DistanceUnit.INCH));
+        double targetDistance = distance;        double startPos = pos.getX(DistanceUnit.INCH);
         double currentPos = Math.abs(pos.getX(DistanceUnit.INCH));
         double distanceTraveled = 0;
         while (distanceTraveled < targetDistance && opModeIsActive()) {
@@ -132,7 +91,6 @@ public abstract class AutoMain extends LinearOpMode {
             ITDBot.driveForward(speed);
             odo.update();
             pos = odo.getPosition();
-
 
             telemetry.addData("Target Distance", distance);
             telemetry.addData("Current X Position", pos.getX(DistanceUnit.INCH));
@@ -145,7 +103,6 @@ public abstract class AutoMain extends LinearOpMode {
 
         odo.update();
         Pose2D pos = odo.getPosition();
-
 
         while (Math.abs(pos.getX(DistanceUnit.INCH))  < distance && opModeIsActive()) {
             ITDBot.driveForward(speed);
@@ -164,8 +121,8 @@ public abstract class AutoMain extends LinearOpMode {
 
         odo.update();
         Pose2D pos = odo.getPosition();
-        double targetDistance = distance + Math.abs(pos.getX(DistanceUnit.INCH));
-        double startPos = pos.getX(DistanceUnit.INCH);
+//        double targetDistance = distance + Math.abs(pos.getY(DistanceUnit.INCH));
+        double targetDistance = distance;        double startPos = pos.getX(DistanceUnit.INCH);
         double currentPos = Math.abs(pos.getX(DistanceUnit.INCH));
         double distanceTraveled = 0;
         while (distanceTraveled < targetDistance && opModeIsActive()) {
@@ -173,7 +130,6 @@ public abstract class AutoMain extends LinearOpMode {
             ITDBot.driveBack(speed);
             odo.update();
             pos = odo.getPosition();
-
 
             telemetry.addData("Target Distance", distance);
             telemetry.addData("Current X Position", pos.getX(DistanceUnit.INCH));
@@ -199,12 +155,11 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.stopMotors();
     }
 
-
-
     public void strafeLeftPinpointCumulative(double speed, double distance){
         odo.update();
         Pose2D pos = odo.getPosition();
-        double targetDistance = distance + Math.abs(pos.getY(DistanceUnit.INCH));
+        //        double targetDistance = distance + Math.abs(pos.getY(DistanceUnit.INCH));
+        double targetDistance = distance;
         double startPos = pos.getY(DistanceUnit.INCH);
         double currentPos = Math.abs(pos.getY(DistanceUnit.INCH));
         double distanceTraveled = 0;
@@ -213,7 +168,6 @@ public abstract class AutoMain extends LinearOpMode {
             ITDBot.strafeLeft(speed);
             odo.update();
             pos = odo.getPosition();
-
 
             telemetry.addData("Target Distance", distance);
             telemetry.addData("Current Y Position", pos.getY(DistanceUnit.INCH));
@@ -240,7 +194,8 @@ public abstract class AutoMain extends LinearOpMode {
     public void strafeRightPinpointCumulative(double speed, double distance){
         odo.update();
         Pose2D pos = odo.getPosition();
-        double targetDistance = distance + Math.abs(pos.getY(DistanceUnit.INCH));
+//        double targetDistance = distance + Math.abs(pos.getY(DistanceUnit.INCH));
+        double targetDistance = distance;
         double startPos = pos.getY(DistanceUnit.INCH);
         double currentPos = Math.abs(pos.getY(DistanceUnit.INCH));
         double distanceTraveled = 0;
@@ -249,7 +204,6 @@ public abstract class AutoMain extends LinearOpMode {
             ITDBot.strafeRight(speed);
             odo.update();
             pos = odo.getPosition();
-
 
             telemetry.addData("Target Distance", distance);
             telemetry.addData("Current Y Position", pos.getY(DistanceUnit.INCH));
@@ -275,15 +229,12 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.stopMotors();
     }
 
-
-
     public double getHeadingPinpoint() {
         odo.update();
         Pose2D pos = odo.getPosition();
         // YawPitchRollAngles \orientation = imu.getRobotYawPitchRollAngles();
         return pos.getHeading(AngleUnit.DEGREES);
     }
-
 
     public double getHeadingRev(){
         YawPitchRollAngles orientation = ITDBot.imu.getRobotYawPitchRollAngles();
@@ -294,8 +245,6 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.imu.resetYaw();
     }
 
-
-
     // Helper Method to reset the IMU Yaw Heading
     public void resetHeadingPinpoint() {
         odo.reset();
@@ -303,8 +252,6 @@ public abstract class AutoMain extends LinearOpMode {
         pos.getHeading(AngleUnit.DEGREES);
         odo.update();
     }
-
-
 
     public void driveStraightGyroPinpoint(double speed, double distance, String direction, double target) throws InterruptedException {
 
@@ -457,8 +404,6 @@ public abstract class AutoMain extends LinearOpMode {
         idle();
     }
 
-
-
     public void rotateByGyroPinpoint(double speed, double targetAngle) {
         resetHeadingPinpoint();
         currentHeading = getHeadingPinpoint();
@@ -509,7 +454,6 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.stopMotors();
         currentHeading = getHeadingRev();
     }
-
 
     public void gyroCorrection(double speed, double targetAngle) {
         resetHeadingPinpoint();

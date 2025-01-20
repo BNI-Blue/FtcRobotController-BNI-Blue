@@ -23,7 +23,7 @@ public class BlueNetTopBucketObsPark extends BlueAlliance {
 
             ITDBot.strafeRight(1, 1.6);
             ITDBot.driveBack(1, .1);
-            bucketDumpTopLevel();
+            bucketDumpTopLevelOne();
 
             //NOT Tested
             ITDBot.driveBack(1,1.5);

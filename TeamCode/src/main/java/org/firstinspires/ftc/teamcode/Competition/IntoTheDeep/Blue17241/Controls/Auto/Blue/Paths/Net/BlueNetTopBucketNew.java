@@ -21,7 +21,7 @@ public class BlueNetTopBucketNew extends BlueAlliance{
             ITDBot.strafeLeft(0.5, 1.6);
             sleep(100);
             ITDBot.driveBack(0.5, .45);
-            bucketDumpTopLevel();
+            bucketDumpTopLevelOne();
             ITDBot.retractIntake();
 
             //Engage intake to intake! and Extend extender WITH INTAKE INTAKING
@@ -43,7 +43,7 @@ public class BlueNetTopBucketNew extends BlueAlliance{
             ITDBot.driveBack(0.5,0.5);
             ITDBot.rotateRight(0.5,1);
 
-            bucketDumpTopLevel();
+            bucketDumpTopLevelOne();
             ITDBot.retractIntake();
         }
 

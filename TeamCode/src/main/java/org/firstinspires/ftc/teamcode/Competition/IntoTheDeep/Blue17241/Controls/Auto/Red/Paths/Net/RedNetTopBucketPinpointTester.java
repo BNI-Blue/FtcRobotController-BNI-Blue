@@ -19,7 +19,7 @@ public class RedNetTopBucketPinpointTester extends RedAlliance {
             // score preloaded sample
             strafeGyroPinpoint(0.55, 7, "LEFT", 0);
             driveStraightGyroPinpoint(.55, 0.5, "BACK", 0);
-            bucketDumpTopLevel();
+            bucketDumpTopLevelOne();
 
 
             //prepare for first field sample
@@ -41,7 +41,7 @@ public class RedNetTopBucketPinpointTester extends RedAlliance {
             rotateByGyroRev(.25, -41);
             strafeRightPinpoint(.35, 8);
             driveBackPinpoint(.5, 1.25);
-            bucketDumpTopLevel();
+            bucketDumpTopLevelOne();
 
             driveStraightGyroPinpoint(.5, 26, "FORWARD", 0);
             rotateByGyroRev(.5, 50);

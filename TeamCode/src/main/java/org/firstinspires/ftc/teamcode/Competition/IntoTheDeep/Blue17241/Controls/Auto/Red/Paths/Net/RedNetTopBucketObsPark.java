@@ -24,7 +24,7 @@ public class RedNetTopBucketObsPark extends RedAlliance {
 
             ITDBot.strafeRight(1, 1.6);
             ITDBot.driveForward(1, .1);
-            bucketDumpTopLevel();
+            bucketDumpTopLevelOne();
 
             //NOT Tested
             ITDBot.driveBack(1, .15);

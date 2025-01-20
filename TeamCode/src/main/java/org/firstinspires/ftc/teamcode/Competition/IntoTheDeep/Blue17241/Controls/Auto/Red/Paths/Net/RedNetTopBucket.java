@@ -23,7 +23,7 @@ public class RedNetTopBucket extends RedAlliance {
             ITDBot.strafeLeft(0.5, 1.6);
             sleep(100);
             ITDBot.driveBack(0.5, .25);
-            bucketDumpTopLevel();
+            bucketDumpTopLevelOne();
             ITDBot.retractIntake();
 
             ITDBot.strafeRight(.5, 1);
@@ -51,7 +51,7 @@ public class RedNetTopBucket extends RedAlliance {
             ITDBot.rotateRight(.5, 2.625);
             ITDBot.strafeRight(.5, .4);
             ITDBot.driveBack(.5, 2.2);
-            bucketDumpTopLevel();
+            bucketDumpTopLevelOne();
 
             requestOpModeStop();
 

@@ -24,7 +24,7 @@ public class BlueNetTopBucketLowBar extends BlueAlliance {
             ITDBot.strafeLeft(0.5, 1.6);
             sleep(100);
             ITDBot.driveBack(0.5, .1);
-            bucketDumpTopLevel();
+            bucketDumpTopLevelOne();
 
 // Move to face bar
             ITDBot.rotateRight(0.5,1);

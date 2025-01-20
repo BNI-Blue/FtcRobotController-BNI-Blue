@@ -23,7 +23,7 @@ public class BlueNetTopBucket extends BlueAlliance {
             ITDBot.strafeLeft(0.5, 1.6);
             sleep(100);
             ITDBot.driveBack(0.5, .45);
-            bucketDumpTopLevel();
+            bucketDumpTopLevelOne();
             ITDBot.retractIntake();
 //
             ITDBot.strafeRight(.5, 1);
@@ -51,7 +51,7 @@ public class BlueNetTopBucket extends BlueAlliance {
             ITDBot.rotateRight(.5, 2.5);
             ITDBot.driveBack(.5, 2.2);
             ITDBot.strafeLeft(.5,  .275);
-            bucketDumpTopLevel();
+            bucketDumpTopLevelOne();
 
             requestOpModeStop();
 
