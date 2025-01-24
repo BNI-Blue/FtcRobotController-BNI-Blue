@@ -76,7 +76,7 @@ public abstract class RedAlliance extends AutoMain {
 
     public void redNetPreloadSpikeOne(){
         // score preloaded sample
-        strafeLeftPinpointCumulative(.55, 6);
+        strafeLeftPinpointCumulative(.55, 6.35);//6
         driveBackPinpointCumulative(.55, 1.15);
         bucketDumpTopLevelTwo();
 
@@ -112,7 +112,7 @@ public abstract class RedAlliance extends AutoMain {
 
         //move to buckets with second field sample
         rotateByGyroRev(.25, -50);
-        strafeRightPinpointCumulative(.35, 7.75);
+        strafeRightPinpointCumulative(.35, 6.5);
         driveBackPinpointCumulative(.5 ,3.1);
 
         ITDBot.sampleOuttake();

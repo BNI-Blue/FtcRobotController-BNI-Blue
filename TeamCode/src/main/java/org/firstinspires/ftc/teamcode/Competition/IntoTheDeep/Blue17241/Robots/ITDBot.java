@@ -107,7 +107,7 @@ public class ITDBot extends MecanumDrive {
 
 
     public void sampleOuttake() {
-        sampleIntakeServo.setPower(0.5);            //correct as of 1/6/25
+        sampleIntakeServo.setPower(0.45);            //correct as of 1/6/25
     }
 
     public void intakeStop() {
@@ -197,7 +197,7 @@ public class ITDBot extends MecanumDrive {
         intakeExtender.setPosition(0.95);       //correct as of 1/6/25
     }
     public void retractIntake() {
-        intakeExtender.setPosition(0.5);        // correct as of 1/6/25
+        intakeExtender.setPosition(0.53);        // correct as of 1/6/25  1/24 duval - 0.50 - goes back too far to extend again..55 extends too far for auto to start inside 18"
     }
 
     public void neutralIntake(){

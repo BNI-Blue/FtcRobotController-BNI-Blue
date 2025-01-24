@@ -61,7 +61,7 @@ public abstract class AutoMain extends LinearOpMode {
         sleep(1450);
         ITDBot.bucketSlideStop();
         ITDBot.retractIntakeManual();
-        sleep(150);
+        sleep(50);
         ITDBot.intakeStop();
     }
 

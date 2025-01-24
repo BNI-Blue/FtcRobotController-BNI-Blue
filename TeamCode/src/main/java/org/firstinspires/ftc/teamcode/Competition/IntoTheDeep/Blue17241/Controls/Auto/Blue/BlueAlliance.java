@@ -81,7 +81,7 @@ public abstract class BlueAlliance extends AutoMain {
 
         //prepare for first field sample
         strafeRightPinpointCumulative(.5, 1);
-        rotateByGyroRev(.3, 30);
+        rotateByGyroRev(.3, 32);
         sleep(100);
         driveBackPinpointCumulative(.5 ,.5);
 
@@ -89,7 +89,7 @@ public abstract class BlueAlliance extends AutoMain {
         blueNetSampleOne();
 
         //move to bucket with first sample
-        rotateByGyroRev(.25, -30);
+        rotateByGyroRev(.25, -32);
         //driveBackPinpointCumulative(.5, .72);
         strafeRightPinpointCumulative(.5, 1);
         driveBackPinpointCumulative(.5, 3.25);

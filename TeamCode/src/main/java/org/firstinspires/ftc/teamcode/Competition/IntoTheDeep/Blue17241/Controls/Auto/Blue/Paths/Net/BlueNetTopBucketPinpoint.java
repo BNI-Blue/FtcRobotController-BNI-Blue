@@ -18,7 +18,7 @@ public class BlueNetTopBucketPinpoint extends BlueAlliance{
 
         while(opModeIsActive()) {
 
-             blueNetPreloadSpikeOne();
+            blueNetPreloadSpikeOne();
 
             blueNetSpikeTwo();
 
