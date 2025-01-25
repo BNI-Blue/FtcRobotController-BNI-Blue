@@ -92,8 +92,8 @@ public abstract class RedAlliance extends AutoMain {
         //move to bucket with first sample
         rotateByGyroRev(.25, -31);
         //driveBackPinpointCumulative(.5, .72);
-        strafeRightPinpointCumulative(.5, 2);
-        driveBackPinpointCumulative(.5, 2.85);
+        strafeRightPinpointCumulative(.5, 1.5);
+        driveBackPinpointCumulative(.5, 2.75);
         ITDBot.sampleOuttake();
         sleep(750);
         ITDBot.intakeStop();
