@@ -64,7 +64,6 @@ public class BlueITDTeleOp_States extends OpMode {
     public void init() {
         ITDBot.initRobot(hardwareMap);
         odo.initPinpoint(hardwareMap);
-       // resetHeading();                       // PINPOINT
        ITDBot.imu.resetYaw();                   // REV
     }
 
