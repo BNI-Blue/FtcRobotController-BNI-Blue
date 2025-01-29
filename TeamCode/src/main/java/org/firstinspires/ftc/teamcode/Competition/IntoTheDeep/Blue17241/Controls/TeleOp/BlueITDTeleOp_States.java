@@ -201,6 +201,7 @@ public class BlueITDTeleOp_States extends OpMode {
         INTAKE_STOP,
         INTAKE_EXTEND,
         WAIT,
+        WAIT2,
         BUCKET_EXTEND,
         BUCKET_DUMP,
         BUCKET_STOP,
@@ -543,22 +544,26 @@ public class BlueITDTeleOp_States extends OpMode {
         switch (extendState) {
             case EXTEND:
                 ITDBot.extendIntake();
-                extendState = ExtendStates.DELAY;
                 timer.reset();
+                extendState = ExtendStates.DELAY;
                 break;
+
             case DELAY:
                 if (timer.time() > .5) {
                     extendState = ExtendStates.FLIP_DOWN;
                 }
                 break;
+
             case FLIP_DOWN:
                 ITDBot.collectIntake();
                 extendState = ExtendStates.INTAKE_START;
                 break;
+
             case INTAKE_START:
                 ITDBot.sampleIntake();
                 extendState = ExtendStates.READY;
                 break;
+
             case READY:
                 break;
         }
@@ -570,14 +575,17 @@ public class BlueITDTeleOp_States extends OpMode {
                 ITDBot.scoreIntake();
                 retractState = RetractStates.OUTAKE_STOP;
                 break;
+
             case OUTAKE_STOP:
                 ITDBot.intakeStop();
                 retractState = RetractStates.RETRACT;
                 break;
+
             case RETRACT:
                 ITDBot.retractIntake();
                 retractState = RetractStates.READY;
                 break;
+
             case READY:
                 break;
         }
@@ -589,24 +597,29 @@ public class BlueITDTeleOp_States extends OpMode {
                 ITDBot.fillBucket();
                 transferState = TransferStates.OUTAKE_START;
                 break;
+
             case OUTAKE_START:
                 ITDBot.sampleOuttake();
                 timer.reset();
                 transferState = TransferStates.DELAY;
                 break;
+
             case DELAY:
-                if (timer.seconds() > .5) {
+                if (timer.time() > 0.5) {
                     transferState = TransferStates.OUTAKE_STOP;
                 }
                 break;
+
             case OUTAKE_STOP:
                 ITDBot.intakeStop();
                 transferState = TransferStates.MOVE_NEUTRAL;
                 break;
+
             case MOVE_NEUTRAL:
                 ITDBot.neutralIntake();
                 transferState = TransferStates.READY;
                 break;
+
             case READY:
                 break;
         }
@@ -616,22 +629,26 @@ public class BlueITDTeleOp_States extends OpMode {
         switch (intakeState) {
             case INTAKE_EXTEND:
                 ITDBot.extendIntake();
-                intakeState = IntakeState.INTAKE_DOWN;
                 timer.reset();
+                intakeState = IntakeState.INTAKE_DOWN;
                 break;
+
             case WAIT:
-                if (timer.seconds() > 1) {
+                if (timer.time() > 1.0) {
                     intakeState = IntakeState.INTAKE_DOWN;
                 }
                 break;
+
             case INTAKE_DOWN:
                 ITDBot.collectIntake();
                 intakeState = IntakeState.INTAKE;
                 break;
+
             case INTAKE:
                 ITDBot.sampleIntake();
                 intakeState = IntakeState.READY;
                 break;
+
             case READY:
                 break;
         }
@@ -645,25 +662,27 @@ public class BlueITDTeleOp_States extends OpMode {
                 break;
             case INTAKE_UP:
                 ITDBot.scoreIntake();
-                outtakeState = OuttakeState.INTAKE_RETRACT;
                 timer.reset();
+                outtakeState = OuttakeState.INTAKE_RETRACT;
                 break;
+
             case WAIT:
-                if(timer.seconds()>2){
+                if(timer.time() > 2.0){
                     outtakeState = OuttakeState.READY;
-                    timer.reset();
-         }
+                }
                 break;
+
             case INTAKE_RETRACT:
                 ITDBot.retractIntake();
                 outtakeState = OuttakeState.READY;
                 break;
+
             case OUTTAKE:
                 ITDBot.sampleOuttake();
                 outtakeState = OuttakeState.READY;
                 break;
+
             case READY:
-                timer.reset();
                 break;
       }
     }
@@ -675,15 +694,18 @@ public class BlueITDTeleOp_States extends OpMode {
                 timer.reset();
                 sampleDumpState = SampleDumpState.WAIT;
                 break;
+
             case WAIT:
-                if(timer.seconds()>1){
+                if(timer.time() > 1.0){
                     sampleDumpState = SampleDumpState.INTAKE_STOP;
                 }
                 break;
+
             case INTAKE_STOP:
                 ITDBot.intakeStop();
                 sampleDumpState = SampleDumpState.INTAKE_EXTEND;
                 break;
+
             case INTAKE_EXTEND:
                 ITDBot.neutralIntake();
                 timer.reset();
@@ -691,18 +713,24 @@ public class BlueITDTeleOp_States extends OpMode {
                 break;
 
             case  BUCKET_EXTEND:
-                ITDBot.bucketSlideUp(1);
-                if(timer.seconds()>1){
+                if(timer.time() > 1.0){
+                    ITDBot.bucketSlideUp(1);
+                }
+                if(timer.time() > 3.0){
                     sampleDumpState = SampleDumpState.BUCKET_STOP;
                 }
                 break;
+
             case BUCKET_STOP:
                 ITDBot.bucketSlideStop();
                 sampleDumpState = SampleDumpState.BUCKET_DUMP;
+                break;
+
             case BUCKET_DUMP:
                 ITDBot.emptyBucket();
                 sampleDumpState = SampleDumpState.READY;
                 break;
+
             case READY:
                 break;
         }
@@ -714,19 +742,24 @@ public class BlueITDTeleOp_States extends OpMode {
                 timer.reset();
                 sampleResetState = SampleResetState.BUCKET_RETRACT;
                 break;
+
             case BUCKET_RETRACT:
                 ITDBot.bucketSlideDown(1);
-                if (timer.seconds()>1){
+                if (timer.time() > 1.0){
                     sampleResetState = SampleResetState.BUCKET_STOP;
                 }
                 break;
+
             case BUCKET_STOP:
                 ITDBot.bucketSlideStop();
                 sampleResetState = SampleResetState.INTAKE_RETRACT;
+                break;
+
             case INTAKE_RETRACT:
                 ITDBot.retractIntake();
                 sampleResetState = SampleResetState.READY;
-            break;
+                break;
+
             case READY:
                 break;
         }
