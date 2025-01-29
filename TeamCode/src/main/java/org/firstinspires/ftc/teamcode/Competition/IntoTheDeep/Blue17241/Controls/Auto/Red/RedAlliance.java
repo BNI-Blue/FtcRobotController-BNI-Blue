@@ -92,12 +92,13 @@ public abstract class RedAlliance extends AutoMain {
         //move to bucket with first sample
         rotateByGyroRev(.25, -31);
         //driveBackPinpointCumulative(.5, .72);
-        strafeRightPinpointCumulative(.5, 1.5);
-        driveBackPinpointCumulative(.5, 2.75);
+        strafeRightPinpointCumulative(.5, .75);//1.5
+        driveBackPinpointCumulative(.5, 2.75);//2.75
+        sleep(100);
         ITDBot.sampleOuttake();
         sleep(750);
         ITDBot.intakeStop();
-        rotateByGyroRev(.5, 2.5);
+        //rotateByGyroRev(.5, 2.5);
 
         //score first field sample
         bucketDumpTopLevelOne();
@@ -105,15 +106,15 @@ public abstract class RedAlliance extends AutoMain {
 
 
     public void redNetSpikeTwo(){
-        rotateByGyroRev(.25, 50);
+        rotateByGyroRev(.25, 51.5);
 
         //collect second field sample
         redNetSampleTwo();
 
         //move to buckets with second field sample
-        rotateByGyroRev(.25, -50);
-        strafeRightPinpointCumulative(.35, 6.5);
-        driveBackPinpointCumulative(.5 ,3.1);
+        rotateByGyroRev(.25, -51.5);
+        strafeRightPinpointCumulative(.35, 5);
+        driveBackPinpointCumulative(.5 ,4.5);
 
         ITDBot.sampleOuttake();
         sleep(750);
