@@ -135,14 +135,14 @@ public class BlueITDTeleOp_States extends OpMode {
             sampleResetState = SampleResetState.READY;
 
         }
-        if(gamepad2.b){
+        if(gamepad2.dpad_up){
             outtakeState = OuttakeState.INTAKE_STOP;
     }
-        if(gamepad2.dpad_up){
+        if(gamepad2.y){
             intakeState = IntakeState.INTAKE_EXTEND;
         }
 
-        if(gamepad2.dpad_down){
+        if(gamepad2.a){
             sampleDumpState = SampleDumpState.OUTTAKE;
         }
 
@@ -323,12 +323,12 @@ public class BlueITDTeleOp_States extends OpMode {
 
 
     public void bucketControl(){
-//        if (gamepad2.dpad_left) {
-//            ITDBot.emptyBucket();
-//        }
         if (gamepad2.dpad_right) {
-            ITDBot.fillBucket();
+            ITDBot.emptyBucket();
         }
+//        if (gamepad2.dpad_left) {
+//            ITDBot.fillBucket();
+//        }
 
         if (gamepad2.right_stick_y > 0.1) {
             ITDBot.bucketSlideDown(1);
@@ -713,14 +713,14 @@ public class BlueITDTeleOp_States extends OpMode {
                 if(timer.time() > 1.0){
                     ITDBot.bucketSlideUp(1);
                 }
-                if(timer.time() > 3.0){
+                if(timer.time() > 2.5){
                     sampleDumpState = SampleDumpState.BUCKET_STOP;
                 }
                 break;
 
             case BUCKET_STOP:
                 ITDBot.bucketSlideStop();
-                sampleDumpState = SampleDumpState.BUCKET_DUMP;
+                sampleDumpState = SampleDumpState.READY;
                 break;
 
             case BUCKET_DUMP:
