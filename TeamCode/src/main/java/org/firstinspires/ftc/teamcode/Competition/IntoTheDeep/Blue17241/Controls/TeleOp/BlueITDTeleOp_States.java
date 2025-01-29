@@ -39,8 +39,6 @@ public class BlueITDTeleOp_States extends OpMode {
 
     public Pinpoint odo = new Pinpoint();
 
-    //double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-
     // Declare a Servo object
     public Servo intakeHolderFlip = null;
 
