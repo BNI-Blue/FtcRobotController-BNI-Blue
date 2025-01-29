@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls
 //@Disabled
 
 @Autonomous(name ="Blue:Net:TopBucket:Pinpoint:3Samples")
-public class BlueNetTopBucketPinpoint extends BlueAlliance{
+public class BlueNetTopBucketPinpoint3Samples extends BlueAlliance{
     //@Override
     public void runOpMode() throws InterruptedException{
         autoStartUp();
