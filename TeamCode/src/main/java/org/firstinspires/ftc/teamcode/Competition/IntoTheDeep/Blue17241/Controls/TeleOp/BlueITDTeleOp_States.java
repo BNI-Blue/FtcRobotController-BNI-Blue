@@ -58,6 +58,7 @@ public class BlueITDTeleOp_States extends OpMode {
     public IntakeState intakeState = IntakeState.READY;
     public OuttakeState outtakeState = OuttakeState.READY;
     public SampleDumpState sampleDumpState = SampleDumpState.READY;
+    public SampleResetState sampleResetState = SampleResetState.READY;
 
     ElapsedTime timer = new ElapsedTime();
 
@@ -92,6 +93,7 @@ public class BlueITDTeleOp_States extends OpMode {
         intakePrepControl();
         outtakeControl();
         scoreSampleControl();
+        sampleResetStateControl();
         drive();
         //fieldCentricDrive();
         //imuStart();
@@ -132,17 +134,23 @@ public class BlueITDTeleOp_States extends OpMode {
             transferState = TransferStates.READY;
             outtakeState = OuttakeState.READY;
             sampleDumpState = SampleDumpState.READY;
+            intakeState = IntakeState.READY;
+            sampleResetState = SampleResetState.READY;
 
         }
         if(gamepad2.b){
-            outtakeState = OuttakeState.INTAKE_UP;
+            outtakeState = OuttakeState.INTAKE_STOP;
     }
         if(gamepad2.dpad_up){
-            intakeState = IntakeState.INTAKE_DOWN;
+            intakeState = IntakeState.INTAKE_EXTEND;
         }
 
         if(gamepad2.dpad_down){
-            sampleDumpState = SampleDumpState.INTAKE_EXTEND;
+            sampleDumpState = SampleDumpState.OUTTAKE;
+        }
+
+        if(gamepad2.dpad_left){
+            sampleResetState = SampleResetState.BUCKET_FILL;
         }
     }
 
@@ -180,6 +188,7 @@ public class BlueITDTeleOp_States extends OpMode {
     }
 
     public enum OuttakeState{
+        INTAKE_STOP,
         INTAKE_UP,
         WAIT,
         INTAKE_RETRACT,
@@ -188,16 +197,23 @@ public class BlueITDTeleOp_States extends OpMode {
     }
 
     public enum SampleDumpState{
+        OUTTAKE,
+        INTAKE_STOP,
         INTAKE_EXTEND,
         WAIT,
         BUCKET_EXTEND,
         BUCKET_DUMP,
-        WAITS,
+        BUCKET_STOP,
+        READY;
+
+    }
+
+    public enum SampleResetState{
         BUCKET_FILL,
         BUCKET_RETRACT,
         INTAKE_RETRACT,
+        BUCKET_STOP,
         READY;
-
     }
 
 
@@ -309,9 +325,9 @@ public class BlueITDTeleOp_States extends OpMode {
 
 
     public void bucketControl(){
-        if (gamepad2.dpad_left) {
-            ITDBot.emptyBucket();
-        }
+//        if (gamepad2.dpad_left) {
+//            ITDBot.emptyBucket();
+//        }
         if (gamepad2.dpad_right) {
             ITDBot.fillBucket();
         }
@@ -338,19 +354,19 @@ public class BlueITDTeleOp_States extends OpMode {
             ITDBot.sampleOuttake();
         }
 
-        else {
+        else if(gamepad2.left_stick_button){
             ITDBot.intakeStop();
         }
 
-        if(gamepad2.y){
-            ITDBot.extendIntake();
-        }
-        if (gamepad2.a ) {
-            ITDBot.retractIntake();
-        }
-        if(gamepad2.dpad_down){
-            ITDBot.neutralIntake();
-        }
+//        if(gamepad2.y){
+//            ITDBot.extendIntake();
+//        }
+//        if (gamepad2.a ) {
+//            ITDBot.retractIntake();
+//        }
+//        if(gamepad2.dpad_down){
+//            ITDBot.neutralIntake();
+//        }
 
         if(gamepad2.left_stick_y>0.1){
             ITDBot.retractIntakeManual();
@@ -370,9 +386,9 @@ public class BlueITDTeleOp_States extends OpMode {
         if (gamepad2.right_trigger > 0.1){
             ITDBot.collectIntake();
         }
-        if (gamepad2.dpad_up){
-            ITDBot.submersibleIntake();
-        }
+//        if (gamepad2.dpad_up){
+//            ITDBot.submersibleIntake();
+//        }
 
     }
 
@@ -413,10 +429,10 @@ public class BlueITDTeleOp_States extends OpMode {
             }
 
             // For example, you can trigger the servo movement when the 'A' button is pressed
-            if (gamepad2.y) {
-                // Start the movement towards the target position
-                moving = true;
-            }
+//            if (gamepad2.y) {
+//                // Start the movement towards the target position
+//                moving = true;
+//            }
 
             // You can use telemetry to visualize the current servo position
             telemetry.addData("Servo Position", currentPosition);
@@ -600,7 +616,8 @@ public class BlueITDTeleOp_States extends OpMode {
         switch (intakeState) {
             case INTAKE_EXTEND:
                 ITDBot.extendIntake();
-                intakeState = IntakeState.WAIT;
+                intakeState = IntakeState.INTAKE_DOWN;
+                timer.reset();
                 break;
             case WAIT:
                 if (timer.seconds() > 1) {
@@ -622,65 +639,94 @@ public class BlueITDTeleOp_States extends OpMode {
 
     public void outtakeControl(){
         switch(outtakeState){
+            case INTAKE_STOP:
+                ITDBot.intakeStop();
+                outtakeState = OuttakeState.INTAKE_UP;
+                break;
             case INTAKE_UP:
                 ITDBot.scoreIntake();
-                outtakeState = OuttakeState.WAIT;
+                outtakeState = OuttakeState.INTAKE_RETRACT;
+                timer.reset();
                 break;
             case WAIT:
-                if(timer.seconds()>1){
-                    outtakeState = OuttakeState.INTAKE_RETRACT;
+                if(timer.seconds()>2){
+                    outtakeState = OuttakeState.READY;
+                    timer.reset();
          }
                 break;
             case INTAKE_RETRACT:
                 ITDBot.retractIntake();
-                outtakeState = OuttakeState.OUTTAKE;
+                outtakeState = OuttakeState.READY;
                 break;
             case OUTTAKE:
                 ITDBot.sampleOuttake();
                 outtakeState = OuttakeState.READY;
                 break;
             case READY:
+                timer.reset();
                 break;
       }
     }
 
     public void scoreSampleControl(){
         switch(sampleDumpState){
-            case INTAKE_EXTEND:
-                ITDBot.extendIntake();
+            case OUTTAKE:
+                ITDBot.sampleOuttake();
+                timer.reset();
                 sampleDumpState = SampleDumpState.WAIT;
                 break;
             case WAIT:
-                if(timer.seconds()>.5){
-                    sampleDumpState = SampleDumpState.BUCKET_EXTEND;
+                if(timer.seconds()>1){
+                    sampleDumpState = SampleDumpState.INTAKE_STOP;
                 }
                 break;
+            case INTAKE_STOP:
+                ITDBot.intakeStop();
+                sampleDumpState = SampleDumpState.INTAKE_EXTEND;
+                break;
+            case INTAKE_EXTEND:
+                ITDBot.neutralIntake();
+                timer.reset();
+                sampleDumpState = SampleDumpState.BUCKET_EXTEND;
+                break;
+
             case  BUCKET_EXTEND:
                 ITDBot.bucketSlideUp(1);
-                if(timer.seconds()>1.5){
-                    sampleDumpState = SampleDumpState.BUCKET_DUMP;
+                if(timer.seconds()>1){
+                    sampleDumpState = SampleDumpState.BUCKET_STOP;
                 }
                 break;
+            case BUCKET_STOP:
+                ITDBot.bucketSlideStop();
+                sampleDumpState = SampleDumpState.BUCKET_DUMP;
             case BUCKET_DUMP:
                 ITDBot.emptyBucket();
+                sampleDumpState = SampleDumpState.READY;
                 break;
-            case WAITS:
-                if(timer.seconds()>2){
-                    sampleDumpState = SampleDumpState.BUCKET_FILL;
-                }
+            case READY:
                 break;
+        }
+    }
+    public void sampleResetStateControl(){
+        switch(sampleResetState){
             case BUCKET_FILL:
                 ITDBot.fillBucket();
+                timer.reset();
+                sampleResetState = SampleResetState.BUCKET_RETRACT;
                 break;
             case BUCKET_RETRACT:
                 ITDBot.bucketSlideDown(1);
-                if(timer.seconds()>1.5){
-                    sampleDumpState = SampleDumpState.INTAKE_RETRACT;
+                if (timer.seconds()>1){
+                    sampleResetState = SampleResetState.BUCKET_STOP;
                 }
                 break;
+            case BUCKET_STOP:
+                ITDBot.bucketSlideStop();
+                sampleResetState = SampleResetState.INTAKE_RETRACT;
             case INTAKE_RETRACT:
                 ITDBot.retractIntake();
-                break;
+                sampleResetState = SampleResetState.READY;
+            break;
             case READY:
                 break;
         }
