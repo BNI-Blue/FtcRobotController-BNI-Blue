@@ -116,18 +116,18 @@ public class BlueITDTeleOp_States extends OpMode {
 
     public void stateControl(){
 
-        if(gamepad2.y) {
-            extendState = ExtendStates.EXTEND;
-        }
-        if (gamepad2.a){
-            retractState= RetractStates.FLIP_UP;
-
-        }
-
-        if(gamepad2.x){
-            transferState = TransferStates.BUCKET_START;
-
-        }
+//        if(gamepad2.y) {
+//            extendState = ExtendStates.EXTEND;
+//        }
+//        if (gamepad2.a){
+//            retractState= RetractStates.FLIP_UP;
+//
+//        }
+//
+//        if(gamepad2.x){
+//            transferState = TransferStates.BUCKET_START;
+//
+//        }
         if (gamepad2.right_stick_button ) {
             extendState = ExtendStates.READY;
             retractState= RetractStates.READY;
@@ -138,14 +138,14 @@ public class BlueITDTeleOp_States extends OpMode {
             sampleResetState = SampleResetState.READY;
 
         }
-        if(gamepad2.b){
+        if(gamepad2.a){
             outtakeState = OuttakeState.INTAKE_STOP;
     }
-        if(gamepad2.dpad_up){
+        if(gamepad2.y){
             intakeState = IntakeState.INTAKE_EXTEND;
         }
 
-        if(gamepad2.dpad_down){
+        if(gamepad2.dpad_up){
             sampleDumpState = SampleDumpState.OUTTAKE;
         }
 
@@ -325,12 +325,12 @@ public class BlueITDTeleOp_States extends OpMode {
 
 
     public void bucketControl(){
-//        if (gamepad2.dpad_left) {
-//            ITDBot.emptyBucket();
-//        }
         if (gamepad2.dpad_right) {
-            ITDBot.fillBucket();
+            ITDBot.emptyBucket();
         }
+//        if (gamepad2.dpad_right) {
+//            ITDBot.fillBucket();
+//        }
 
         if (gamepad2.right_stick_y > 0.1) {
             ITDBot.bucketSlideDown(1);
@@ -616,11 +616,11 @@ public class BlueITDTeleOp_States extends OpMode {
         switch (intakeState) {
             case INTAKE_EXTEND:
                 ITDBot.extendIntake();
-                intakeState = IntakeState.INTAKE_DOWN;
                 timer.reset();
+                intakeState = IntakeState.INTAKE_DOWN;
                 break;
             case WAIT:
-                if (timer.seconds() > 1) {
+                if (timer.time() > 1) {
                     intakeState = IntakeState.INTAKE_DOWN;
                 }
                 break;
@@ -645,13 +645,12 @@ public class BlueITDTeleOp_States extends OpMode {
                 break;
             case INTAKE_UP:
                 ITDBot.scoreIntake();
-                outtakeState = OuttakeState.INTAKE_RETRACT;
                 timer.reset();
+                outtakeState = OuttakeState.INTAKE_RETRACT;
                 break;
             case WAIT:
-                if(timer.seconds()>2){
+                if(timer.time()>2){
                     outtakeState = OuttakeState.READY;
-                    timer.reset();
          }
                 break;
             case INTAKE_RETRACT:
@@ -676,7 +675,7 @@ public class BlueITDTeleOp_States extends OpMode {
                 sampleDumpState = SampleDumpState.WAIT;
                 break;
             case WAIT:
-                if(timer.seconds()>1){
+                if(timer.time() > 1.0){
                     sampleDumpState = SampleDumpState.INTAKE_STOP;
                 }
                 break;
@@ -691,8 +690,10 @@ public class BlueITDTeleOp_States extends OpMode {
                 break;
 
             case  BUCKET_EXTEND:
-                ITDBot.bucketSlideUp(1);
-                if(timer.seconds()>1){
+                if(timer.time() > 1.0){
+                    ITDBot.bucketSlideUp(1);
+                }
+                if(timer.time() > 2.5){
                     sampleDumpState = SampleDumpState.BUCKET_STOP;
                 }
                 break;
