@@ -55,6 +55,9 @@ public class BlueITDTeleOp_States extends OpMode {
     public ExtendStates extendState = ExtendStates.READY;
     public RetractStates retractState = RetractStates.READY;
     public TransferStates transferState = TransferStates.READY;
+    public IntakeState intakeState = IntakeState.READY;
+    public OuttakeState outtakeState = OuttakeState.READY;
+    public SampleDumpState sampleDumpState = SampleDumpState.READY;
 
     ElapsedTime timer = new ElapsedTime();
 
@@ -86,6 +89,9 @@ public class BlueITDTeleOp_States extends OpMode {
         extendCollectSampleControl();
         retractCollectSampleControl();
         transferSampleControl();
+        intakePrepControl();
+        outtakeControl();
+        scoreSampleControl();
         drive();
         //fieldCentricDrive();
         //imuStart();
@@ -124,9 +130,20 @@ public class BlueITDTeleOp_States extends OpMode {
             extendState = ExtendStates.READY;
             retractState= RetractStates.READY;
             transferState = TransferStates.READY;
+            outtakeState = OuttakeState.READY;
+            sampleDumpState = SampleDumpState.READY;
 
         }
+        if(gamepad2.b){
+            outtakeState = OuttakeState.INTAKE_UP;
+    }
+        if(gamepad2.dpad_up){
+            intakeState = IntakeState.INTAKE_DOWN;
+        }
 
+        if(gamepad2.dpad_down){
+            sampleDumpState = SampleDumpState.INTAKE_EXTEND;
+        }
     }
 
     public enum ExtendStates {
@@ -152,6 +169,35 @@ public class BlueITDTeleOp_States extends OpMode {
         OUTAKE_STOP,
         MOVE_NEUTRAL,
         READY;
+    }
+
+    public enum IntakeState{
+        INTAKE_EXTEND,
+        WAIT,
+        INTAKE_DOWN,
+        INTAKE,
+        READY;
+    }
+
+    public enum OuttakeState{
+        INTAKE_UP,
+        WAIT,
+        INTAKE_RETRACT,
+        OUTTAKE,
+        READY;
+    }
+
+    public enum SampleDumpState{
+        INTAKE_EXTEND,
+        WAIT,
+        BUCKET_EXTEND,
+        BUCKET_DUMP,
+        WAITS,
+        BUCKET_FILL,
+        BUCKET_RETRACT,
+        INTAKE_RETRACT,
+        READY;
+
     }
 
 
@@ -544,6 +590,96 @@ public class BlueITDTeleOp_States extends OpMode {
             case MOVE_NEUTRAL:
                 ITDBot.neutralIntake();
                 transferState = TransferStates.READY;
+                break;
+            case READY:
+                break;
+        }
+    }
+
+    public void intakePrepControl() {
+        switch (intakeState) {
+            case INTAKE_EXTEND:
+                ITDBot.extendIntake();
+                intakeState = IntakeState.WAIT;
+                break;
+            case WAIT:
+                if (timer.seconds() > 1) {
+                    intakeState = IntakeState.INTAKE_DOWN;
+                }
+                break;
+            case INTAKE_DOWN:
+                ITDBot.collectIntake();
+                intakeState = IntakeState.INTAKE;
+                break;
+            case INTAKE:
+                ITDBot.sampleIntake();
+                intakeState = IntakeState.READY;
+                break;
+            case READY:
+                break;
+        }
+    }
+
+    public void outtakeControl(){
+        switch(outtakeState){
+            case INTAKE_UP:
+                ITDBot.scoreIntake();
+                outtakeState = OuttakeState.WAIT;
+                break;
+            case WAIT:
+                if(timer.seconds()>1){
+                    outtakeState = OuttakeState.INTAKE_RETRACT;
+         }
+                break;
+            case INTAKE_RETRACT:
+                ITDBot.retractIntake();
+                outtakeState = OuttakeState.OUTTAKE;
+                break;
+            case OUTTAKE:
+                ITDBot.sampleOuttake();
+                outtakeState = OuttakeState.READY;
+                break;
+            case READY:
+                break;
+      }
+    }
+
+    public void scoreSampleControl(){
+        switch(sampleDumpState){
+            case INTAKE_EXTEND:
+                ITDBot.extendIntake();
+                sampleDumpState = SampleDumpState.WAIT;
+                break;
+            case WAIT:
+                if(timer.seconds()>.5){
+                    sampleDumpState = SampleDumpState.BUCKET_EXTEND;
+                }
+                break;
+            case  BUCKET_EXTEND:
+                ITDBot.bucketSlideUp(1);
+                if(timer.seconds()>1.5){
+                    sampleDumpState = SampleDumpState.BUCKET_DUMP;
+                }
+                break;
+            case BUCKET_DUMP:
+                ITDBot.emptyBucket();
+                break;
+            case WAITS:
+                if(timer.seconds()>2){
+                    sampleDumpState = SampleDumpState.BUCKET_FILL;
+                }
+                break;
+            case BUCKET_FILL:
+                ITDBot.fillBucket();
+                break;
+            case BUCKET_RETRACT:
+                ITDBot.bucketSlideDown(1);
+                if(timer.seconds()>1.5){
+                    sampleDumpState = SampleDumpState.INTAKE_RETRACT;
+                }
+                break;
+            case INTAKE_RETRACT:
+                ITDBot.retractIntake();
                 break;
             case READY:
                 break;
