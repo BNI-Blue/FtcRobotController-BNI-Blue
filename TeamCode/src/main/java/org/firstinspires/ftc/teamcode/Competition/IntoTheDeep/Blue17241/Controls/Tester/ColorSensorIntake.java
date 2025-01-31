@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.LEDGold.IndicatorStrip;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ProgrammerBot;
 
-@TeleOp (name = "Color Sensor Tester")
+@TeleOp (name = "Color Sensor Tester", group = "Testers")
 public class ColorSensorIntake extends OpMode{
 
     HardwareMap hwBot = null;
