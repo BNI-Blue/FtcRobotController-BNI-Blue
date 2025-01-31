@@ -28,40 +28,25 @@ public class ColorSensorIntake {
 
     public void calcIntake() {
         NormalizedRGBA colors = sensor.getNormalizedColors();
-        double red = colors.red;
+        double red = colors.red;//dont need this
         double green = colors.green;
-        double blue = colors.blue;
+        double blue = colors.blue;//dont need this
+        double distance = sensor.getDistance(DistanceUnit.INCH);
 
         RevBlinkinLedDriver.BlinkinPattern color;
 
-        double max = Math.max(red, Math.max(green, blue));
+        double max = Math.max(red, Math.max(green, blue));//why do i need: Math.max(green, blue)(doesnt work if thats not there)
 
-        if (max == red) color = RevBlinkinLedDriver.BlinkinPattern.RED;
-        else if (max == blue) color = RevBlinkinLedDriver.BlinkinPattern.BLUE;
-        //TODO: Add calc for yellow
+        if(max == green) color = RevBlinkinLedDriver.BlinkinPattern.GREEN;
         else color = RevBlinkinLedDriver.BlinkinPattern.BLACK;
 
         indicator.capture(color);
-    }
 
-    public void colorIntake(){
-        double distance = sensor.getDistance(DistanceUnit.INCH);
-        NormalizedRGBA colors = sensor.getNormalizedColors();
-        double red = colors.red;
-        double green = colors.green;
-        double blue = colors.blue;
-        RevBlinkinLedDriver.BlinkinPattern color;
-
-
-        double max = Math.max(red, Math.max(green, blue));
-
-        if(distance < sampleSecuredDistance){
-            color = RevBlinkinLedDriver.BlinkinPattern.BLACK;
+        if(distance > sampleSecuredDistance){
+            color = RevBlinkinLedDriver.BlinkinPattern.GREEN;
         }
-
-        else if(distance > sampleSecuredDistance){
-            if(max == red) color = RevBlinkinLedDriver.BlinkinPattern.RED;
-            else if(max == blue) color = RevBlinkinLedDriver.BlinkinPattern.BLUE;
+        else{
+            color = RevBlinkinLedDriver.BlinkinPattern.BLACK;
         }
     }
 }
