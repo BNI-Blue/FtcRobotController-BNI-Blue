@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.RedAlliance;
 
-@Autonomous(name ="Red:Net:TopBucket:Pinpoint:3Samples")
+@Autonomous(name ="Red:Net:TopBucket:Pinpoint:4Samples")
 public class RedNetTopBucketPinpoint4Samples extends RedAlliance {
     //@Override
     public void runOpMode() throws InterruptedException{
