@@ -17,6 +17,7 @@ public class ColorSensorIntake {
     public RevColorSensorV3 sensor = null;
     IndicatorStrip indicator = new IndicatorStrip();
 
+    //sets threshold for detecting objects using the color sensor's disrance measurement in inches
     double sampleSecuredDistance = 1.3;
 
 
@@ -26,6 +27,7 @@ public class ColorSensorIntake {
         indicator.initIndicatorStrip(hwBot);
     }
 
+    //calcIntake method which processes color and distance data to control LEDs
     public void calcIntake() {
         NormalizedRGBA colors = sensor.getNormalizedColors();
         double red = colors.red;//dont need this
@@ -35,8 +37,9 @@ public class ColorSensorIntake {
 
         RevBlinkinLedDriver.BlinkinPattern color;
 
-        double max = Math.max(red, Math.max(green, blue));//why do i need: Math.max(green, blue)(doesnt work if thats not there)
+        double max = Math.max(red, Math.max(green, blue));// compares green and blue first, then compares the result to red to find the overall max
 
+        //Checks which color is dominant
         if(max == green) color = RevBlinkinLedDriver.BlinkinPattern.GREEN;
         else color = RevBlinkinLedDriver.BlinkinPattern.BLACK;
 
