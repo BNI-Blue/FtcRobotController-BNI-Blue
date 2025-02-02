@@ -8,6 +8,7 @@ public class RGBLight {
     public HardwareMap hwBot = null;
     public Servo rgbLight = null;
 
+    // Enum For Color Name with associated servo positions
     public enum ColorOptions {
         RED(0.279),
         ORANGE(.333),

@@ -1,0 +1,130 @@
+package org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Sensors;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ProgrammerBot;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+//@Disabled
+@TeleOp (name = "RGB Light Sensor Tester")
+public class TesterRGBLightSensor extends OpMode{
+
+    //Instantiate Desired Robot
+    public ProgrammerBot Bot = new ProgrammerBot();
+
+    //Instantiate RGB Light and Sensor
+    public RGBLight led = new RGBLight();
+    public ColorDistSensor sensor = new ColorDistSensor();
+
+
+    //Initiliaze Variables for Time Tracking
+    public ElapsedTime timer = new ElapsedTime();
+    public double remainingTime;
+    public double elapsedTime;
+
+    //Initiliaze and Declare Variables for Color Enum
+    public RGBLight.ColorOptions color = RGBLight.ColorOptions.OFF;
+
+    //Initiliaze and Declare Color Variables
+    double lowThresh = 60;
+    double highThresh = 215;
+    double redScaled = 0;
+    double greenScaled = 0;
+    double blueScaled = 0;
+
+
+    @Override
+    public void init() {
+
+        Bot.initRobot(hardwareMap);
+        led.initRGBLight(hardwareMap);
+        sensor.initColorDistSensor(hardwareMap);
+    }
+
+    @Override
+    public void start() {
+        led.setColor(RGBLight.ColorOptions.OFF);
+        timer.reset();
+    }
+
+    @Override
+    public void loop() {
+        lightTimerControl();
+        lightColorSensorControl();
+        lightDistanceSensorControl();
+        telemetry();
+    }
+
+
+    public void lightTimerControl() {
+        elapsedTime = timer.time(TimeUnit.SECONDS);
+        remainingTime = 120 - elapsedTime;
+
+        if (remainingTime < 10) {
+            led.setColor(RGBLight.ColorOptions.RED);
+            color = RGBLight.ColorOptions.RED;
+        }
+        else if (remainingTime < 20) {
+            led.setColor(RGBLight.ColorOptions.ORANGE);
+            color = RGBLight.ColorOptions.ORANGE;
+        }
+
+    }
+
+    public void lightColorSensorControl() {
+
+        sensor.convertColors();
+
+        // SCALING 0 to 1 values to 0 to 255 values
+        redScaled = sensor.colorSensor.red() * 255;
+        greenScaled = sensor.colorSensor.green() * 255;
+        blueScaled = sensor.colorSensor.blue() * 255;
+
+        // YELLOW SAMPLE  (Red:255 ; Green:255 ; Blue: 0)
+        if (redScaled > highThresh && greenScaled > highThresh && blueScaled < lowThresh) {
+            led.setColor(RGBLight.ColorOptions.YELLOW);
+        }
+
+        //BLUE SAMPLE  (Red:0 ; Green:0 ; Blue: 255)
+        if (redScaled < lowThresh && greenScaled < lowThresh && blueScaled > highThresh) {
+            led.setColor(RGBLight.ColorOptions.BLUE);
+        }
+
+        //RED SAMPLE   (Red:255 ; Green:0 ; Blue: 0)
+        if (redScaled > highThresh && greenScaled < lowThresh && blueScaled < lowThresh) {
+            led.setColor(RGBLight.ColorOptions.RED);
+        }
+
+
+    }
+
+
+    public void lightDistanceSensorControl() {
+
+        if (sensor.distanceSensor.getDistance(DistanceUnit.INCH) < 2.0) {
+            led.setColor(RGBLight.ColorOptions.PURPLE);
+        }
+
+    }
+
+
+    public void telemetry(){
+
+        telemetry.addData("RGB Light Color: ", color);
+        telemetry.addData("Elapsed Time: ", elapsedTime);
+        telemetry.addData("Remaining Time: ", remainingTime);
+        telemetry.addData("Red Value: ", sensor.colorSensor.red());
+        telemetry.addData("Green Value: ", sensor.colorSensor.green());
+        telemetry.addData("Blue Value: ", sensor.colorSensor.blue());
+        telemetry.addData("Hue Value: ", sensor.hsvValues[0]);
+        telemetry.addData("Distance (inches): ",
+                String.format(Locale.US, "%.02f", sensor.distanceSensor.getDistance(DistanceUnit.INCH)));
+        telemetry.update();
+    }
+
+
+}
