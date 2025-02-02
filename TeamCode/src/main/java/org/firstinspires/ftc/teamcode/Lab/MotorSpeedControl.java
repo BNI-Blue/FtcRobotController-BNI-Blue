@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-@TeleOp(name = "MotorSpeedControl")
+@TeleOp(name = "MotorSpeedControl", group="Labs")
 @Disabled
 public class MotorSpeedControl extends OpMode {
 

@@ -6,7 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "TWO SERVO CALABRATE", group = "LAB")
+@Disabled
+@TeleOp(name = "TWO SERVO CALABRATE", group = "Labs")
 
 public class twoServo_Callibrate extends OpMode {
 

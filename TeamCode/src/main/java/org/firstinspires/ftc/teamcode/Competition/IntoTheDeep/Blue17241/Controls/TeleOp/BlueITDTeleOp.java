@@ -162,13 +162,9 @@ public class BlueITDTeleOp extends OpMode {
 
     // ***** Helper Method for Telemetry
     public void telemetryOutput() {
-        telemetry.addData("pwr ", "FL motor ", +frontLeftSpeed);
-        telemetry.addData("pwr ", "FR motor ", +frontRightSpeed);
-        telemetry.addData("pwr ", "RL motor ", +rearLeftSpeed);
-        telemetry.addData("pwr ", "RR motor ", +rearRightSpeed);
-        telemetry.addData("pin ", "Heading ",  getHeading());
-        telemetry.addData("Current X Pos:", odo.getPosition().getX(DistanceUnit.INCH));
-        telemetry.addData("Current Y Pos:", odo.getPosition().getY(DistanceUnit.INCH));
+        telemetry.addData("Heading: ",  getHeading());
+        telemetry.addData("Current X Pos: ", odo.getPosition().getX(DistanceUnit.INCH));
+        telemetry.addData("Current Y Pos: ", odo.getPosition().getY(DistanceUnit.INCH));
         telemetry.update();
     }
 

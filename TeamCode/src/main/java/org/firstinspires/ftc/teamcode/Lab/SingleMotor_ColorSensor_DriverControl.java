@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "Single Motor Test + Color Sensor", group = "lab")
+@TeleOp(name = "Single Motor Test + Color Sensor", group = "Labs")
 @Disabled
 
 public class SingleMotor_ColorSensor_DriverControl extends OpMode {
