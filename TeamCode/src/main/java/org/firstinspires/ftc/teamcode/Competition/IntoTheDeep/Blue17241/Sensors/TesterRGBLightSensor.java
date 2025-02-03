@@ -10,7 +10,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 //@Disabled
-@TeleOp (name = "RGB Light Sensor Tester")
+@TeleOp (name = "RGB Light Color Sensor Tester")
 public class TesterRGBLightSensor extends OpMode{
 
     //Instantiate Desired Robot
@@ -30,11 +30,12 @@ public class TesterRGBLightSensor extends OpMode{
     public RGBLight.ColorOptions color = RGBLight.ColorOptions.OFF;
 
     //Initiliaze and Declare Color Variables
-    double lowThresh = 60;
-    double highThresh = 215;
+    double lowThresh = 200;
+    double highThresh = 300;
     double redScaled = 0;
     double greenScaled = 0;
     double blueScaled = 0;
+    double hueScaled = 0;
 
 
     @Override
@@ -67,8 +68,8 @@ public class TesterRGBLightSensor extends OpMode{
         remainingTime = 120 - elapsedTime;
 
         if (remainingTime < 10) {
-            led.setColor(RGBLight.ColorOptions.RED);
-            color = RGBLight.ColorOptions.RED;
+            led.setColor(RGBLight.ColorOptions.PURPLE);
+            color = RGBLight.ColorOptions.PURPLE;
         }
         else if (remainingTime < 20) {
             led.setColor(RGBLight.ColorOptions.ORANGE);
@@ -82,26 +83,28 @@ public class TesterRGBLightSensor extends OpMode{
         sensor.convertColors();
 
         // SCALING 0 to 1 values to 0 to 255 values
-        redScaled = sensor.colorSensor.red() * 255;
-        greenScaled = sensor.colorSensor.green() * 255;
-        blueScaled = sensor.colorSensor.blue() * 255;
+        redScaled = sensor.colorSensor.red();
+        greenScaled = sensor.colorSensor.green();
+        blueScaled = sensor.colorSensor.blue();
+        hueScaled = sensor.hsvValues[0];
 
-        // YELLOW SAMPLE  (Red:255 ; Green:255 ; Blue: 0)
-        if (redScaled > highThresh && greenScaled > highThresh && blueScaled < lowThresh) {
-            led.setColor(RGBLight.ColorOptions.YELLOW);
-        }
-
-        //BLUE SAMPLE  (Red:0 ; Green:0 ; Blue: 255)
-        if (redScaled < lowThresh && greenScaled < lowThresh && blueScaled > highThresh) {
-            led.setColor(RGBLight.ColorOptions.BLUE);
-        }
-
-        //RED SAMPLE   (Red:255 ; Green:0 ; Blue: 0)
-        if (redScaled > highThresh && greenScaled < lowThresh && blueScaled < lowThresh) {
+        // YELLOW SAMPLE  (Red:255 ; Green:255 ; Blue: 0 ; Hue: 10)
+        //BLUE SAMPLE  (Red:0 ; Green:0 ; Blue: 255 ; Hue 120)
+        //RED SAMPLE   (Red:255 ; Green:0 ; Blue: 0; Hue: 30)
+        if (hueScaled < 30) {
             led.setColor(RGBLight.ColorOptions.RED);
         }
 
+        else if (hueScaled > 200) {
+            led.setColor(RGBLight.ColorOptions.BLUE);
+        }
 
+        else if (hueScaled > 30 && hueScaled < 90) {
+            led.setColor(RGBLight.ColorOptions.YELLOW);
+        }
+        else {
+            led.setColor(RGBLight.ColorOptions.OFF);
+        }
     }
 
 
