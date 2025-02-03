@@ -12,6 +12,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Odometry.Pinpoint;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Robots.ITDBot;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Sensors.ColorDistSensor;
+import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Sensors.RGBLight;
 
 @TeleOp (name = "ITD Bot TeleOp", group = "Drive")
 public class BlueITDTeleOp extends OpMode {
@@ -39,6 +41,10 @@ public class BlueITDTeleOp extends OpMode {
 
     public Pinpoint odo = new Pinpoint();
 
+    public RGBLight led = new RGBLight();
+
+    public ColorDistSensor sensor = new ColorDistSensor();
+
     //double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
     // Declare a Servo object
@@ -51,36 +57,43 @@ public class BlueITDTeleOp extends OpMode {
     public ElapsedTime runtime = new ElapsedTime();
     private boolean moving = false;  // State variable to track if servo is moving
 
+    public RGBLight.ColorOptions color = RGBLight.ColorOptions.OFF;
+
+    public double redMath = 0;
+    public double blueMath = 0;
+    public double greenMath = 0;
+    public double hueMath = 0;
+
     @Override
     public void init() {
         ITDBot.initRobot(hardwareMap);
         odo.initPinpoint(hardwareMap);
+        led.initRGBLight(hardwareMap);
+        sensor.initColorDistSensor(hardwareMap);
        // resetHeading();                       // PINPOINT
        ITDBot.imu.resetYaw();                   // REV
     }
 
 
     public void start() {
+        led.setColor(RGBLight.ColorOptions.OFF);
     }
 
     @Override
     public void loop() {
         speedControl();
-       telemetryOutput();
-        //liftControl();
+        telemetryOutput();
         preventClawOnStart();
         //slowIntake();
         bucketControl();
         intakeControl();
         intakeHolderFlipControl();
         drive();
+        colorSensorControl();
         //fieldCentricDrive();
         //imuStart();
-        //fieldCentricDrivePinpoint();
         //driveCases();
         //transferControl();
-
-        //IntakeAssistControl(); //This combines multiple movements into one button.
     }
 
     @Override
@@ -165,6 +178,11 @@ public class BlueITDTeleOp extends OpMode {
         telemetry.addData("Heading: ",  getHeading());
         telemetry.addData("Current X Pos: ", odo.getPosition().getX(DistanceUnit.INCH));
         telemetry.addData("Current Y Pos: ", odo.getPosition().getY(DistanceUnit.INCH));
+        telemetry.addData("RGB Light Color: ", color);
+        telemetry.addData("Red Value: ", sensor.colorSensor.red());
+        telemetry.addData("Green Value: ", sensor.colorSensor.green());
+        telemetry.addData("Blue Value: ", sensor.colorSensor.blue());
+        //telemetry.addData("Hue Value: ", sensor.hsvValues[0]);
         telemetry.update();
     }
 
@@ -408,6 +426,29 @@ public class BlueITDTeleOp extends OpMode {
         setMotorPower(ITDBot.frontRightMotor, frontRightSpeed, powerThreshold, speedMultiply);
         setMotorPower(ITDBot.rearLeftMotor, rearLeftSpeed, powerThreshold, speedMultiply);
         setMotorPower(ITDBot.rearRightMotor, rearRightSpeed, powerThreshold, speedMultiply);
+    }
+
+    public void colorSensorControl(){
+        sensor.convertColors();
+
+        redMath = sensor.colorSensor.red();
+        blueMath = sensor.colorSensor.blue();
+        greenMath = sensor.colorSensor.green();
+        hueMath = sensor.hsvValues[0];
+
+        if(hueMath <30){
+            led.setColor(RGBLight.ColorOptions.RED);
+        }
+
+        else if (hueMath > 200){
+            led.setColor(RGBLight.ColorOptions.BLUE);
+        }
+        else if(hueMath > 30 && hueMath < 90){
+            led.setColor(RGBLight.ColorOptions.YELLOW);
+        }
+        else{
+            led.setColor(RGBLight.ColorOptions.OFF);
+        }
     }
 
 //    public void driveCases(){
