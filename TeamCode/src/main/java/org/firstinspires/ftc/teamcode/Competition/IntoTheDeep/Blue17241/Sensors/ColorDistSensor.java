@@ -23,8 +23,8 @@ public class ColorDistSensor {
 
     public void initColorDistSensor(HardwareMap hwMap) {
         hwBot = hwMap;
-        distanceSensor = hwBot.get(DistanceSensor.class, "sensor_dist");
-        colorSensor = hwBot.get(ColorSensor.class, "sensor_color");
+        //distanceSensor = hwBot.get(DistanceSensor.class, "sample_sensor_dist");
+        colorSensor = hwBot.get(ColorSensor.class, "sample_sensor_color");
     }
 
     public void convertColors() {

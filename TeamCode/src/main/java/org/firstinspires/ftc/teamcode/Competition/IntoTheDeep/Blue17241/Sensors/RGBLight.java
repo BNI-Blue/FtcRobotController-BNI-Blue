@@ -32,7 +32,7 @@ public class RGBLight {
 
     public void initRGBLight(HardwareMap hwMap) {
         hwBot = hwMap;
-        rgbLight = hwBot.servo.get("led");
+        rgbLight = hwBot.servo.get("indicator");
         rgbLight.setDirection(Servo.Direction.FORWARD);
     }
 

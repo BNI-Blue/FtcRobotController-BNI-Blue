@@ -55,8 +55,10 @@ public class TesterRGBLightSensor extends OpMode{
     public void loop() {
         lightTimerControl();
         lightColorSensorControl();
-        lightDistanceSensorControl();
+        //lightDistanceSensorControl();
         telemetry();
+        //telemetry_dist();
+
     }
 
 
@@ -121,8 +123,11 @@ public class TesterRGBLightSensor extends OpMode{
         telemetry.addData("Green Value: ", sensor.colorSensor.green());
         telemetry.addData("Blue Value: ", sensor.colorSensor.blue());
         telemetry.addData("Hue Value: ", sensor.hsvValues[0]);
-        telemetry.addData("Distance (inches): ",
-                String.format(Locale.US, "%.02f", sensor.distanceSensor.getDistance(DistanceUnit.INCH)));
+        telemetry.update();
+    }
+
+    public void telemetry_dist(){
+        telemetry.addData("Distance (inches): ", String.format(Locale.US, "%.02f", sensor.distanceSensor.getDistance(DistanceUnit.INCH)));
         telemetry.update();
     }
 
