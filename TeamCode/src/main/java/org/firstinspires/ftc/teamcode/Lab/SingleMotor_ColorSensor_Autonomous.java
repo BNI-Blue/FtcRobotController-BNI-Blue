@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous (name = "Motor + Color sensor example", group = "lab")
+@Autonomous (name = "Motor + Color sensor example", group = "Labs")
 @Disabled
 
 public class SingleMotor_ColorSensor_Autonomous extends LinearOpMode

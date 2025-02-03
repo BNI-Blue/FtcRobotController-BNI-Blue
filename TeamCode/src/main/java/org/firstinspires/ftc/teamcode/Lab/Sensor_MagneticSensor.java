@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 @Disabled
-@TeleOp (name = "Magnetic Sensor", group = "LAB")
+@TeleOp (name = "Magnetic Sensor", group = "Labs")
 
 public class Sensor_MagneticSensor extends OpMode {
 

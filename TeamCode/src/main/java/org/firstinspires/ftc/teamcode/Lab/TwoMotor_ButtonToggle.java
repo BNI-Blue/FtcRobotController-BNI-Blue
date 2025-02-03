@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 //Class is used for testing a single motor, using trigger for variable power.
 //WITHOUT
-@TeleOp(name = "two motor launcher test - NO ENCODERS", group="twowheel")
+@TeleOp(name = "two motor launcher test - NO ENCODERS", group="Labs")
 @Disabled
 public class TwoMotor_ButtonToggle extends OpMode {
     private DcMotor motor_left = null;
