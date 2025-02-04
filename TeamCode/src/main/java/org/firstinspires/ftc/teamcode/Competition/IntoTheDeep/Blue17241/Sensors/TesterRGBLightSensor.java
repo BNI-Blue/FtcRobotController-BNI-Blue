@@ -88,9 +88,9 @@ public class TesterRGBLightSensor extends OpMode{
         blueScaled = sensor.colorSensor.blue();
         hueScaled = sensor.hsvValues[0];
 
-        // YELLOW SAMPLE  (Red:255 ; Green:255 ; Blue: 0 ; Hue: 10)
-        //BLUE SAMPLE  (Red:0 ; Green:0 ; Blue: 255 ; Hue 120)
-        //RED SAMPLE   (Red:255 ; Green:0 ; Blue: 0; Hue: 30)
+        // YELLOW SAMPLE  (Red:255 ; Green:255 ; Blue: 0 ; Hue: 30-90)
+        //BLUE SAMPLE  (Red:0 ; Green:0 ; Blue: 255 ; Hue 200)
+        //RED SAMPLE   (Red:255 ; Green:0 ; Blue: 0; Hue: 10)
         if (hueScaled < 30) {
             led.setColor(RGBLight.ColorOptions.RED);
         }
