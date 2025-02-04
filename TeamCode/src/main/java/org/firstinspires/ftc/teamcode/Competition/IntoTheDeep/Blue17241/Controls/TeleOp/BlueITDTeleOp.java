@@ -491,6 +491,7 @@ public class BlueITDTeleOp extends OpMode {
 
 
     public void colorSensorControl(){
+
         sensor.convertColors();
 
         redMath = sensor.colorSensor.red();
