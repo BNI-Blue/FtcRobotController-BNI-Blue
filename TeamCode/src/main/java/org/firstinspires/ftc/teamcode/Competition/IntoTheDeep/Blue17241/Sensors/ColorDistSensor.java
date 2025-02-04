@@ -17,9 +17,9 @@ public class ColorDistSensor {
     public ColorDistSensor() {}
 
     //Instance Methods
-    float hsvValues[] = {0F, 0F, 0F};
-    final float values[] = hsvValues;
-    final double SCALE_FACTOR = 255;
+    public float hsvValues[] = {0F, 0F, 0F};
+    public final float values[] = hsvValues;
+    public final double SCALE_FACTOR = 255;
 
     public void initColorDistSensor(HardwareMap hwMap) {
         hwBot = hwMap;

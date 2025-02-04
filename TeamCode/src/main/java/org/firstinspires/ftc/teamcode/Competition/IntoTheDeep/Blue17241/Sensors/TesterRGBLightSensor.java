@@ -30,12 +30,12 @@ public class TesterRGBLightSensor extends OpMode{
     public RGBLight.ColorOptions color = RGBLight.ColorOptions.OFF;
 
     //Initiliaze and Declare Color Variables
-    double lowThresh = 200;
-    double highThresh = 300;
-    double redScaled = 0;
-    double greenScaled = 0;
-    double blueScaled = 0;
-    double hueScaled = 0;
+    public double lowThresh = 200;
+    public double highThresh = 300;
+    public double redScaled = 0;
+    public double greenScaled = 0;
+    public double blueScaled = 0;
+    public double hueScaled = 0;
 
 
     @Override
