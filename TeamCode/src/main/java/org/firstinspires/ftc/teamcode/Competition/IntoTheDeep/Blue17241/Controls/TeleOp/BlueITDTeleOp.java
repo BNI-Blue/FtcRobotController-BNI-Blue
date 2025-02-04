@@ -41,9 +41,31 @@ public class BlueITDTeleOp extends OpMode {
 
     public Pinpoint odo = new Pinpoint();
 
+
+
+
     public RGBLight led = new RGBLight();
 
     public ColorDistSensor sensor = new ColorDistSensor();
+
+    public RGBLight.ColorOptions color = RGBLight.ColorOptions.OFF;
+
+    public double redMath = 0;
+    public double blueMath = 0;
+    public double greenMath = 0;
+    public double hueMath = 0;
+
+
+
+
+    public IntakeState intakeState = IntakeState.READY;
+    public OuttakeState outtakeState = OuttakeState.READY;
+    public SampleDumpState sampleDumpState = SampleDumpState.READY;
+    public SampleResetState sampleResetState = SampleResetState.READY;
+
+    ElapsedTime timer = new ElapsedTime();
+
+
 
     //double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
@@ -57,12 +79,9 @@ public class BlueITDTeleOp extends OpMode {
     public ElapsedTime runtime = new ElapsedTime();
     private boolean moving = false;  // State variable to track if servo is moving
 
-    public RGBLight.ColorOptions color = RGBLight.ColorOptions.OFF;
 
-    public double redMath = 0;
-    public double blueMath = 0;
-    public double greenMath = 0;
-    public double hueMath = 0;
+
+
 
     @Override
     public void init() {
@@ -75,9 +94,13 @@ public class BlueITDTeleOp extends OpMode {
     }
 
 
+
+
     public void start() {
         led.setColor(RGBLight.ColorOptions.OFF);
     }
+
+
 
     @Override
     public void loop() {
@@ -90,6 +113,11 @@ public class BlueITDTeleOp extends OpMode {
         intakeHolderFlipControl();
         drive();
         colorSensorControl();
+        sampleResetStateControl();
+        scoreSampleControl();
+        intakePrepControl();
+        outtakeControl();
+        statesControl();
         //fieldCentricDrive();
         //imuStart();
         //driveCases();
@@ -101,6 +129,7 @@ public class BlueITDTeleOp extends OpMode {
         // Make sure to stop the servo or reset it if needed
         ITDBot.intakeHolderFlip.setPosition(0.37);  // Reset the servo to its starting position
     }
+
 
 
     // ********* TeleOp Control Methods **************
@@ -125,45 +154,6 @@ public class BlueITDTeleOp extends OpMode {
     }
 
 
-    // ***** Field Centric Drive
-    public void fieldCentricDrivePinpoint(){
-        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-        double x = gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
-
-        // This button choice was made so that it is hard to hit on accident,
-        // it can be freely changed based on preference.
-        // The equivalent button is start on Xbox-style controllers.
-        if (gamepad1.y) {
-            resetHeading();
-            getHeading();
-            //ITDBot.imu.resetHeading();
-        }
-
-        double botHeading = getHeading();
-        //double botHeading = odo.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-
-        // Rotate the movement direction counter to the bot's rotation
-        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
-
-        rotX = rotX * 1.1;  // Counteract imperfect strafing
-
-        // Denominator is the largest motor power (absolute value) or 1
-        // This ensures all the powers maintain the same ratio,
-        // but only if at least one is out of the range [-1, 1]
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        double frontLeftPower = (rotY + rotX + rx) / denominator;
-        double backLeftPower = (rotY - rotX + rx) / denominator;
-        double frontRightPower = (rotY - rotX - rx) / denominator;
-        double backRightPower = (rotY + rotX - rx) / denominator;
-
-        ITDBot.frontLeftMotor.setPower(frontLeftPower);
-        ITDBot.rearLeftMotor.setPower(backLeftPower);
-        ITDBot.frontRightMotor.setPower(frontRightPower);
-        ITDBot.rearRightMotor.setPower(backRightPower);
-    }
-
     // ****** Helper method to set Motor Power
     public void setMotorPower(DcMotor motor, double speed, double threshold, double multiplier) {
         if (speed <= threshold && speed >= -threshold) {
@@ -173,31 +163,6 @@ public class BlueITDTeleOp extends OpMode {
         }
     }
 
-    // ***** Helper Method for Telemetry
-    public void telemetryOutput() {
-        telemetry.addData("Heading: ",  getHeading());
-        telemetry.addData("Current X Pos: ", odo.getPosition().getX(DistanceUnit.INCH));
-        telemetry.addData("Current Y Pos: ", odo.getPosition().getY(DistanceUnit.INCH));
-        telemetry.addData("RGB Light Color: ", color);
-        telemetry.addData("Red Value: ", sensor.colorSensor.red());
-        telemetry.addData("Green Value: ", sensor.colorSensor.green());
-        telemetry.addData("Blue Value: ", sensor.colorSensor.blue());
-        //telemetry.addData("Hue Value: ", sensor.hsvValues[0]);
-        telemetry.update();
-    }
-
-    // ***** Helper Method for Speed Control
-    public void speedControl() {
-        if (gamepad1.dpad_up) {
-            speedMultiply = 0.5;
-        } else if (gamepad1.dpad_right) {
-            speedMultiply = 0.75;
-        } else if (gamepad1.dpad_down) {
-            speedMultiply = 0.25;
-        } else if (gamepad1.dpad_left) {
-            speedMultiply = 1;
-        }
-    }
 
     public void imuStart(){
         if(gamepad1.options){
@@ -213,12 +178,11 @@ public class BlueITDTeleOp extends OpMode {
         }
     }
 
-
     public void bucketControl(){
-        if (gamepad2.dpad_left) {
+        if (gamepad2.dpad_right) {
             ITDBot.emptyBucket();
         }
-        if (gamepad2.dpad_right) {
+        if (gamepad2.dpad_left) {
             ITDBot.fillBucket();
         }
 
@@ -248,12 +212,12 @@ public class BlueITDTeleOp extends OpMode {
             ITDBot.intakeStop();
         }
 
-        if(gamepad2.y){
-            ITDBot.extendIntake();
-        }
-        if (gamepad2.a ) {
-            ITDBot.retractIntake();
-        }
+//        if(gamepad2.y){
+//            ITDBot.extendIntake();
+//        }
+//        if (gamepad2.a ) {
+//            ITDBot.retractIntake();
+//        }
         if(gamepad2.dpad_down){
             ITDBot.neutralIntake();
         }
@@ -282,7 +246,202 @@ public class BlueITDTeleOp extends OpMode {
 
     }
 
+   public void statesControl(){
+       if (gamepad2.right_stick_button ) {
+           outtakeState = OuttakeState.READY;
+           sampleDumpState = SampleDumpState.READY;
+           intakeState = IntakeState.READY;
+           sampleResetState = SampleResetState.READY;
 
+       }
+
+        if(gamepad2.a){
+           outtakeState = OuttakeState.INTAKE_STOP;
+       }
+       if(gamepad2.y){
+           intakeState = IntakeState.INTAKE_EXTEND;
+       }
+
+       if(gamepad2.b){
+           sampleDumpState = SampleDumpState.OUTTAKE;
+       }
+
+       if(gamepad2.x){
+           sampleResetState = SampleResetState.BUCKET_FILL;
+       }
+   }
+
+    public enum IntakeState{
+        INTAKE_EXTEND,
+        WAIT,
+        INTAKE_DOWN,
+        INTAKE,
+        READY;
+    }
+
+    public enum OuttakeState{
+        INTAKE_STOP,
+        INTAKE_UP,
+        WAIT,
+        INTAKE_RETRACT,
+        READY;
+    }
+
+    public enum SampleDumpState{
+        OUTTAKE,
+        INTAKE_STOP,
+        INTAKE_EXTEND,
+        WAIT,
+        WAIT2,
+        BUCKET_EXTEND,
+        BUCKET_DUMP,
+        BUCKET_STOP,
+        READY;
+
+    }
+
+    public enum SampleResetState{
+        BUCKET_FILL,
+        BUCKET_RETRACT,
+        INTAKE_RETRACT,
+        BUCKET_STOP,
+        READY;
+    }
+
+    public void intakePrepControl() {
+        switch (intakeState) {
+            case INTAKE_EXTEND:
+                ITDBot.extendIntake();
+                timer.reset();
+                intakeState = IntakeState.INTAKE_DOWN;
+                break;
+
+            case WAIT:
+                if (timer.time() > 1.0) {
+                    intakeState = IntakeState.INTAKE_DOWN;
+                }
+                break;
+
+            case INTAKE_DOWN:
+                ITDBot.collectIntake();
+                intakeState = IntakeState.INTAKE;
+                break;
+
+            case INTAKE:
+                ITDBot.sampleIntake();
+                intakeState = IntakeState.READY;
+                break;
+
+            case READY:
+                break;
+        }
+    }
+
+    public void outtakeControl(){
+        switch(outtakeState){
+            case INTAKE_STOP:
+                ITDBot.intakeStop();
+                outtakeState = OuttakeState.INTAKE_UP;
+                break;
+            case INTAKE_UP:
+                ITDBot.scoreIntake();
+                timer.reset();
+                outtakeState = OuttakeState.INTAKE_RETRACT;
+                break;
+
+            case WAIT:
+                if(timer.time() > 2.0){
+                    outtakeState = OuttakeState.READY;
+                }
+                break;
+
+            case INTAKE_RETRACT:
+                ITDBot.retractIntake();
+                outtakeState = OuttakeState.READY;
+                break;
+
+            case READY:
+                break;
+        }
+    }
+
+    public void scoreSampleControl(){
+        switch(sampleDumpState){
+            case OUTTAKE:
+                ITDBot.sampleOuttake();
+                timer.reset();
+                sampleDumpState = SampleDumpState.INTAKE_STOP;
+                break;
+
+            case WAIT:
+                if(timer.time() > 1.0){
+                    sampleDumpState = SampleDumpState.INTAKE_STOP;
+                }
+                break;
+
+            case INTAKE_STOP:
+                ITDBot.intakeStop();
+                sampleDumpState = SampleDumpState.INTAKE_EXTEND;
+                break;
+
+            case INTAKE_EXTEND:
+                ITDBot.neutralIntake();
+                timer.reset();
+                sampleDumpState = SampleDumpState.BUCKET_EXTEND;
+                break;
+
+            case  BUCKET_EXTEND:
+                if(timer.time() > 1.0){
+                    ITDBot.bucketSlideUp(1);
+                }
+                if(timer.time() > 2.5){
+                    sampleDumpState = SampleDumpState.BUCKET_STOP;
+                }
+                break;
+
+            case BUCKET_STOP:
+                ITDBot.bucketSlideStop();
+                sampleDumpState = SampleDumpState.READY;
+                break;
+
+            case BUCKET_DUMP:
+                ITDBot.emptyBucket();
+                sampleDumpState = SampleDumpState.READY;
+                break;
+
+            case READY:
+                break;
+        }
+    }
+    public void sampleResetStateControl(){
+        switch(sampleResetState){
+            case BUCKET_FILL:
+                ITDBot.fillBucket();
+                timer.reset();
+                sampleResetState = SampleResetState.BUCKET_RETRACT;
+                break;
+
+            case BUCKET_RETRACT:
+                ITDBot.bucketSlideDown(1);
+                if (timer.time() > 1.0){
+                    sampleResetState = SampleResetState.BUCKET_STOP;
+                }
+                break;
+
+            case BUCKET_STOP:
+                ITDBot.bucketSlideStop();
+                sampleResetState = SampleResetState.INTAKE_RETRACT;
+                break;
+
+            case INTAKE_RETRACT:
+                ITDBot.retractIntake();
+                sampleResetState = SampleResetState.READY;
+                break;
+
+            case READY:
+                break;
+        }
+    }
 
     public void IntakeAssistControl () {
 //        Take out this conditional and leave just "gamepad2.left_trigger > 0.5 " if D2 wants to be able to retract no matter waht.
@@ -331,6 +490,28 @@ public class BlueITDTeleOp extends OpMode {
     }
 
 
+    public void colorSensorControl(){
+        sensor.convertColors();
+
+        redMath = sensor.colorSensor.red();
+        blueMath = sensor.colorSensor.blue();
+        greenMath = sensor.colorSensor.green();
+        hueMath = sensor.hsvValues[0];
+
+        if(hueMath <30){
+            led.setColor(RGBLight.ColorOptions.RED);
+        }
+
+        else if (hueMath > 200){
+            led.setColor(RGBLight.ColorOptions.BLUE);
+        }
+        else if(hueMath > 30 && hueMath < 90){
+            led.setColor(RGBLight.ColorOptions.YELLOW);
+        }
+        else{
+            led.setColor(RGBLight.ColorOptions.OFF);
+        }
+    }
 
     // ********  Legacy Drive Control Methods
 
@@ -428,37 +609,71 @@ public class BlueITDTeleOp extends OpMode {
         setMotorPower(ITDBot.rearRightMotor, rearRightSpeed, powerThreshold, speedMultiply);
     }
 
-    public void colorSensorControl(){
-        sensor.convertColors();
+    // ***** Field Centric Drive
+    public void fieldCentricDrivePinpoint(){
+        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+        double x = gamepad1.left_stick_x;
+        double rx = gamepad1.right_stick_x;
 
-        redMath = sensor.colorSensor.red();
-        blueMath = sensor.colorSensor.blue();
-        greenMath = sensor.colorSensor.green();
-        hueMath = sensor.hsvValues[0];
-
-        if(hueMath <30){
-            led.setColor(RGBLight.ColorOptions.RED);
+        // This button choice was made so that it is hard to hit on accident,
+        // it can be freely changed based on preference.
+        // The equivalent button is start on Xbox-style controllers.
+        if (gamepad1.y) {
+            resetHeading();
+            getHeading();
+            //ITDBot.imu.resetHeading();
         }
 
-        else if (hueMath > 200){
-            led.setColor(RGBLight.ColorOptions.BLUE);
-        }
-        else if(hueMath > 30 && hueMath < 90){
-            led.setColor(RGBLight.ColorOptions.YELLOW);
-        }
-        else{
-            led.setColor(RGBLight.ColorOptions.OFF);
-        }
+        double botHeading = getHeading();
+        //double botHeading = odo.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+        // Rotate the movement direction counter to the bot's rotation
+        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+
+        rotX = rotX * 1.1;  // Counteract imperfect strafing
+
+        // Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio,
+        // but only if at least one is out of the range [-1, 1]
+        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+        double frontLeftPower = (rotY + rotX + rx) / denominator;
+        double backLeftPower = (rotY - rotX + rx) / denominator;
+        double frontRightPower = (rotY - rotX - rx) / denominator;
+        double backRightPower = (rotY + rotX - rx) / denominator;
+
+        ITDBot.frontLeftMotor.setPower(frontLeftPower);
+        ITDBot.rearLeftMotor.setPower(backLeftPower);
+        ITDBot.frontRightMotor.setPower(frontRightPower);
+        ITDBot.rearRightMotor.setPower(backRightPower);
     }
 
-//    public void driveCases(){
-//        if(gamepad1.left_bumper){
-//            fieldCentricDrivePinpoint();
-//        }
-//        if(gamepad1.right_bumper){
-//            drive();
-//        }
-//    }
+
+    // ***** Helper Method for Telemetry
+    public void telemetryOutput() {
+        telemetry.addData("Heading: ",  getHeading());
+        telemetry.addData("Current X Pos: ", odo.getPosition().getX(DistanceUnit.INCH));
+        telemetry.addData("Current Y Pos: ", odo.getPosition().getY(DistanceUnit.INCH));
+        telemetry.addData("RGB Light Color: ", color);
+        telemetry.addData("Red Value: ", sensor.colorSensor.red());
+        telemetry.addData("Green Value: ", sensor.colorSensor.green());
+        telemetry.addData("Blue Value: ", sensor.colorSensor.blue());
+        //telemetry.addData("Hue Value: ", sensor.hsvValues[0]);
+        telemetry.update();
+    }
+
+    // ***** Helper Method for Speed Control
+    public void speedControl() {
+        if (gamepad1.dpad_up) {
+            speedMultiply = 0.5;
+        } else if (gamepad1.dpad_right) {
+            speedMultiply = 0.75;
+        } else if (gamepad1.dpad_down) {
+            speedMultiply = 0.25;
+        } else if (gamepad1.dpad_left) {
+            speedMultiply = 1;
+        }
+    }
 
 
 // Field Centric Drive using Rev Robotics Control Hub
