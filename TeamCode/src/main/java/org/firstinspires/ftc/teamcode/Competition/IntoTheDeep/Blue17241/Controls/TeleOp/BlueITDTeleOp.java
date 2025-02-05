@@ -192,9 +192,6 @@ public class BlueITDTeleOp extends OpMode {
         } else if (gamepad2.right_stick_y < -0.1) {
             ITDBot.bucketSlideUp(1);
         }
-        else {
-            ITDBot.bucketSlideStop();
-        }
     }
 
 
@@ -207,17 +204,17 @@ public class BlueITDTeleOp extends OpMode {
         else if(gamepad2.left_bumper){
             ITDBot.sampleOuttake();
         }
-
-        else {
+        else if(gamepad2.start){
             ITDBot.intakeStop();
         }
+
 
 //        if(gamepad2.y){
 //            ITDBot.extendIntake();
 //        }
-//        if (gamepad2.a ) {
-//            ITDBot.retractIntake();
-//        }
+        if (gamepad2.back) {
+            ITDBot.retractIntake();
+        }
         if(gamepad2.dpad_down){
             ITDBot.neutralIntake();
         }
@@ -324,7 +321,7 @@ public class BlueITDTeleOp extends OpMode {
 
             case INTAKE_DOWN:
                 ITDBot.collectIntake();
-                intakeState = IntakeState.INTAKE;
+                intakeState = IntakeState.READY;
                 break;
 
             case INTAKE:
@@ -391,7 +388,7 @@ public class BlueITDTeleOp extends OpMode {
                 break;
 
             case  BUCKET_EXTEND:
-                if(timer.time() > 1.0){
+               if(timer.time() > 1.0){
                     ITDBot.bucketSlideUp(1);
                 }
                 if(timer.time() > 2.5){
@@ -423,7 +420,7 @@ public class BlueITDTeleOp extends OpMode {
 
             case BUCKET_RETRACT:
                 ITDBot.bucketSlideDown(1);
-                if (timer.time() > 1.0){
+                if (timer.time() > 1.75){
                     sampleResetState = SampleResetState.BUCKET_STOP;
                 }
                 break;
