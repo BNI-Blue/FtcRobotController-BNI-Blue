@@ -131,7 +131,7 @@ public class ITDBot extends MecanumDrive {
     }
 
     public void collectIntake(){
-        intakeHolderFlip.setPosition(0.57);   // 0.595 correct as of 1/18/25
+        intakeHolderFlip.setPosition(0.585);   // 0.595 correct as of 1/18/25
         intakeState = "collect";
     }
 

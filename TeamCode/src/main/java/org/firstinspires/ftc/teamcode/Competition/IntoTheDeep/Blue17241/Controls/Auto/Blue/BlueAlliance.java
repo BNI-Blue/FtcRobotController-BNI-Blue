@@ -75,8 +75,8 @@ public abstract class BlueAlliance extends AutoMain {
 
     public void blueNetPreloadSpikeOne(){
         // score preloaded sample
-        strafeLeftPinpointCumulative(.55, 6);
-        driveBackPinpointCumulative(.55, 1.3);
+        strafeLeftPinpointCumulative(.55, 6.4);
+        driveBackPinpointCumulative(.55, 1.1);
         bucketDumpTopLevelTwo();
 
         //prepare for first field sample
@@ -92,7 +92,7 @@ public abstract class BlueAlliance extends AutoMain {
         rotateByGyroRev(.25, -34);
         //driveBackPinpointCumulative(.5, .72);
         strafeRightPinpointCumulative(.5, 1);
-        driveBackPinpointCumulative(.5, 3.25);
+        driveBackPinpointCumulative(.5, 2.75);
         ITDBot.sampleOuttake();
         sleep(750);
         ITDBot.intakeStop();
@@ -103,15 +103,15 @@ public abstract class BlueAlliance extends AutoMain {
     }
 
     public void blueNetSpikeTwo(){
-        rotateByGyroRev(.25, 50);
+        rotateByGyroRev(.25, 51.5);
 
         //collect second field sample
         blueNetSampleTwo();
 
         //move to buckets with second field sample
-        rotateByGyroRev(.25, -50);
-        strafeRightPinpointCumulative(.35, 6.5);
-        driveBackPinpointCumulative(.5 ,3.75);
+        rotateByGyroRev(.25, -51.5);
+        strafeRightPinpointCumulative(.35, 5);
+        driveBackPinpointCumulative(.5 ,4.25);
 
         ITDBot.sampleOuttake();
         sleep(750);

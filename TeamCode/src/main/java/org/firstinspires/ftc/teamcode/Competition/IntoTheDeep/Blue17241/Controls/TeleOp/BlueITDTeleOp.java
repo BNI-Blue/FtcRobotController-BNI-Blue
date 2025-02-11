@@ -192,6 +192,10 @@ public class BlueITDTeleOp extends OpMode {
         } else if (gamepad2.right_stick_y < -0.1) {
             ITDBot.bucketSlideUp(1);
         }
+
+        else if(sampleDumpState != SampleDumpState.BUCKET_EXTEND && sampleResetState != SampleResetState.BUCKET_RETRACT){
+            ITDBot.bucketSlideStop();
+        }
     }
 
 
