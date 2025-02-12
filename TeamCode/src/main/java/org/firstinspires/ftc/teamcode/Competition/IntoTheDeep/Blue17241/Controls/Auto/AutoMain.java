@@ -57,6 +57,7 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.emptyBucket();
         sleep(1100);
         ITDBot.fillBucket();
+        sleep(200);
         ITDBot.bucketSlideDown(0.5);
         sleep(1450);
         ITDBot.bucketSlideStop();
@@ -74,6 +75,7 @@ public abstract class AutoMain extends LinearOpMode {
         ITDBot.emptyBucket();
         sleep(1300);
         ITDBot.fillBucket();
+        sleep(200);
         ITDBot.bucketSlideDown(0.5);
         sleep(1450);
         ITDBot.bucketSlideStop();
