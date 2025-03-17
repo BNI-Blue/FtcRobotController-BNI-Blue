@@ -41,9 +41,6 @@ public class BlueITDTeleOp extends OpMode {
 
     public Pinpoint odo = new Pinpoint();
 
-
-
-
     public RGBLight led = new RGBLight();
 
     public ColorDistSensor sensor = new ColorDistSensor();
@@ -55,16 +52,12 @@ public class BlueITDTeleOp extends OpMode {
     public double greenMath = 0;
     public double hueMath = 0;
 
-
-
-
     public IntakeState intakeState = IntakeState.READY;
     public OuttakeState outtakeState = OuttakeState.READY;
     public SampleDumpState sampleDumpState = SampleDumpState.READY;
     public SampleResetState sampleResetState = SampleResetState.READY;
 
     ElapsedTime timer = new ElapsedTime();
-
 
 
     //double botHeading = ITDBot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
@@ -80,9 +73,6 @@ public class BlueITDTeleOp extends OpMode {
     private boolean moving = false;  // State variable to track if servo is moving
 
 
-
-
-
     @Override
     public void init() {
         ITDBot.initRobot(hardwareMap);
@@ -94,12 +84,9 @@ public class BlueITDTeleOp extends OpMode {
     }
 
 
-
-
     public void start() {
         led.setColor(RGBLight.ColorOptions.OFF);
     }
-
 
 
     @Override

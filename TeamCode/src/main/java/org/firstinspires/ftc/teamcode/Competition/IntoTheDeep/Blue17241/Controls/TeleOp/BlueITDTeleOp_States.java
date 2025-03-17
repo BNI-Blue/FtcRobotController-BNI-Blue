@@ -164,16 +164,16 @@ public class BlueITDTeleOp_States extends OpMode {
 
     public enum RetractStates {
         FLIP_UP,
-        OUTAKE_STOP,
+        OUTTAKE_STOP,
         RETRACT,
         READY;
     }
 
     public enum TransferStates {
         BUCKET_START,
-        OUTAKE_START,
+        OUTTAKE_START,
         DELAY,
-        OUTAKE_STOP,
+        OUTTAKE_STOP,
         MOVE_NEUTRAL,
         READY;
     }
@@ -395,7 +395,7 @@ public class BlueITDTeleOp_States extends OpMode {
 
 
     public void IntakeAssistControl () {
-//        Take out this conditional and leave just "gamepad2.left_trigger > 0.5 " if D2 wants to be able to retract no matter waht.
+//        Take out this conditional and leave just "gamepad2.left_trigger > 0.5 " if D2 wants to be able to retract no matter what.
 //         && ITDBot.intakeHolderFlip.getPosition() >= 0.6
         if (gamepad2.left_bumper && ITDBot.intakeHolderFlip.getPosition() >= 0.6) {
             telemetry.addLine("SAMPLE INTAKE TO BUCKET CONTROL");
@@ -572,10 +572,10 @@ public class BlueITDTeleOp_States extends OpMode {
         switch (retractState) {
             case FLIP_UP:
                 ITDBot.scoreIntake();
-                retractState = RetractStates.OUTAKE_STOP;
+                retractState = RetractStates.OUTTAKE_STOP;
                 break;
 
-            case OUTAKE_STOP:
+            case OUTTAKE_STOP:
                 ITDBot.intakeStop();
                 retractState = RetractStates.RETRACT;
                 break;
@@ -594,10 +594,10 @@ public class BlueITDTeleOp_States extends OpMode {
         switch (transferState) {
             case BUCKET_START:
                 ITDBot.fillBucket();
-                transferState = TransferStates.OUTAKE_START;
+                transferState = TransferStates.OUTTAKE_START;
                 break;
 
-            case OUTAKE_START:
+            case OUTTAKE_START:
                 ITDBot.sampleOuttake();
                 timer.reset();
                 transferState = TransferStates.DELAY;
@@ -605,11 +605,11 @@ public class BlueITDTeleOp_States extends OpMode {
 
             case DELAY:
                 if (timer.time() > 0.5) {
-                    transferState = TransferStates.OUTAKE_STOP;
+                    transferState = TransferStates.OUTTAKE_STOP;
                 }
                 break;
 
-            case OUTAKE_STOP:
+            case OUTTAKE_STOP:
                 ITDBot.intakeStop();
                 transferState = TransferStates.MOVE_NEUTRAL;
                 break;
