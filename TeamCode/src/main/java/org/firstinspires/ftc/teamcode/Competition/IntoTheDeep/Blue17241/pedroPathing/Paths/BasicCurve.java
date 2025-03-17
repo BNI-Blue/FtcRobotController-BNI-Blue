@@ -19,9 +19,7 @@ public class BasicCurve extends OpMode {
 
     Follower follower;
 
-    final Pose startPose = new Pose(0,0, 0);
-    final Pose middlePose = new Pose(25, 25, 45);
-    final Pose endPose = new Pose(50, 50, 90);
+    Pose startPose, middlePose, endPose;
 
     public PathStates pathState = PathStates.READY;
 
@@ -29,8 +27,12 @@ public class BasicCurve extends OpMode {
     public void init() {
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap);
+//        Pose.setAngleUnit(AngleUnit.DEGREES);
+//        Pose.angleUnit = AngleUnit.DEGREES;
+        startPose = new Pose(0,0, 0);
+        middlePose = new Pose(25, 25, Math.toRadians(45));
+        endPose = new Pose(50, 50, Math.toRadians(90));
         follower.setStartingPose(startPose);
-        Pose.setAngleUnit(AngleUnit.DEGREES);
         buildPaths();
     }
 
@@ -41,10 +43,6 @@ public class BasicCurve extends OpMode {
         telemetry.addData("State: ", pathState);
         telemetry.addData("Pose: ", follower.getPose().toString());
         telemetry.update();
-    }
-
-
-    public void init_loop(){
     }
 
     public void start(){
@@ -66,7 +64,7 @@ public class BasicCurve extends OpMode {
     public void pathStateControl(){
         switch(pathState){
             case START:
-                follower.followPath(curve);
+                follower.followPath(curve, true);
                 pathState = PathStates.READY;
                 break;
 //            case MIDDLE:
