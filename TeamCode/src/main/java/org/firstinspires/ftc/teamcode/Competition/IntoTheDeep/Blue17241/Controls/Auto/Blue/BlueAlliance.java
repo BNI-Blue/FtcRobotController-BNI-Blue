@@ -32,7 +32,7 @@ public abstract class BlueAlliance extends AutoMain {
         ITDBot.extendIntake();
         sleep(300);
 
-        driveForwardPinpointCumulative(.25, 7.25);
+        driveForwardPinpointCumulative(.25, 5);//7.25
         sleep(700);
         ITDBot.intakeStop();
         sleep(100);
@@ -91,8 +91,8 @@ public abstract class BlueAlliance extends AutoMain {
         //move to bucket with first sample
         rotateByGyroRev(.25, -34);
         //driveBackPinpointCumulative(.5, .72);
-        strafeRightPinpointCumulative(.5, 1);
-        driveBackPinpointCumulative(.5, 2.75);
+        strafeRightPinpointCumulative(.5, .125);
+        driveBackPinpointCumulative(.5, 2.3);
         ITDBot.sampleOuttake();
         sleep(750);
         ITDBot.intakeStop();
@@ -110,15 +110,15 @@ public abstract class BlueAlliance extends AutoMain {
 
         //move to buckets with second field sample
         rotateByGyroRev(.25, -51.5);
-        strafeRightPinpointCumulative(.35, 5);
-        driveBackPinpointCumulative(.5 ,4.25);
+        strafeRightPinpointCumulative(.35, 6.25);
+        driveBackPinpointCumulative(.5 ,4.75);
 
         ITDBot.sampleOuttake();
         sleep(750);
         ITDBot.intakeStop();
         sleep(100);
 
-        rotateByGyroRev(.25, 6);
+        rotateByGyroRev(.25, 4.5);
         //driveBackPinpoint(.5, 1.5);
         bucketDumpTopLevelOne();
     }
