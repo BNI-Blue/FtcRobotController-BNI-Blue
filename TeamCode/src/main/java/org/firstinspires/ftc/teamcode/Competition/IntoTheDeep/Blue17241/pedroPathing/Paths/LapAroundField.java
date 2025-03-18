@@ -40,9 +40,11 @@ public class LapAroundField extends OpMode {
         follower.setStartingPose(wallOne);
 
         buildPaths();
+        telemetry();
 
     }
 
+    @Override
     public void loop(){
         circleStateControl();
         follower.update();
@@ -78,19 +80,28 @@ public class LapAroundField extends OpMode {
                 circleStates = CircleStates.TWOTHREE;
                 break;
             case TWOTHREE:
-                follower.followPath(two);
-                circleStates = CircleStates.THREEFOUR;
+                if(!follower.isBusy()){
+                    follower.followPath(two);
+                    circleStates = CircleStates.THREEFOUR;
+                }
                 break;
             case THREEFOUR:
-                follower.followPath(three);
-                circleStates = CircleStates.FOURONE;
+                if(!follower.isBusy()){
+                    follower.followPath(three);
+                    circleStates = CircleStates.FOURONE;}
                 break;
             case FOURONE:
-                follower.followPath(four);
-                circleStates = CircleStates.READY;
+                if(!follower.isBusy()){
+                    follower.followPath(four, true);
+                    circleStates = CircleStates.READY;}
                 break;
             case READY:
                 break;
         }
+    }
+
+    public void telemetry(){
+        telemetry.addData("State: ", circleStates);
+        telemetry.update();
     }
 }
