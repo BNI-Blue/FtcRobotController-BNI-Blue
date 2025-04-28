@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.Controls.Auto.Red.RedAlliance;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "Red:Observation:Park:Pinpoint")
 public class RedObservationParkPinpoint extends RedAlliance {
     //@Override

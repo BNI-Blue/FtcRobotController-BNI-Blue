@@ -7,10 +7,13 @@ import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.easy.EasySafePath;
 import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.pedroPathing.FConstants;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.pedroPathing.LConstants;
+
+@Disabled
 
 @Autonomous(name = "Lap Around Field")
 public class LapAroundField extends OpMode {
@@ -21,16 +24,15 @@ public class LapAroundField extends OpMode {
 
     public CircleStates circleStates = CircleStates.READY;
 
-
     @Override
     public void init(){
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap);
 
-        wallOne = new Pose(72, 137.5, 0);
-        wallTwo = new Pose(6.5, 72, Math.toRadians(-90));
-        wallThree = new Pose(72, 6.5, Math.toRadians(-180));
-        wallFour = new Pose(137.5, 72, Math.toRadians(-270));
+        wallOne = new Pose(72, 130, Math.toRadians(180));
+        wallTwo = new Pose(10, 72, Math.toRadians(-90));
+        wallThree = new Pose(72, 10, Math.toRadians(0));
+        wallFour = new Pose(130, 72, Math.toRadians(-270));
 
         cornerOneTwo = new Pose(0, 144, Math.toRadians(-45));
         cornerTwoThree = new Pose(0,0, Math.toRadians(-135));

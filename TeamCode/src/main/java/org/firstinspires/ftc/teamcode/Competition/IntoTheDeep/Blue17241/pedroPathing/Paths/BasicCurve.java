@@ -7,12 +7,14 @@ import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.easy.EasySafePath;
 import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.pedroPathing.FConstants;
 import org.firstinspires.ftc.teamcode.Competition.IntoTheDeep.Blue17241.pedroPathing.LConstants;
 
+@Disabled
 
 @Autonomous(name = "Basic Curve")
 public class BasicCurve extends OpMode {
